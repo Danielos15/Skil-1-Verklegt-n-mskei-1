@@ -14,6 +14,10 @@ int main(int argc, char *argv[])
     engine.init();
     engine.run();;
 
+    ui name;
+     name.getInput();
+
+
     return a.exec();
 }
 

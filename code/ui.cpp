@@ -8,4 +8,5 @@ string ui::getInput(){
     string input;
     getline(cin,input);
     return input;
+
 }
