@@ -1,2 +1,4 @@
 *.user
+build/
+build*/
 code/Verk1.pro.user
