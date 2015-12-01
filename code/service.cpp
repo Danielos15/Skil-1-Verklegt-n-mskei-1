@@ -40,3 +40,11 @@ void service::getUserInput(){
     input = interface.getInput();
     getFunction();
 }
+void service::sortByName() {
+
+    scientist sci;
+    sci.getName();
+
+    sort(scientists.begin(), scientists.end());
+
+}

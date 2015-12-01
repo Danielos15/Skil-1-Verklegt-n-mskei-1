@@ -4,6 +4,7 @@
 #include <string>
 #include "repo.h"
 #include "ui.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -27,6 +28,8 @@ private:
     void addScientist();
     void sortList();
     void searchRepo();
+    void sortByName();
+
 
 };
 
