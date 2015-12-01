@@ -11,6 +11,17 @@ string ui::getInput(){
     return input;
 }
 
+int ui::getInt(){
+    int input;
+    cin >> input;
+    return input;
+}
+
+void ui::renderText(string text){
+
+    cout << text;
+}
+
 scientist ui::newScientist(){
     string name,sex,gender,bornS,deathS,alive;
     int born,death;

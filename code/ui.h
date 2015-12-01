@@ -15,6 +15,8 @@ public:
     ui();
 
     string getInput();
+    void renderText(string text);
+    int getInt();
     scientist newScientist();
     void getHelp();
 
