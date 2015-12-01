@@ -19,6 +19,7 @@ public:
     int getInt();
     scientist newScientist();
     void getHelp();
+    void renderVector(vector<scientist> scientists);
 
 private:
 
