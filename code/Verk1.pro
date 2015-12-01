@@ -9,7 +9,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     database.cpp \
-    cps.cpp
+    cps.cpp \
+    ui.cpp
 
 HEADERS += \
     database.h \
