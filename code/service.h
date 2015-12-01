@@ -18,6 +18,7 @@ private:
     vector<scientist> scientists;
     string input;
     string function;
+    string option;
     repo connection;
     ui interface;
 

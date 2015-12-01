@@ -15,7 +15,6 @@ void service::init(){
     connection.setFile(databaseFile);
     connection.connect();
     scientists = connection.fetchAll();
-    //setup UI
 }
 
 void service::run(){
@@ -23,8 +22,7 @@ void service::run(){
         //Infinit loop until user wants to quit.
 
         //Logic goes here::
-        input = interface.getInput();
-        //getUserInput();
+        getUserInput();
 
         if (function == "quit" || function == "exit"){
             break; // exit if user wants to.
@@ -33,11 +31,12 @@ void service::run(){
 }
 
 void service::getFunction(){
-    string functionSep = " ";
-    unsigned int functionSepPos = input.find(functionSep);
+    unsigned int functionSepPos = input.find(" ");
     function = input.substr(0, functionSepPos);
+    input.erase(0,functionSepPos+1);
 }
 
 void service::getUserInput(){
-
+    input = interface.getInput();
+    getFunction();
 }
