@@ -11,7 +11,9 @@ using namespace std;
 class repo
 {
 public:
+    repo();
     repo(string filename);
+    void setFile(string filename);
     void connect();
     void save();
     void add(scientist cpuSci);

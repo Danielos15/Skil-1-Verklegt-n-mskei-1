@@ -1,9 +1,13 @@
 #include "repo.h"
-
 #include <iostream>
 #include <vector>
 
+repo::repo(){}
 repo::repo(string filename){
+    setFile(filename);
+}
+
+void repo::setFile(string filename){
     fileName = filename;
 }
 
