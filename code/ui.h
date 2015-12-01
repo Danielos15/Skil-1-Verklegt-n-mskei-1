@@ -16,6 +16,7 @@ public:
 
     string getInput();
     scientist newScientist();
+    void getHelp();
 
 private:
 

@@ -13,7 +13,6 @@ string ui::getInput(){
 
 scientist ui::newScientist(){
     string name,sex,gender,bornS,deathS,alive;
-    bool isAlive;
     int born,death;
     cout << "Enter Name: ";
     cin >> name;
@@ -64,12 +63,12 @@ scientist ui::newScientist(){
     scientist sci(name,sex,bornS,deathS);
     return sci;
 }
-string ui::getHelp(){
-    string help;
-    ui::getHelp cmd;
-    getHelp(cin, help);
-    command >> cmd;
-    if(cmd == 'help'||'HELP' || 'Help' || '?')
+void ui::getHelp(){
+    string help,cmd;
+    //ui::getHelp cmd;
+    //getHelp(cin, help);
+    //command >> cmd;
+    if(cmd == "help" || cmd == "HELP" || cmd == "Help" || cmd == "?")
     {
             cout<< "The commands are: " << endl;
             cout<< "add: To add information"<< endl;
@@ -78,7 +77,8 @@ string ui::getHelp(){
             cout<< "search: Type in a word to search the list"<< endl;
     }
     
-    else if(cmd == 'add')
+    else if(cmd == "add"){
     
     
     }
+}
