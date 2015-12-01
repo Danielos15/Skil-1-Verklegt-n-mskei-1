@@ -1,5 +1,11 @@
+#include <string>
+#include <iostream>
 #include "ui.h"
 
-void ui::getInput(){
-    cout << "Enter name, sex, birth year, and year of death in this order" << endl;
+ui::ui(){}
+
+string ui::getInput(){
+    string input;
+    getline(cin,input);
+    return input;
 }

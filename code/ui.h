@@ -14,15 +14,9 @@ class ui
 public:
     ui();
 
-    void getInput();
-    string getCommand();
-    string getOption();
-    string getValue();
+    string getInput();
 
 private:
-    string command;
-    string option;
-    string value;
 
 };
 

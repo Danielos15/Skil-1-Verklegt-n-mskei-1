@@ -23,7 +23,8 @@ void service::run(){
         //Infinit loop until user wants to quit.
 
         //Logic goes here::
-        getUserInput();
+        input = interface.getInput();
+        //getUserInput();
 
         if (function == "quit" || function == "exit"){
             break; // exit if user wants to.

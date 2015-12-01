@@ -19,7 +19,7 @@ private:
     string input;
     string function;
     repo connection;
-    //ui interface;
+    ui interface;
 
     void getUserInput();
     void getFunction();
