@@ -1,14 +1,14 @@
-#ifndef CPS
-#define CPS
+#ifndef SCIENTIST
+#define SCIENTIST
 #include <vector>
 #include <string>
 
 using namespace std;
 
-class cps
+class scientist
 {
 public:
-    cps(string newName, string newSex, string newBorn, string newDeath);
+    scientist(string newName, string newSex, string newBorn, string newDeath);
     string getName();
     string getSex();
     string getBorn();
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif // CPS
+#endif // SCIENTIST

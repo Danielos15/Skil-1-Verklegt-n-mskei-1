@@ -8,15 +8,15 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    database.cpp \
     cps.cpp \
-    ui.cpp
+    ui.cpp \
+    repo.cpp
 
 HEADERS += \
-    database.h \
-    cps.h \
     ui.h \
-    service.h
+    service.h \
+    scientist.h \
+    repo.h
 
 DISTFILES += \
     test.csv

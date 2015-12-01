@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "cps.h"
+#include "scientist.h"
 
 using namespace std;
 
