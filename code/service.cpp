@@ -40,11 +40,13 @@ void service::getUserInput(){
     input = interface.getInput();
     getFunction();
 }
+
+bool ascOrderName(const scientist sci1, const scientist sci2){
+    return sci1.getName() < sci2.getName();
+}
+
 void service::sortByName() {
 
-    scientist sci;
-    sci.getName();
-
-    sort(scientists.begin(), scientists.end());
+    sort(scientists.begin(), scientists.end(), ascOrderName);
 
 }

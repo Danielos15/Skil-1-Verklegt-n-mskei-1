@@ -7,18 +7,18 @@ scientist::scientist(string newName, string newSex, string newBorn, string newDe
     born = newBorn;
     death = newDeath;
 }
-string scientist::getName(){
+string scientist::getName() const{
     return name;
 }
 
-string scientist::getSex(){
+string scientist::getSex() const{
     return sex;
 }
 
-string scientist::getBorn(){
+string scientist::getBorn() const{
     return born;
 }
 
-string scientist::getDeath(){
+string scientist::getDeath() const{
     return death;
 }

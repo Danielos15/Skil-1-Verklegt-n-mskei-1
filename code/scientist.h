@@ -9,11 +9,10 @@ class scientist
 {
 public:
     scientist(string newName, string newSex, string newBorn, string newDeath);
-    string getName();
-    string getSex();
-    string getBorn();
-    string getDeath();
-
+    string getName() const;
+    string getSex() const;
+    string getBorn() const;
+    string getDeath() const;
 
 private:
     string name;
