@@ -13,5 +13,10 @@ SOURCES += main.cpp \
 
 HEADERS += \
     database.h \
-    cps.h
+    cps.h \
+    ui.h \
+    service.h
+
+DISTFILES += \
+    new 1.txt
 
