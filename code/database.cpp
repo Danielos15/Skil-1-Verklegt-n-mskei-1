@@ -43,7 +43,7 @@ void database::save(){
         }
         outputStream.close();
     }else{
-        cout << "Error: Could not open file";
+        cout << "Error: Could not save to file";
     }
 }
 

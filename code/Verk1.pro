@@ -18,5 +18,5 @@ HEADERS += \
     service.h
 
 DISTFILES += \
-    new 1.txt
+    test.csv
 

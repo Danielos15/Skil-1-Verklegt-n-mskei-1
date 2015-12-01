@@ -50,8 +50,7 @@ OBJECTS       = release/main.o \
 		release/database.o \
 		release/cps.o
 
-DIST          = new \
-		1.txt ..\code\database.h \
+DIST          = test.csv ..\code\database.h \
 		..\code\cps.h \
 		..\code\ui.h \
 		..\code\service.h ..\code\main.cpp \
