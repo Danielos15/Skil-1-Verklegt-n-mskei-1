@@ -35,7 +35,7 @@ void repo::connect(){
         }
            inputStream.close();
     }else{
-        cout << "Error: Could not open file";
+        cout << "Error: Could not open file" << endl;
     }
 }
 
