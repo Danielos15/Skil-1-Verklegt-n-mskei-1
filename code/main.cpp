@@ -12,10 +12,11 @@ int main(int argc, char *argv[])
 
     service engine;
     engine.init();
-    engine.run();;
+    //engine.run();;
 
     ui name;
-     name.getInput();
+    name.newScientist();
+
 
 
     return a.exec();

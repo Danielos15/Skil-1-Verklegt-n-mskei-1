@@ -15,6 +15,7 @@ public:
     ui();
 
     string getInput();
+    scientist newScientist();
 
 private:
 
