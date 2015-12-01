@@ -14,9 +14,14 @@ int main(int argc, char *argv[])
     engine.init();
     //engine.run();;
 
-    ui name;
-    name.newScientist();
+    repo db("database.csv");
+    ui interface;
 
+    vector<scientist> scis;
+    db.connect();
+    scis = db.fetchAll();
+
+    interface.renderVector(scis);
 
 
     return a.exec();

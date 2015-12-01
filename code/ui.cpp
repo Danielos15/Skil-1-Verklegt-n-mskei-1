@@ -95,16 +95,17 @@ void ui::getHelp(){
 }
 
 void ui::renderVector(vector<scientist> scientists){
+    cout << "Displaying current results..." << endl;
+    cout << "-  -  -  -  -  -  -" << endl;
 
     for(unsigned int i = 0; i < scientists.size(); i++){
-        cout << "-  -  -  -  -  -  -";
-        cout << "Name: " << scientists[i].getName();
-        cout << "Gender: " << scientists[i].getSex();
-        cout << "Year of birth: " << scientists[i].getBorn();
+        cout << "  Name: " << scientists[i].getName() << endl;
+        cout << "  Gender: " << scientists[i].getSex() << endl;
+        cout << "  Year of birth: " << scientists[i].getBorn() << endl;
         if(scientists[i].getDeath() != "0"){
-            cout << "Year of death: " << scientists[i].getDeath();
+            cout << "  Year of death: " << scientists[i].getDeath() << endl;
         }
-        cout << "-  -  -  -  -  -  -";
+        cout << "-  -  -  -  -  -  -" << endl;
     }
 }
 
