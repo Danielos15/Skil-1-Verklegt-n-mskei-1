@@ -3,12 +3,11 @@
 #include <iostream>
 #include <vector>
 
-database::database(){
-
+database::database(string filename){
+    fileName = filename;
 }
 
-void database::connect(string filename){
-    fileName = filename;
+void database::connect(){
     inputStream.open(fileName.c_str());
     string line;
     char sep = ';';
@@ -53,22 +52,46 @@ void database::add(cps cpuSci){
     save();
 }
 
-void database::remove(){
-
-}
-
 vector<cps> database::fetchAll(){
-
+    return dbtable;
 }
 
-vector<cps> database::fetchByName(){
-
+vector<cps> database::fetchByName(string search){
+    vector<cps> searchResults;
+    for (unsigned int i = 0; i < dbtable.size(); i++){
+        if (dbtable[i].getName().find(search) != std::string::npos) {
+            searchResults.push_back(dbtable[i]);
+        }
+    }
+    return searchResults;
 }
 
-vector<cps> database::fetchByBorn(){
-
+vector<cps> database::fetchBySex(string search){
+    vector<cps> searchResults;
+    for (unsigned int i = 0; i < dbtable.size(); i++){
+        if (dbtable[i].getSex().find(search) != std::string::npos) {
+            searchResults.push_back(dbtable[i]);
+        }
+    }
+    return searchResults;
 }
 
-vector<cps> database::fetchByDeath(){
+vector<cps> database::fetchByBorn(string search){
+    vector<cps> searchResults;
+    for (unsigned int i = 0; i < dbtable.size(); i++){
+        if (dbtable[i].getBorn().find(search) != std::string::npos) {
+            searchResults.push_back(dbtable[i]);
+        }
+    }
+    return searchResults;
+}
 
+vector<cps> database::fetchByDeath(string search){
+    vector<cps> searchResults;
+    for (unsigned int i = 0; i < dbtable.size(); i++){
+        if (dbtable[i].getDeath().find(search) != std::string::npos) {
+            searchResults.push_back(dbtable[i]);
+        }
+    }
+    return searchResults;
 }

@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    database test;
-    test.connect("test.csv");
+    database test("test.csv");
+    test.connect();
 
     return a.exec();
 }

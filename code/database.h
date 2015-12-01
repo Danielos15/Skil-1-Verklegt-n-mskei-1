@@ -11,16 +11,16 @@ using namespace std;
 class database
 {
 public:
-    database();
-    void connect(string filename);
+    database(string filename);
+    void connect();
     void save();
     void add(cps cpuSci);
-    void remove();
 
     vector<cps> fetchAll();
-    vector<cps> fetchByName();
-    vector<cps> fetchByBorn();
-    vector<cps> fetchByDeath();
+    vector<cps> fetchByName(string search);
+    vector<cps> fetchBySex(string search);
+    vector<cps> fetchByBorn(string search);
+    vector<cps> fetchByDeath(string search);
 
 private:
     vector<cps> dbtable;
