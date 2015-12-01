@@ -12,17 +12,7 @@ int main(int argc, char *argv[])
 
     service engine;
     engine.init();
-    //engine.run();;
-
-    repo db("database.csv");
-    ui interface;
-
-    vector<scientist> scis;
-    db.connect();
-    scis = db.fetchAll();
-
-    interface.renderVector(scis);
-
+    engine.run();
 
     return a.exec();
 }

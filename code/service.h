@@ -25,12 +25,20 @@ private:
 
     void getUserInput();
     void getFunction();
+
     void addScientist();
-    void sortList();
-    void searchRepo();
+
+    //Sort functions
     void sortByName();
+    void sortByGender();
+    void sortByBirth();
+    void sortByDeath();
 
-
+    //Search functions
+    void searchByName();
+    void searchByGender();
+    void searchByBirth();
+    void searchByDeath();
 };
 
 #endif // SERVICE

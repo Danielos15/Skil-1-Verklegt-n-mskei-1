@@ -18,16 +18,20 @@ void service::init(){
 }
 
 void service::run(){
-    while (true) {
+    //while (true) {
         //Infinit loop until user wants to quit.
 
         //Logic goes here::
-        getUserInput();
+        //getUserInput();
+        interface.renderVector(scientists);
+        option = "desc";
+        sortByName();
+        interface.renderVector(scientists);
 
-        if (function == "quit" || function == "exit"){
-            break; // exit if user wants to.
-        }
-    }
+        //if (function == "quit" || function == "exit"){
+            //break; // exit if user wants to.
+        //}
+    //}
 }
 
 void service::getFunction(){
@@ -41,12 +45,43 @@ void service::getUserInput(){
     getFunction();
 }
 
-bool ascOrderName(const scientist sci1, const scientist sci2){
-    return sci1.getName() < sci2.getName();
-}
+bool ascOrderName(const scientist sci1, const scientist sci2){return sci1.getName() < sci2.getName();}
+bool descOrderName(const scientist sci1, const scientist sci2){return sci1.getName() > sci2.getName();}
+
+bool ascOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() < sci2.getSex();}
+bool descOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() > sci2.getSex();}
+
+bool ascOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() < sci2.getBorn();}
+bool descOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() > sci2.getBorn();}
+
+bool ascOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() < sci2.getDeath();}
+bool descOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() > sci2.getDeath();}
 
 void service::sortByName() {
-
-    sort(scientists.begin(), scientists.end(), ascOrderName);
-
+    if (option == "desc"){
+        sort(scientists.begin(), scientists.end(), descOrderName);
+    }else {
+        sort(scientists.begin(), scientists.end(), ascOrderName);
+    }
+}
+void service::sortByGender() {
+    if (option == "desc"){
+        sort(scientists.begin(), scientists.end(), descOrderGender);
+    }else {
+        sort(scientists.begin(), scientists.end(), ascOrderGender);
+    }
+}
+void service::sortByBirth() {
+    if (option == "desc"){
+        sort(scientists.begin(), scientists.end(), descOrderBirth);
+    }else {
+        sort(scientists.begin(), scientists.end(), ascOrderBirth);
+    }
+}
+void service::sortByDeath() {
+    if (option == "desc"){
+        sort(scientists.begin(), scientists.end(), descOrderDeath);
+    }else {
+        sort(scientists.begin(), scientists.end(), ascOrderDeath);
+    }
 }
