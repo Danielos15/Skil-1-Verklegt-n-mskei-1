@@ -8,9 +8,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    cps.cpp \
     ui.cpp \
-    repo.cpp
+    repo.cpp \
+    service.cpp \
+    scientist.cpp
 
 HEADERS += \
     ui.h \
