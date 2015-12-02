@@ -6,15 +6,14 @@
 #include "scientist.h"
 #include "ui.h"
 
-service::service(){
-
-}
+service::service(){}
 
 void service::init(){
     //Setup database connection
     string databaseFile = "database.csv";
     connection.setFile(databaseFile);
     connection.connect();
+    //get the database table
     scientists = connection.fetchAll();
 }
 
@@ -23,7 +22,7 @@ void service::run(){
     while (true) {
         //Infinit loop until user wants to quit.
 
-        //Logic goes here::
+        // Get to know what the user wants.
         interface.renderText("Enter command: ");
         getUserInput();
 
@@ -40,13 +39,17 @@ void service::getUserInput(){
 }
 
 void service::getFunction(){
+    // Find out what function user wanted.
     unsigned int functionSepPos = input.find(" ");
     function = input.substr(0, functionSepPos);
     input.erase(0,functionSepPos+1);
 
+    // if User wants to render results
     if (function == "display"){
         interface.renderVector(scientists);
-    }else if (function == "sort" || function == "search"){
+    }
+    // If user wants to use Sort or Search
+    else if (function == "sort" || function == "search"){
         //Get option
         interface.renderText("By what column? [name][gender][birth][death] \n");
         interface.renderText("Column: ");
@@ -66,6 +69,7 @@ void service::getFunction(){
                 interface.renderText("Order: ");
                 order = interface.getInput();
             }
+            //Calling requested function
             if (option == "name"){
                 sortByName();
             }else if(option == "gender"){
@@ -77,11 +81,12 @@ void service::getFunction(){
             }
             interface.renderText("Done sorting... \n");
         }else {
-            //get Search string
+            //Get Search string from user
             interface.renderText("What to search for? \n");
             interface.renderText("Keyword: ");
             order = interface.getInput();
 
+            //Searching in requested column.
             if (option == "name"){
                 scientists = connection.fetchByName(order);
             }else if(option == "gender"){
@@ -93,16 +98,22 @@ void service::getFunction(){
             }
         }
 
-    }else if (function == "add"){
+    }
+    // Add scientist to the database.
+    else if (function == "add"){
         addScientist();
-    }else if (function == "help"){
+    }
+    // Get the help info.
+    else if (function == "help"){
         getHelpInfo();
-    }else if (function == "reset"){
+    }
+    // Reset the search resault and get fresh from database.
+    else if (function == "reset"){
         scientists = connection.fetchAll();
         interface.renderText("Results reset... \n");
     }
 }
-
+//Setup for Ascending and Descending orders for Sort.
 bool ascOrderName(const scientist sci1, const scientist sci2){return sci1.getName() < sci2.getName();}
 bool descOrderName(const scientist sci1, const scientist sci2){return sci1.getName() > sci2.getName();}
 
@@ -115,6 +126,7 @@ bool descOrderBirth(const scientist sci1, const scientist sci2){return sci1.getB
 bool ascOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() < sci2.getDeath();}
 bool descOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() > sci2.getDeath();}
 
+// All sort functions by column.
 void service::sortByName() {
     if (order == "desc"){
         sort(scientists.begin(), scientists.end(), descOrderName);
@@ -144,13 +156,16 @@ void service::sortByDeath() {
     }
 }
 
+//Add new scientist to current results and to the database.
 void service::addScientist(){
     string name,sex,gender,bornS,deathS,alive = "w";
     int born,death;
 
+    //Get the name.
     interface.renderText("Enter Name: ");
     name = interface.getInput();
 
+    //Get the gender of the person.
     interface.renderText("What gender (m/f): ");
     sex = interface.getInput();
     do {
@@ -167,6 +182,7 @@ void service::addScientist(){
         }
     }while(sex != "Male" && sex != "Female");
 
+    //Get year of birth.
     interface.renderText("What year was " + gender + " born: ");
     born = interface.getInt();
 
@@ -174,13 +190,15 @@ void service::addScientist(){
         interface.renderText("person not born yet, enter another year: ");
         born = interface.getInt();
     }
+    // From int to string
     ostringstream strm;
     strm << born;
     bornS = strm.str();
 
+    //See if person is still alive or not.
     interface.renderText("Is " + gender + " still alive (y/n): ");
     alive = interface.getInput();
-
+    //If not alive, get year of death.
     while (alive != "y" && alive != "n"){
         alive = interface.getInput();
         if (alive != "y" && alive != "n"){
@@ -202,8 +220,11 @@ void service::addScientist(){
         deathS = strm.str();
     }
 
+    // make a new scientist.
     scientist sci(name,sex,bornS,deathS);
+    // add him to the current results.
     scientists.push_back(sci);
+    // add him to the database.
     connection.add(sci);
 }
 
