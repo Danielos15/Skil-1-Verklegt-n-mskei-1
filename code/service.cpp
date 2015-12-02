@@ -26,9 +26,14 @@ void service::run(){
         getUserInput();
 
         if (function == "quit" || function == "exit"){
-            //break; // exit if user wants to.
+            break; // exit if user wants to.
         }
     }
+}
+
+void service::getUserInput(){
+    input = interface.getInput();
+    getFunction();
 }
 
 void service::getFunction(){
@@ -38,18 +43,41 @@ void service::getFunction(){
 
     if (function == "display"){
         interface.renderVector(scientists);
-    }else if (function == "sort"){
-
-    }else if (function == "search"){
+    }else if (function == "sort" || function == "search"){
+        //Get option
+        interface.renderText("By what column? [name][gender][birth][death] \n");
+        option = interface.getInput();
+        while (option != "name" && option != "gender" && option != "birth" && option != "death"){
+            interface.renderText("Not an avalible column, try again: [name][gender][birth][death] \n");
+            option = interface.getInput();
+        }
+        if (function == "sort"){
+            //getOrder
+            interface.renderText("In what order? [asc][desc] \n");
+            order = interface.getInput();
+            while (order != "asc" && order != "desc"){
+                interface.renderText("Not an avalible order, try again: [asc][desc] \n");
+                order = interface.getInput();
+            }
+            if (option == "name"){
+                sortByName();
+            }else if(option == "gender"){
+                sortByGender();
+            }else if (option == "birth"){
+                sortByBirth();
+            }else if (option == "death"){
+                sortByDeath();
+            }
+            interface.renderText("Done sorting... \n");
+        }else {
+            //get Search string
+            interface.renderText("What to search for? \n");
+            order = interface.getInput();
+        }
 
     }else if (function == "add"){
         addScientist();
     }
-}
-
-void service::getUserInput(){
-    input = interface.getInput();
-    getFunction();
 }
 
 bool ascOrderName(const scientist sci1, const scientist sci2){return sci1.getName() < sci2.getName();}
