@@ -17,22 +17,21 @@ int ui::getInt(){
 }
 
 void ui::renderText(string text){
-
     cout << text;
 }
 
 void ui::renderVector(vector<scientist> scientists){
-    cout << "Displaying current results..." << endl;
-    cout << "-  -  -  -  -  -  -" << endl;
+    renderText("Displaying current results... \n");
+    renderText("-  -  -  -  -  -  - \n");
 
     for(unsigned int i = 0; i < scientists.size(); i++){
-        cout << "  Name: " << scientists[i].getName() << endl;
-        cout << "  Gender: " << scientists[i].getSex() << endl;
-        cout << "  Year of birth: " << scientists[i].getBorn() << endl;
+        renderText("  Name: " + scientists[i].getName() + "\n");
+        renderText("  Gender: " + scientists[i].getSex() + "\n");
+        renderText("  Year of birth: " + scientists[i].getBorn() + "\n");
         if(scientists[i].getDeath() != "0"){
-            cout << "  Year of death: " << scientists[i].getDeath() << endl;
+            renderText("  Year of death: " + scientists[i].getDeath() + "\n");
         }
-        cout << "-  -  -  -  -  -  -" << endl;
+        renderText("-  -  -  -  -  -  - \n");
     }
 }
 

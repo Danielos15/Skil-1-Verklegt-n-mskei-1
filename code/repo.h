@@ -13,6 +13,7 @@ class repo
 public:
     repo();
     repo(string filename);
+
     void setFile(string filename);
     void connect();
     void save();
@@ -25,8 +26,8 @@ public:
     vector<scientist> fetchByDeath(string search);
 
 private:
-    vector<scientist> dbtable;
     string fileName;
+    vector<scientist> dbtable;
 
     ifstream inputStream;
     ofstream outputStream;

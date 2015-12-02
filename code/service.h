@@ -18,17 +18,23 @@ public:
 private:
     vector<scientist> scientists;
     string input;
+
     string function;
     string option;
     string order;
+
+    // Other classes
     repo connection;
     ui interface;
 
     void getUserInput();
     void getFunction();
+
+    //Help functions
     void getStartInfo();
     void getHelpInfo();
 
+    //Add scientist to the database
     void addScientist();
 
     //Sort functions
