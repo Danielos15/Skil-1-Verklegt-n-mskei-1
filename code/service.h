@@ -20,6 +20,7 @@ private:
     string input;
     string function;
     string option;
+    string order;
     repo connection;
     ui interface;
 
