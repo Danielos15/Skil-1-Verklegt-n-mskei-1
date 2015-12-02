@@ -26,6 +26,8 @@ private:
 
     void getUserInput();
     void getFunction();
+    void getStartInfo();
+    void getHelpInfo();
 
     void addScientist();
 

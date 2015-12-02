@@ -19,13 +19,16 @@ void service::init(){
 }
 
 void service::run(){
+    getStartInfo();
     while (true) {
         //Infinit loop until user wants to quit.
 
         //Logic goes here::
+        interface.renderText("Enter command: ");
         getUserInput();
 
         if (function == "quit" || function == "exit"){
+            interface.renderText("Thank you for using our database, come back again soon. \n");
             break; // exit if user wants to.
         }
     }
@@ -46,17 +49,21 @@ void service::getFunction(){
     }else if (function == "sort" || function == "search"){
         //Get option
         interface.renderText("By what column? [name][gender][birth][death] \n");
+        interface.renderText("Column: ");
         option = interface.getInput();
         while (option != "name" && option != "gender" && option != "birth" && option != "death"){
             interface.renderText("Not an avalible column, try again: [name][gender][birth][death] \n");
+            interface.renderText("Column: ");
             option = interface.getInput();
         }
         if (function == "sort"){
             //getOrder
             interface.renderText("In what order? [asc][desc] \n");
+            interface.renderText("Order: ");
             order = interface.getInput();
             while (order != "asc" && order != "desc"){
                 interface.renderText("Not an avalible order, try again: [asc][desc] \n");
+                interface.renderText("Order: ");
                 order = interface.getInput();
             }
             if (option == "name"){
@@ -72,11 +79,27 @@ void service::getFunction(){
         }else {
             //get Search string
             interface.renderText("What to search for? \n");
+            interface.renderText("Keyword: ");
             order = interface.getInput();
+
+            if (option == "name"){
+                scientists = connection.fetchByName(order);
+            }else if(option == "gender"){
+                scientists = connection.fetchBySex(order);
+            }else if (option == "birth"){
+                scientists = connection.fetchByBorn(order);
+            }else if (option == "death"){
+                scientists = connection.fetchByDeath(order);
+            }
         }
 
     }else if (function == "add"){
         addScientist();
+    }else if (function == "help"){
+        getHelpInfo();
+    }else if (function == "reset"){
+        scientists = connection.fetchAll();
+        interface.renderText("Results reset... \n");
     }
 }
 
@@ -93,28 +116,28 @@ bool ascOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDe
 bool descOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() > sci2.getDeath();}
 
 void service::sortByName() {
-    if (option == "desc"){
+    if (order == "desc"){
         sort(scientists.begin(), scientists.end(), descOrderName);
     }else {
         sort(scientists.begin(), scientists.end(), ascOrderName);
     }
 }
 void service::sortByGender() {
-    if (option == "desc"){
+    if (order == "desc"){
         sort(scientists.begin(), scientists.end(), descOrderGender);
     }else {
         sort(scientists.begin(), scientists.end(), ascOrderGender);
     }
 }
 void service::sortByBirth() {
-    if (option == "desc"){
+    if (order == "desc"){
         sort(scientists.begin(), scientists.end(), descOrderBirth);
     }else {
         sort(scientists.begin(), scientists.end(), ascOrderBirth);
     }
 }
 void service::sortByDeath() {
-    if (option == "desc"){
+    if (order == "desc"){
         sort(scientists.begin(), scientists.end(), descOrderDeath);
     }else {
         sort(scientists.begin(), scientists.end(), ascOrderDeath);
@@ -122,7 +145,7 @@ void service::sortByDeath() {
 }
 
 void service::addScientist(){
-    string name,sex,gender,bornS,deathS,alive;
+    string name,sex,gender,bornS,deathS,alive = "w";
     int born,death;
 
     interface.renderText("Enter Name: ");
@@ -157,19 +180,24 @@ void service::addScientist(){
 
     interface.renderText("Is " + gender + " still alive (y/n): ");
     alive = interface.getInput();
+
     while (alive != "y" && alive != "n"){
         alive = interface.getInput();
+        if (alive != "y" && alive != "n"){
+            interface.renderText("Please answear y/n: ");
+        }
     }
     if (alive == "y"){
         deathS = "0";
     }else {
         interface.renderText("What year did " + gender + " die: ");
         death = interface.getInt();
-        while (death < born){
-            interface.renderText(gender + " can't have died before birth \n");
+        while (death < born && death < 2015){
+            interface.renderText(gender + " can't have died that year \n");
             interface.renderText("try another year: ");
             death = interface.getInt();
         }
+        strm.str("");
         strm << death;
         deathS = strm.str();
     }
@@ -177,4 +205,22 @@ void service::addScientist(){
     scientist sci(name,sex,bornS,deathS);
     scientists.push_back(sci);
     connection.add(sci);
+}
+
+void service::getStartInfo(){
+    interface.renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
+    interface.renderText("Here you can search the database for computer scientist that \nhave made a big impact on the field.\n");
+    interface.renderText("Please type [help] to get more info. \n");
+}
+
+void service::getHelpInfo(){
+    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
+    interface.renderText("There are a few commands to interact with the databse: \n");
+    interface.renderText("[add]     : With this you can add a new Computer scientist to the database, just make sure he/she is good enough. \n");
+    interface.renderText("[sort]    : You can sort the database with the avalible columns and in either ascending or descending order. \n");
+    interface.renderText("[search]  : Search which column you like with a keyword that you like and see what you find. \n");
+    interface.renderText("[display] : The other functions would be no good if you couldn't display the results somehow, well this is the way. \n");
+    interface.renderText("[reset]   : With this function you can undo all the sorting and searching filters that you have used and start over again \n");
+    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
+
 }

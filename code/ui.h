@@ -15,14 +15,9 @@ public:
     ui();
 
     string getInput();
-    void renderText(string text);
     int getInt();
-    scientist newScientist();
-    void getHelp();
+    void renderText(string text);
     void renderVector(vector<scientist> scientists);
-
-private:
-
 };
 
 #endif // UI
