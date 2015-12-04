@@ -13,11 +13,7 @@ SOURCES += main.cpp \
     service.cpp \
     scientist.cpp \
     computer.cpp \
-<<<<<<< HEAD
-    computer.cpp
-=======
     datarepo.cpp
->>>>>>> origin/master
 
 HEADERS += \
     ui.h \
@@ -25,11 +21,7 @@ HEADERS += \
     scientist.h \
     repo.h \
     computer.h \
-<<<<<<< HEAD
-    computer.h
-=======
     datarepo.h
->>>>>>> origin/master
 
 DISTFILES += \
     test.csv
