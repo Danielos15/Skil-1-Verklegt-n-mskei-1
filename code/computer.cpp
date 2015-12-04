@@ -2,7 +2,6 @@
 #include <iostream>
 
 computer::computer(string newName,string newBuild, string newType, string newWas){
-    id = newId;
     name = newName;
     build = newBuild;
     type = newType;
