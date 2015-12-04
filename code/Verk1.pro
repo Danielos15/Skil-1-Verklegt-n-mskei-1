@@ -1,4 +1,4 @@
-QT += core
+QT += core sql
 QT -= gui
 
 TARGET = Verk1
@@ -12,14 +12,22 @@ SOURCES += main.cpp \
     repo.cpp \
     service.cpp \
     scientist.cpp \
+<<<<<<< HEAD
     computer.cpp
+=======
+    datarepo.cpp
+>>>>>>> origin/master
 
 HEADERS += \
     ui.h \
     service.h \
     scientist.h \
     repo.h \
+<<<<<<< HEAD
     computer.h
+=======
+    datarepo.h
+>>>>>>> origin/master
 
 DISTFILES += \
     test.csv
