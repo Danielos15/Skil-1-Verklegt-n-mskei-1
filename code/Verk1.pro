@@ -12,6 +12,7 @@ SOURCES += main.cpp \
     repo.cpp \
     service.cpp \
     scientist.cpp \
+    computer.cpp \
 <<<<<<< HEAD
     computer.cpp
 =======
@@ -23,6 +24,7 @@ HEADERS += \
     service.h \
     scientist.h \
     repo.h \
+    computer.h \
 <<<<<<< HEAD
     computer.h
 =======
