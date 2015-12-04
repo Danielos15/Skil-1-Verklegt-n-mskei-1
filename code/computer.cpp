@@ -1,0 +1,31 @@
+#include "computer.h"
+#include <iostream>
+
+computer::computer(int newId, string newName,string newBuild, string newType, string newWas){
+    id = newId;
+    name = newName;
+    build = newBuild;
+    type = newType;
+    was = newWas;
+}
+
+int computer::getId() const{
+    return id;
+}
+
+string computer::getName() const{
+    return name;
+}
+
+string computer::getBuild() const{
+    return build;
+}
+
+string computer::getType() const{
+    return type;
+}
+
+string computer::getWas() const{
+    return was;
+}
+

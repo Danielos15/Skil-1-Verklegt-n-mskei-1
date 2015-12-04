@@ -1,12 +1,18 @@
 #include "scientist.h"
 #include <iostream>
 
-scientist::scientist(string newName, string newSex, string newBorn, string newDeath = "0"){
+scientist::scientist(int newId,string newName, string newSex, string newBorn, string newDeath = "0"){
+    id = newId;
     name = newName;
     sex = newSex;
     born = newBorn;
     death = newDeath;
 }
+
+int scientist::getId() const{
+    return id;
+}
+
 string scientist::getName() const{
     return name;
 }
@@ -22,3 +28,6 @@ string scientist::getBorn() const{
 string scientist::getDeath() const{
     return death;
 }
+
+
+
