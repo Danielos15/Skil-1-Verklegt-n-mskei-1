@@ -1,8 +1,7 @@
 #include "scientist.h"
 #include <iostream>
 
-scientist::scientist(int newId,string newName, string newSex, string newBorn, string newDeath = "0"){
-    id = newId;
+scientist::scientist(string newName, string newSex, string newBorn, string newDeath = "0"){
     name = newName;
     sex = newSex;
     born = newBorn;

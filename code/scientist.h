@@ -8,7 +8,7 @@ using namespace std;
 class scientist
 {
 public:
-    scientist(int newId, string newName, string newSex, string newBorn, string newDeath);
+    scientist(string newName, string newSex, string newBorn, string newDeath);
 
     int getId() const;
     string getName() const;

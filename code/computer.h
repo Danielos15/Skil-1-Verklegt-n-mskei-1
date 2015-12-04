@@ -8,7 +8,7 @@ using namespace std;
 class computer
 {
 public:
-    computer(int newId, string newName,string newBuild, string newType, string newWas);
+    computer(string newName,string newBuild, string newType, string newWas);
 
     int getId() const;
     string getName() const;

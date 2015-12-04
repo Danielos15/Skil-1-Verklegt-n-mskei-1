@@ -1,7 +1,7 @@
 #include "computer.h"
 #include <iostream>
 
-computer::computer(int newId, string newName,string newBuild, string newType, string newWas){
+computer::computer(string newName,string newBuild, string newType, string newWas){
     id = newId;
     name = newName;
     build = newBuild;
