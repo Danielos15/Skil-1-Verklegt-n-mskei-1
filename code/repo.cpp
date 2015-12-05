@@ -1,10 +1,28 @@
 #include "repo.h"
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 repo::repo(){}
 repo::repo(string filename){
     setFile(filename);
+}
+
+int sTOi(string in){
+    int out;
+    stringstream ss(in);
+    if (!(ss >> out)){
+        out = 0;
+    }
+    return out;
+}
+
+string iTOs(int in){
+    string out;
+    stringstream ss;
+    ss << in;
+    out = ss.str();
+    return out;
 }
 
 void repo::setFile(string filename){
@@ -30,7 +48,7 @@ void repo::connect(){
             sepPos = line.find(sep);
             string death = line.substr(0,sepPos);
 
-            scientist scientist(name,sex,born,death);
+            scientist scientist(name,sex,sTOi(born),sTOi(death));
             dbtable.push_back(scientist);
         }
            inputStream.close();
@@ -83,7 +101,7 @@ vector<scientist> repo::fetchBySex(string search){
 vector<scientist> repo::fetchByBorn(string search){
     vector<scientist> searchResults;
     for (unsigned int i = 0; i < dbtable.size(); i++){
-        if (dbtable[i].getBorn().find(search) != std::string::npos) {
+        if (iTOs(dbtable[i].getBorn()).find(search) != std::string::npos) {
             searchResults.push_back(dbtable[i]);
         }
     }
@@ -93,7 +111,7 @@ vector<scientist> repo::fetchByBorn(string search){
 vector<scientist> repo::fetchByDeath(string search){
     vector<scientist> searchResults;
     for (unsigned int i = 0; i < dbtable.size(); i++){
-        if (dbtable[i].getDeath().find(search) != std::string::npos) {
+        if (iTOs(dbtable[i].getDeath()).find(search) != std::string::npos) {
             searchResults.push_back(dbtable[i]);
         }
     }

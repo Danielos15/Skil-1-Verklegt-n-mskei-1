@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    //service engine;
-    //engine.init();
-    //engine.run();
+    service engine;
+    engine.init();
+    engine.run();
 
     /*datarepo db;
 
@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
         cout << "Sex: " << query.value("sex").toString().toStdString() << endl;
     }
 */
-    scientist sci("Danni", "Male", "1988", "0");
-    sci.save();
+    //scientist sci("Danni", "Male", 1988, 0);
+    //sci.save();
     return a.exec();
 }
 

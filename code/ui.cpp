@@ -27,9 +27,9 @@ void ui::renderVector(vector<scientist> scientists){
     for(unsigned int i = 0; i < scientists.size(); i++){
         renderText("  Name: " + scientists[i].getName() + "\n");
         renderText("  Gender: " + scientists[i].getSex() + "\n");
-        renderText("  Year of birth: " + scientists[i].getBorn() + "\n");
-        if(scientists[i].getDeath() != "0"){
-            renderText("  Year of death: " + scientists[i].getDeath() + "\n");
+        cout << "  Year of birth: " << scientists[i].getBorn() << "\n";
+        if(scientists[i].getDeath() != 0){
+            cout << "  Year of death: " << scientists[i].getDeath() << "\n";
         }
         renderText("-  -  -  -  -  -  - \n");
     }

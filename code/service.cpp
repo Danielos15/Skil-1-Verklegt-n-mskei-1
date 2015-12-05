@@ -162,7 +162,7 @@ void service::sortByDeath() {
 
 //Add new scientist to current results and to the database.
 void service::addScientist(){
-    string name,sex,gender,bornS,deathS,alive = "w";
+    string name,sex,gender,alive = "w";
     int born,death;
 
     //Get the name.
@@ -194,10 +194,6 @@ void service::addScientist(){
         interface.renderText("Person not born yet, enter another year: ");
         born = interface.getInt();
     }
-    // From int to string
-    ostringstream strm;
-    strm << born;
-    bornS = strm.str();
 
     //See if person is still alive or not.
     interface.renderText("Is " + gender + " still alive (y/n): ");
@@ -210,7 +206,7 @@ void service::addScientist(){
         }
     }
     if (alive == "y"){
-        deathS = "0";
+        death = 0;
     }else {
         interface.renderText("What year did " + gender + " die: ");
         death = interface.getInt();
@@ -219,13 +215,10 @@ void service::addScientist(){
             interface.renderText("try another year: ");
             death = interface.getInt();
         }
-        strm.str("");
-        strm << death;
-        deathS = strm.str();
     }
 
     // make a new scientist.
-    scientist sci(name,sex,bornS,deathS);
+    scientist sci(name,sex,born,death);
     // add him to the current results.
     scientists.push_back(sci);
     // add him to the database.
