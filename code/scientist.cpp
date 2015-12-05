@@ -2,6 +2,8 @@
 #include "datarepo.h"
 #include <iostream>
 #include <QSql>
+scientist::scientist(){
+}
 
 scientist::scientist(string newName, string newSex, int newBorn, int newDeath){
     name = newName;
@@ -47,35 +49,68 @@ void scientist::setDeath(int newDeath){
 }
 
 void scientist::save() {
+    bool inTable = isInTable();
+    QSqlQuery query(db);
 
-    QSqlQuery query();
-
-    if (id == NULL){
-        /*
-        query.prepare("INSERT INTO scientists (name, sex, born, death) "
+    if (!inTable){
+        query.prepare("INSERT INTO scientists (name, sex, birth, death) "
                       "VALUES (:name, :sex, :born, :death)");
-        query.bindValue(":name",name);
-        query.bindValue(":sex",sex);
+        query.bindValue(":name",QString::fromStdString(name));
+        query.bindValue(":sex",QString::fromStdString(sex));
         query.bindValue(":born",born);
         query.bindValue(":death",death);
         query.exec();
-        */
+        id = query.lastInsertId().toInt();
     }else {
-        /*
         query.prepare("UPDATE scientists SET name = :name, sex = :sex, birth = :born , death = :death WHERE id = :id;");
-        query.bindValue(":name",name);
-        query.bindValue(":sex",sex);
+        query.bindValue(":name",QString::fromStdString(name));
+        query.bindValue(":sex",QString::fromStdString(sex));
         query.bindValue(":born",born);
         query.bindValue(":death",death);
         query.bindValue(":id", id);
         query.exec();
-        */
     }
 }
 
-void remove() {
+void scientist::remove() {
+    if (isInTable()){
+        QSqlQuery query(db);
 
+        query.prepare("DELETE FROM scientists WHERE id = :id;");
+        query.bindValue(":id", id);
+        query.exec();
+    }
+}
+void scientist::disable() {
+    if (isInTable()){
+        QSqlQuery query(db);
+
+        query.prepare("UPDATE scientists SET active = 0 WHERE id = :id;");
+        query.bindValue(":id", id);
+        query.exec();
+        active = 0;
+    }
 }
 
+void scientist::enable() {
+    if (isInTable()){
+        QSqlQuery query(db);
 
+        query.prepare("UPDATE scientists SET active = 1 WHERE id = :id;");
+        query.bindValue(":id", id);
+        query.exec();
+        active = 1;
+    }
+}
 
+bool scientist::isInTable(){
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE id = :id");
+    query.bindValue(":id", id);
+    query.exec();
+    if (query.first()){
+        return true;
+    }
+    return false;
+}

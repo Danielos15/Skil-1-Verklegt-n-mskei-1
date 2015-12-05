@@ -14,4 +14,3 @@ void datarepo::connect(){
 void datarepo::close(){
     db.close();
 }
-
