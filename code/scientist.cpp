@@ -162,7 +162,7 @@ vector<scientist> scientist::fetchByName(string searchString){
     QSqlQuery query(db);
 
     query.prepare("SELECT * FROM scientists WHERE name like :name");
-    query.bindValue(":name", QString::fromStdString(searchString));
+    query.bindValue(":name", QString::fromStdString("%"+searchString+"%"));
     query.exec();
 
     while(query.next()){
