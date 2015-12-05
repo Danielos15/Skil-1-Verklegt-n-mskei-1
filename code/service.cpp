@@ -174,7 +174,7 @@ void service::addScientist(){
     sex = interface.getInput();
     do {
         if (sex != "m" && sex != "f") {
-            interface.renderText("Gender selection not avalible, use either m/f: ");
+            interface.renderText("Gender selection not avalable, use either m/f: ");
             sex = interface.getInput();
         }
         if (sex == "m"){
@@ -191,7 +191,7 @@ void service::addScientist(){
     born = interface.getInt();
 
     while (born > 2015){
-        interface.renderText("person not born yet, enter another year: ");
+        interface.renderText("Person not born yet, enter another year: ");
         born = interface.getInt();
     }
     // From int to string
@@ -206,7 +206,7 @@ void service::addScientist(){
     while (alive != "y" && alive != "n"){
         alive = interface.getInput();
         if (alive != "y" && alive != "n"){
-            interface.renderText("Please answear y/n: ");
+            interface.renderText("Please answer y/n: ");
         }
     }
     if (alive == "y"){
@@ -234,13 +234,13 @@ void service::addScientist(){
 
 void service::getStartInfo(){
     interface.renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
-    interface.renderText("Here you can search the database for computer scientist that \nhave made a big impact on the field.\n");
+    interface.renderText("Here you can search the database for computer scientists that \nhave made a big impact in the field.\n");
     interface.renderText("Please type [help] to get more info. \n");
 }
 
 void service::getHelpInfo(){
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
-    interface.renderText("There are a few commands to interact with the databse: \n");
+    interface.renderText("There are a few commands which interact with the database: \n");
     interface.renderText("[add]     : With this you can add a new Computer scientist to the database, just make sure he/she is good enough. \n");
     interface.renderText("[sort]    : You can sort the database with the avalible columns and in either ascending or descending order. \n");
     interface.renderText("[search]  : Search which column you like with a keyword that you like and see what you find. \n");
