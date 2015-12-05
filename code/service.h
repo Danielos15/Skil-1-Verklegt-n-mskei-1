@@ -4,6 +4,7 @@
 #include <string>
 #include "repo.h"
 #include "ui.h"
+#include "datarepo.h"
 #include <algorithm>
 
 using namespace std;
@@ -24,7 +25,8 @@ private:
     string order;
 
     // Other classes
-    repo connection;
+    scientist sci_db;
+    datarepo db;
     ui interface;
 
     void getUserInput();

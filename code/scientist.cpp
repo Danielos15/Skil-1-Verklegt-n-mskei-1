@@ -48,6 +48,10 @@ void scientist::setDeath(int newDeath){
     death = newDeath;
 }
 
+void scientist::setId(int newId){
+    id = newId;
+}
+
 void scientist::save() {
     bool inTable = isInTable();
     QSqlQuery query(db);
@@ -113,4 +117,126 @@ bool scientist::isInTable(){
         return true;
     }
     return false;
+}
+
+vector<scientist> scientist::fetchAll(){
+    QSqlQuery query(db);
+
+    vector<scientist> scientists;
+    query.prepare("SELECT * FROM scientists");
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+    return scientists;
+}
+
+vector<scientist> scientist::fetchActive(){
+    QSqlQuery query(db);
+
+    vector<scientist> scientists;
+    query.prepare("SELECT * FROM scientists WHERE active = 1");
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+    return scientists;
+}
+
+vector<scientist> scientist::fetchByName(string searchString){
+    vector<scientist> scientists;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE name like :name");
+    query.bindValue(":name", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+
+    return scientists;
+}
+
+vector<scientist> scientist::fetchBySex(string searchString){
+    vector<scientist> scientists;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE sex like :sex");
+    query.bindValue(":sex", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+
+    return scientists;
+}
+
+vector<scientist> scientist::fetchByBorn(string searchString){
+    vector<scientist> scientists;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE birth = :birth");
+    query.bindValue(":birth", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+
+    return scientists;
+}
+
+vector<scientist> scientist::fetchByDeath(string searchString){
+    vector<scientist> scientists;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE death = :death");
+    query.bindValue(":death", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        scientist sci;
+        sci.setName(query.value("name").toString().toStdString());
+        sci.setSex(query.value("sex").toString().toStdString());
+        sci.setBorn(query.value("birth").toInt());
+        sci.setDeath(query.value("death").toInt());
+        sci.setId(query.value("id").toInt());
+        scientists.push_back(sci);
+    }
+
+    return scientists;
 }

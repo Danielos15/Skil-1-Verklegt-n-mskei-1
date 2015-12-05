@@ -24,11 +24,19 @@ public:
     void setSex(string newSex);
     void setBorn(int newBirth);
     void setDeath(int newDeath);
+    void setId(int newId);
 
     void save();
     void remove();
     void disable();
     void enable();
+
+    vector<scientist> fetchAll();
+    vector<scientist> fetchActive();
+    vector<scientist> fetchByName(string name);
+    vector<scientist> fetchBySex(string sex);
+    vector<scientist> fetchByBorn(string birth);
+    vector<scientist> fetchByDeath(string death);
 
 private:
     QSqlDatabase db;

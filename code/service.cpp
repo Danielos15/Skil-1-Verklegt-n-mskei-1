@@ -5,16 +5,22 @@
 #include "repo.h"
 #include "scientist.h"
 #include "ui.h"
+#include "datarepo.h"
 
 service::service(){}
 
 void service::init(){
     //Setup database connection
-    string databaseFile = "database.csv";
-    connection.setFile(databaseFile);
-    connection.connect();
+    //string databaseFile = "database.csv";
+    //connection.setFile(databaseFile);
+    //connection.connect();
+
     //get the database table
-    scientists = connection.fetchAll();
+    //scientists = connection.fetchAll();
+
+    db.connect();
+
+    scientists = sci_db.fetchActive();
 }
 
 void service::run(){
@@ -29,6 +35,7 @@ void service::run(){
         if (function == "quit" || function == "exit"){
             interface.renderText("Thank you for using our database, come back again soon. \n");
             break; // exit if user wants to.
+            db.close();
         }
     }
 }
@@ -88,13 +95,13 @@ void service::getFunction(){
 
             //Searching in requested column.
             if (option == "name"){
-                scientists = connection.fetchByName(order);
+                scientists = sci_db.fetchByName(order);
             }else if(option == "gender"){
-                scientists = connection.fetchBySex(order);
+                scientists = sci_db.fetchBySex(order);
             }else if (option == "birth"){
-                scientists = connection.fetchByBorn(order);
+                scientists = sci_db.fetchByBorn(order);
             }else if (option == "death"){
-                scientists = connection.fetchByDeath(order);
+                scientists = sci_db.fetchByDeath(order);
             }
         }
 
@@ -109,7 +116,7 @@ void service::getFunction(){
     }
     // Reset the search resault and get fresh from database.
     else if (function == "reset"){
-        scientists = connection.fetchAll();
+        scientists = sci_db.fetchActive();
         interface.renderText("Results reset... \n");
     }else if (function == "exit" || function == "quit"){
         // exit;
@@ -222,7 +229,7 @@ void service::addScientist(){
     // add him to the current results.
     scientists.push_back(sci);
     // add him to the database.
-    connection.add(sci);
+    sci.save();
 }
 
 void service::getStartInfo(){
