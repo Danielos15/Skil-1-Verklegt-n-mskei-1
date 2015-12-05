@@ -16,13 +16,15 @@ public:
     string getBorn() const;
     string getDeath() const;
 
+    void save();
+    void remove();
+
 private:
     int id;
     string name;
     string sex;
     string born;
-    string death;
-
+    string death;    
 };
 
 #endif // SCIENTIST

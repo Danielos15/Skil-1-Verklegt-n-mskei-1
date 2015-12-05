@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     //engine.init();
     //engine.run();
 
-    datarepo db;
+    /*datarepo db;
 
     db.connect();
     QSqlQuery query = db.query("Hello Wordl");
@@ -25,7 +25,9 @@ int main(int argc, char *argv[])
         cout << "Name: " << query.value("name").toString().toStdString() << endl;
         cout << "Sex: " << query.value("sex").toString().toStdString() << endl;
     }
-
+*/
+    scientist sci("Danni", "Male", "1988", "0");
+    sci.save();
     return a.exec();
 }
 
