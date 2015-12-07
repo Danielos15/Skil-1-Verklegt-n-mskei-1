@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <QTsql>
+#include <QtSql>
 
 using namespace std;
 
