@@ -2,7 +2,7 @@
 #define DATAREPO
 #include <vector>
 #include <string>
-#include <QTsql>
+#include <QtSql>
 
 using namespace std;
 
