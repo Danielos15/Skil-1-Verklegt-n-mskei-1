@@ -2,7 +2,6 @@
 #define SERVICE
 #include <vector>
 #include <string>
-#include "repo.h"
 #include "ui.h"
 #include "datarepo.h"
 #include <algorithm>

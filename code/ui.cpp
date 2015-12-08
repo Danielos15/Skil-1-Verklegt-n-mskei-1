@@ -1,18 +1,30 @@
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "ui.h"
 
 ui::ui(){}
 
 string ui::getInput(){
-    string input;
+    /*string input;
     getline(cin,input);
+    return input;*/
+    string input;
+    cin >> input;
     return input;
 }
 
 int ui::getInt(){
+    //int input;
+    //cin >> input;
+    //return input;
+
     int input;
-    cin >> input;
+    string inString = getInput();
+    stringstream ss(inString);
+    if (!(ss >> input)){
+        input = 0;
+    }
     return input;
 }
 

@@ -9,7 +9,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     ui.cpp \
-    repo.cpp \
     service.cpp \
     scientist.cpp \
     computer.cpp \
@@ -19,10 +18,8 @@ HEADERS += \
     ui.h \
     service.h \
     scientist.h \
-    repo.h \
     computer.h \
     datarepo.h
 
 DISTFILES += \
-    test.csv
 

@@ -1,5 +1,4 @@
 #include <QCoreApplication>
-#include "repo.h"
 #include "scientist.h"
 #include "ui.h"
 #include "service.h"
