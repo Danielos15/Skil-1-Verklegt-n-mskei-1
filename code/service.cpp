@@ -216,7 +216,7 @@ void service::addScientist(){
     }else {
         interface.renderText("What year did " + gender + " die: ");
         death = interface.getInt();
-        while (death < born && death > 2015){
+        while (death < born || death > 2015){
             interface.renderText(gender + " can't have died that year \n");
             interface.renderText("try another year: ");
             death = interface.getInt();
