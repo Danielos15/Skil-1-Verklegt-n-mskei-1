@@ -1,7 +1,7 @@
 #include "scientist.h"
 #include "datarepo.h"
 #include <iostream>
-#include <QSql>
+
 scientist::scientist(){
 }
 

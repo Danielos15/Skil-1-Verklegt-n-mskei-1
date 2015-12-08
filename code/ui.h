@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include "scientist.h"
+#include "computer.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ public:
     string getLine();
     int getInt();
     void renderText(string text);
-    void renderVector(vector<scientist> scientists);
+    void renderScientists(vector<scientist> scientists);
+    void renderComputers(vector<computer> computers);
 };
 
 #endif // UI

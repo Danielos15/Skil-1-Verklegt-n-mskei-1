@@ -53,7 +53,7 @@ void service::getFunction(){
 
     // if User wants to render results
     if (function == "display"){
-        interface.renderVector(scientists);
+        interface.renderScientists(scientists);
     }
     // If user wants to use Sort or Search
     else if (function == "sort" || function == "search"){
