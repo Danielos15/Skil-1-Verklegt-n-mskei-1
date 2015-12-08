@@ -173,7 +173,8 @@ void service::addScientist(){
 
     //Get the name.
     interface.renderText("Enter Name: ");
-    name = interface.getInput();
+    cin.ignore();
+    name = interface.getLine();
 
     //Get the gender of the person.
     interface.renderText("What gender (m/f): ");

@@ -36,11 +36,11 @@ void computer::setName(string newName){
 }
 
 void computer::setBuild(string newBuild){
-    build = newbuild;
+    build = newBuild;
 }
 
 void computer::setType(int NewType){
-    type = newType;
+    type = NewType;
 }
 
 void computer::setWas(int newWas){

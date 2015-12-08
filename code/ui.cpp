@@ -6,25 +6,25 @@
 ui::ui(){}
 
 string ui::getInput(){
-    /*string input;
-    getline(cin,input);
-    return input;*/
     string input;
     cin >> input;
     return input;
 }
 
 int ui::getInt(){
-    //int input;
-    //cin >> input;
-    //return input;
-
     int input;
     string inString = getInput();
     stringstream ss(inString);
     if (!(ss >> input)){
-        input = 0;
+        renderText("Not a valid number, try again: ");
+        getInt();
     }
+    return input;
+}
+
+string ui::getLine(){
+    string input;
+    getline(cin, input);
     return input;
 }
 
