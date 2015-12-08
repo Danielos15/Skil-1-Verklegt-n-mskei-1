@@ -11,19 +11,19 @@ class computer
 {
 public:
     computer();
-    computer(string newName,int newBuild, string newType, string newWas);
+    computer(string newName,int newBuild, string newType, bool newWas);
 
     int getId() const;
     string getName() const;
-    string getBuild() const;
+    int getBuild() const;
     string getType() const;
-    string getWas() const;
+    bool getWas() const;
     string isActive();
 
     void setName(string newName);
-    void setBuild(string newSex);
-    void setType(int newBirth);
-    void setWas(int newDeath);
+    void setBuild(int newBuild);
+    void setType(string newType);
+    void setWas(bool newBuild);
     void setId(int newId);
 
     void save();
@@ -32,11 +32,10 @@ public:
     void enable();
 
     vector<computer> fetchAll();
-    vector<computer> fetchActive();
-    vector<computer> fetchByName(string name);
-    vector<computer> fetchByBuild(string build);
-    vector<computer> fetchByType(string type);
-    vector<computer> fetchByWas(string was);
+    vector<computer> fetchByName(string searchString);
+    vector<computer> fetchByBuild(string searchString);
+    vector<computer> fetchByType(string searchString);
+    vector<computer> fetchByWasBuilt(string searchString);
 
 private:
     QSqlDatabase db;

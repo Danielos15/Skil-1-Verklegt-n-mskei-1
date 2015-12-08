@@ -264,18 +264,21 @@ void service::addComputer(){
 
     //Was this machine ever built.
     interface.renderText("Was this machine ever built? y/n :  ");
-    was = interface.getInput();
+    string checkWas;
+    checkWas = interface.getInput();
 
-    if (was == "y"){
-        was = TRUE;
-    }else{
-        was = FALSE;
-        }
+    while(checkWas !=  "y" || checkWas != "n"){
+        interface.renderText("Incorrect input, please only use y/n");
+        checkWas = interface.getInput();
+    }
+    if (checkWas == "y"){
+        was = true;
+    }else {
+        was = false;
+    }
 
     // make a new computer.
     computer cmp(name,build,type,was);
-    // add the computer to the current results.
-    computer.push_back(cmp);
     // add the computer to the database.
     cmp.save();
 }

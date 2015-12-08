@@ -1,7 +1,11 @@
 #include "computer.h"
 #include <iostream>
 
-computer::computer(string newName, int newBuild, string newType, string newWas){
+computer:: computer(){
+
+}
+
+computer::computer(string newName, int newBuild, string newType, bool newWas){
     name = newName;
     build = newBuild;
     type = newType;
@@ -28,27 +32,19 @@ bool computer::getWas() const{
     return was;
 }
 
-
-
-
 void computer::setName(string newName){
     name = newName;
 }
 
-void computer::setBuild(string newBuild){
+void computer::setBuild(int newBuild){
     build = newBuild;
 }
 
-<<<<<<< HEAD
-void computer::setType(int newType){
+void computer::setType(string newType){
     type = newType;
-=======
-void computer::setType(int NewType){
-    type = NewType;
->>>>>>> origin/master
 }
 
-void computer::setWas(int newWas){
+void computer::setWas(bool newWas){
     was = newWas;
 }
 
@@ -56,6 +52,151 @@ void computer::setId(int newId){
     id = newId;
 }
 
+void computer::save() {
+    bool inTable = isInTable();
+    QSqlQuery query(db);
 
+    if (!inTable){
+        query.prepare("INSERT INTO computers (name, build_year, type, was_built) "
+                      "VALUES (:name, :build_year, :type, :was_built)");
+        query.bindValue(":name",QString::fromStdString(name));
+        query.bindValue(":build_year",build);
+        query.bindValue(":type",QString::fromStdString(type));
+        query.bindValue(":was_built",was);
+        query.exec();
+        id = query.lastInsertId().toInt();
+    }else {
+        query.prepare("UPDATE computers SET name = :name, build_year = :build_year, type = :type , was_built = :was_built WHERE id = :id;");
+        query.bindValue(":name",QString::fromStdString(name));
+        query.bindValue(":build_year",build);
+        query.bindValue(":type",QString::fromStdString(type));
+        query.bindValue(":was_built",was);
+        query.bindValue(":id", id);
+        query.exec();
+    }
+}
 
+void computer::remove() {
+    if (isInTable()){
+        QSqlQuery query(db);
 
+        query.prepare("DELETE FROM computers WHERE id = :id;");
+        query.bindValue(":id", id);
+        query.exec();
+    }
+}
+
+bool computer::isInTable(){
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE id = :id");
+    query.bindValue(":id", id);
+    query.exec();
+    if (query.first()){
+        return true;
+    }
+    return false;
+}
+
+vector<computer> computer::fetchAll(){
+    QSqlQuery query(db);
+
+    vector<computer> computers;
+    query.prepare("SELECT * FROM computers");
+    query.exec();
+
+    while(query.next()){
+        computer cpu;
+        cpu.setName(query.value("name").toString().toStdString());
+        cpu.setBuild(query.value("build_year").toInt());
+        cpu.setType(query.value("type").toString().toStdString());
+        cpu.setWas(query.value("was_built").toBool());
+        cpu.setId(query.value("id").toInt());
+        computers.push_back(cpu);
+    }
+    return computers;
+}
+
+vector<computer> computer::fetchByName(string searchString){
+    vector<computer> computers;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE name like :name");
+    query.bindValue(":name", QString::fromStdString("%"+searchString+"%"));
+    query.exec();
+
+    while(query.next()){
+        computer cpu;
+        cpu.setName(query.value("name").toString().toStdString());
+        cpu.setBuild(query.value("build_year").toInt());
+        cpu.setType(query.value("type").toString().toStdString());
+        cpu.setWas(query.value("was_built").toBool());
+        cpu.setId(query.value("id").toInt());
+        computers.push_back(cpu);
+    }
+
+    return computers;
+}
+
+vector<computer> computer::fetchByBuild(string searchString){
+    vector<computer> computers;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE build_year = :build_year");
+    query.bindValue(":build_year", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        computer cpu;
+        cpu.setName(query.value("name").toString().toStdString());
+        cpu.setBuild(query.value("build_year").toInt());
+        cpu.setType(query.value("type").toString().toStdString());
+        cpu.setWas(query.value("was_built").toBool());
+        cpu.setId(query.value("id").toInt());
+        computers.push_back(cpu);
+    }
+
+    return computers;
+}
+
+vector<computer> computer::fetchByType(string searchString){
+    vector<computer> computers;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE type like :type");
+    query.bindValue(":type", QString::fromStdString("%"+searchString+"%"));
+    query.exec();
+
+    while(query.next()){
+        computer cpu;
+        cpu.setName(query.value("name").toString().toStdString());
+        cpu.setBuild(query.value("build_year").toInt());
+        cpu.setType(query.value("type").toString().toStdString());
+        cpu.setWas(query.value("was_built").toBool());
+        cpu.setId(query.value("id").toInt());
+        computers.push_back(cpu);
+    }
+
+    return computers;
+}
+
+vector<computer> computer::fetchByWasBuilt(string searchString){
+    vector<computer> computers;
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE was_built = :was_built");
+    query.bindValue(":was_built", QString::fromStdString(searchString));
+    query.exec();
+
+    while(query.next()){
+        computer cpu;
+        cpu.setName(query.value("name").toString().toStdString());
+        cpu.setBuild(query.value("build_year").toInt());
+        cpu.setType(query.value("type").toString().toStdString());
+        cpu.setWas(query.value("was_built").toBool());
+        cpu.setId(query.value("id").toInt());
+        computers.push_back(cpu);
+    }
+
+    return computers;
+}
