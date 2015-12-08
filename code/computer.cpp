@@ -36,15 +36,15 @@ void computer::setName(string newName){
 }
 
 void computer::setBuild(string newBuild){
-    sex = newSex;
+    build = newbuild;
 }
 
 void computer::setType(int NewType){
-    born = newBirth;
+    type = newType;
 }
 
 void computer::setWas(int newWas){
-    death = newDeath;
+    was = newWas;
 }
 
 void computer::setId(int newId){
