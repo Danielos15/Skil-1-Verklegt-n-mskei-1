@@ -177,7 +177,8 @@ void service::addScientist(){
 
     //Get the name.
     interface.renderText("Enter Name: ");
-    name = interface.getInput();
+    cin.ignore();
+    name = interface.getLine();
 
     //Get the gender of the person.
     interface.renderText("What gender (m/f): ");
@@ -220,7 +221,7 @@ void service::addScientist(){
     }else {
         interface.renderText("What year did " + gender + " die: ");
         death = interface.getInt();
-        while (death < born && death > 2015){
+        while (death < born || death > 2015){
             interface.renderText(gender + " can't have died that year \n");
             interface.renderText("try another year: ");
             death = interface.getInt();

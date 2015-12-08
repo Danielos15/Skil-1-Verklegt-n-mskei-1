@@ -15,6 +15,7 @@ public:
     ui();
 
     string getInput();
+    string getLine();
     int getInt();
     void renderText(string text);
     void renderVector(vector<scientist> scientists);

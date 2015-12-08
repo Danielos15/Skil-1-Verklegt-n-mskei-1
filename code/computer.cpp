@@ -39,8 +39,13 @@ void computer::setBuild(string newBuild){
     build = newBuild;
 }
 
+<<<<<<< HEAD
 void computer::setType(int newType){
     type = newType;
+=======
+void computer::setType(int NewType){
+    type = NewType;
+>>>>>>> origin/master
 }
 
 void computer::setWas(int newWas){
