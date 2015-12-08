@@ -28,3 +28,29 @@ string computer::getWas() const{
     return was;
 }
 
+
+
+
+void computer::setName(string newName){
+    name = newName;
+}
+
+void computer::setBuild(string newBuild){
+    sex = newSex;
+}
+
+void computer::setType(int NewType){
+    born = newBirth;
+}
+
+void computer::setWas(int newWas){
+    death = newDeath;
+}
+
+void computer::setId(int newId){
+    id = newId;
+}
+
+
+
+
