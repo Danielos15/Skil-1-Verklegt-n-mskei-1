@@ -11,14 +11,14 @@ class computer
 {
 public:
     computer();
-    computer(string newName,string newBuild, string newType, string newWas);
+    computer(string newName,int newBuild, string newType, string newWas);
 
     int getId() const;
     string getName() const;
     string getBuild() const;
     string getType() const;
     string getWas() const;
-    bool isActive();
+    string isActive();
 
     void setName(string newName);
     void setBuild(string newSex);
@@ -43,15 +43,11 @@ private:
 
     int id;
     string name;
-    string build;
+    int build;
     string type;
-    string was;
-    bool active;
+    bool was;
 
     bool isInTable();
 };
 
 #endif // COMPUTER_H
-
-
-

@@ -17,6 +17,8 @@ public:
 
 private:
     vector<scientist> scientists;
+    vector<computer> computers;
+
     string input;
 
     string function;
@@ -25,6 +27,7 @@ private:
 
     // Other classes
     scientist sci_db;
+    computer cmp_db;
     datarepo db;
     ui interface;
 
@@ -35,8 +38,11 @@ private:
     void getStartInfo();
     void getHelpInfo();
 
-    //Add scientist to the database
+    //Add a scientist to the database
     void addScientist();
+
+    //Add a computer to the database
+    void addComputer();
 
     //Sort functions
     void sortByName();

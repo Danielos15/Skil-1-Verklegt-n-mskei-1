@@ -1,7 +1,7 @@
 #include "computer.h"
 #include <iostream>
 
-computer::computer(string newName,string newBuild, string newType, string newWas){
+computer::computer(string newName, int newBuild, string newType, string newWas){
     name = newName;
     build = newBuild;
     type = newType;
@@ -16,7 +16,7 @@ string computer::getName() const{
     return name;
 }
 
-string computer::getBuild() const{
+int computer::getBuild() const{
     return build;
 }
 
@@ -24,7 +24,7 @@ string computer::getType() const{
     return type;
 }
 
-string computer::getWas() const{
+bool computer::getWas() const{
     return was;
 }
 

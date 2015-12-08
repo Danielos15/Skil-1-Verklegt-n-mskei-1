@@ -5,6 +5,7 @@
 #include "scientist.h"
 #include "ui.h"
 #include "datarepo.h"
+#include "computer.h"
 
 service::service(){}
 
@@ -105,10 +106,13 @@ void service::getFunction(){
         }
 
     }
-    // Add scientist to the database.
-    else if (function == "add"){
+    // Add a scientist or a computer to the database.
+    else if (function == "addscientist"){
         addScientist();
+    }else if(function == "addcomputer"){
+        addComputer();
     }
+
     // Get the help info.
     else if (function == "help"){
         getHelpInfo();
@@ -231,9 +235,53 @@ void service::addScientist(){
     sci.save();
 }
 
+// add a computer to the database
+
+void service::addComputer(){
+    string name,type;
+    int build;
+    bool was;
+
+    //Get the name.
+    interface.renderText("Enter Name: ");
+    name = interface.getInput();
+
+    //Get the Build year of the computer.
+    interface.renderText("When was the computer built: ");
+    build = interface.getInt();
+
+    //Error checking for build year.
+    while (build > 2015){
+        interface.renderText("Computer not built yet, enter another year: ");
+        build = interface.getInt();
+    }
+
+    //Get the type of the computer.
+    interface.renderText("Enter the type of the computer: ");
+    type = interface.getInput();
+
+
+    //Was this machine ever built.
+    interface.renderText("Was this machine ever built? y/n :  ");
+    was = interface.getInput();
+
+    if (was == "y"){
+        was = TRUE;
+    }else{
+        was = FALSE;
+        }
+
+    // make a new computer.
+    computer cmp(name,build,type,was);
+    // add the computer to the current results.
+    computer.push_back(cmp);
+    // add the computer to the database.
+    cmp.save();
+}
+
 void service::getStartInfo(){
     interface.renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
-    interface.renderText("Here you can search the database for computer scientists that \nhave made a big impact in the field.\n");
+    interface.renderText("Here you can search the database for computer scientists and computers\n that have made a big impact in the field.\n");
     interface.renderText("Please type [help] to get more info. \n");
 }
 
