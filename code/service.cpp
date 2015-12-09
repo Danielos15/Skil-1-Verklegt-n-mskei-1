@@ -85,11 +85,23 @@ void service::getFunction(){
     }
 
     // Add a scientist or a computer to the database.
-    else if (function == "addsc"){
-        addScientist();
-    }else if(function == "addco"){
-        addComputer();
+        else if (function == "add"){
+            interface.renderText("From witch database table would you like to add to? \n");
+            interface.renderText("1: Scientists Table \n");
+            interface.renderText("2: Computers Table \n");
+            interface.renderText("Enter database table number: ");
+            int choice = interface.getInt();
+            while(choice > 2){
+                interface.renderText("Unavalible option, try again: ");
+                choice = interface.getInt();
+            }
+            if(choice == 1){
+                addScientist();
+            }else if(choice == 2){
+                addComputer();
+            }
     }
+
 
     // Remove from database, computer or Scientist
     else if(function == "remove"){
