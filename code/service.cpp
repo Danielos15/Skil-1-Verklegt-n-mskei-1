@@ -91,7 +91,7 @@ void service::getFunction(){
             interface.renderText("2: Computers Table \n");
             interface.renderText("Enter database table number: ");
             int choice = interface.getInt();
-            while(choice > 2){
+            while(choice != 1 && choice != 2){
                 interface.renderText("Unavalible option, try again: ");
                 choice = interface.getInt();
             }
@@ -111,7 +111,7 @@ void service::getFunction(){
         interface.renderText("Enter database table number: ");
         cin.ignore();
         int inc = interface.getInt();
-        while(inc > 2){
+        while(inc != 1 && inc != 2){
             interface.renderText("Unavalible option, try again: ");
             inc = interface.getInt();
         }
