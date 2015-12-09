@@ -42,7 +42,7 @@ void ui::renderText(string text){
 
 void ui::renderScientists(vector<scientist> scientists){
     int numberPerLine = 4;
-    renderText("Displaying current results... \n");
+    renderText("Displaying current Scientists... \n");
     for (int h = 0; h < numberPerLine; h++){
         renderText("-  -  -  -  -  -  -  -  ");
     }
@@ -92,7 +92,7 @@ void ui::renderScientists(vector<scientist> scientists){
 
 void ui::renderComputers(vector<computer> computers){
     int numberPerLine = 4;
-    renderText("Displaying current results... \n");
+    renderText("Displaying current Computers... \n");
     for (int h = 0; h < numberPerLine; h++){
         renderText("-  -  -  -  -  -  -  -  ");
     }

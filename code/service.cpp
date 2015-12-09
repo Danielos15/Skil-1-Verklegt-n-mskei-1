@@ -44,67 +44,19 @@ void service::getFunction(){
     function = input.substr(0, functionSepPos);
     input.erase(0,functionSepPos+1);
 
-    // if User wants to render results
-    if (function == "displayScientists"){
+    // if User wants to render scientists
+    if (function == "displaysc"){
         interface.renderScientists(scientists);
-    }else if(function == "displayComputers"){
+    }
+    // if User wants to render computers
+    else if(function == "displayco"){
         interface.renderComputers(computers);
     }
-    // If user wants to use Sort or Search
-    /*else if (function == "sort" || function == "search"){
-        //Get option
-        interface.renderText("By what column? [name][gender][birth][death] \n");
-        interface.renderText("Column: ");
-        option = interface.getInput();
-        while (option != "name" && option != "gender" && option != "birth" && option != "death"){
-            interface.renderText("Not an avalible column, try again: [name][gender][birth][death] \n");
-            interface.renderText("Column: ");
-            option = interface.getInput();
-        }
-        if (function == "sort"){
-            //getOrder
-            interface.renderText("In what order? [asc][desc] \n");
-            interface.renderText("Order: ");
-            order = interface.getInput();
-            while (order != "asc" && order != "desc"){
-                interface.renderText("Not an avalible order, try again: [asc][desc] \n");
-                interface.renderText("Order: ");
-                order = interface.getInput();
-            }
-            //Calling requested function
-            if (option == "name"){
-                sortByName();
-            }else if(option == "gender"){
-                sortByGender();
-            }else if (option == "birth"){
-                sortByBirth();
-            }else if (option == "death"){
-                sortByDeath();
-            }
-            interface.renderText("Done sorting... \n");
-        }else {
-            //Get Search string from user
-            interface.renderText("What to search for? \n");
-            interface.renderText("Keyword: ");
-            order = interface.getInput();
 
-            //Searching in requested column.
-            if (option == "name"){
-                scientists = sci_db.fetchByName(order);
-            }else if(option == "gender"){
-                scientists = sci_db.fetchBySex(order);
-            }else if (option == "birth"){
-                scientists = sci_db.fetchByBorn(order);
-            }else if (option == "death"){
-                scientists = sci_db.fetchByDeath(order);
-            }
-        }
-
-    }*/
     // Add a scientist or a computer to the database.
-    else if (function == "addscientist"){
+    else if (function == "addsc"){
         addScientist();
-    }else if(function == "addcomputer"){
+    }else if(function == "addco"){
         addComputer();
     }
 
@@ -112,56 +64,10 @@ void service::getFunction(){
     else if (function == "help"){
         getHelpInfo();
     }
-    // Reset the search resault and get fresh from database.
-    else if (function == "reset"){
-        scientists = sci_db.fetchActive();
-        interface.renderText("Results reset... \n");
-    }else if (function == "exit" || function == "quit"){
+    else if (function == "exit" || function == "quit"){
         // exit;
     }else {
         interface.renderText("Invalid command! try [help] to get more info \n");
-    }
-}
-//Setup for Ascending and Descending orders for Sort.
-bool ascOrderName(const scientist sci1, const scientist sci2){return sci1.getName() < sci2.getName();}
-bool descOrderName(const scientist sci1, const scientist sci2){return sci1.getName() > sci2.getName();}
-
-bool ascOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() < sci2.getSex();}
-bool descOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() > sci2.getSex();}
-
-bool ascOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() < sci2.getBorn();}
-bool descOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() > sci2.getBorn();}
-
-bool ascOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() < sci2.getDeath();}
-bool descOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() > sci2.getDeath();}
-
-// All sort functions by column.
-void service::sortByName() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderName);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderName);
-    }
-}
-void service::sortByGender() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderGender);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderGender);
-    }
-}
-void service::sortByBirth() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderBirth);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderBirth);
-    }
-}
-void service::sortByDeath() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderDeath);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderDeath);
     }
 }
 
@@ -291,12 +197,9 @@ void service::getHelpInfo(){
     interface.renderText("[addsc]     : With this you can add a new computer scientist to the database. \n");
     interface.renderText("[addco]     : With this you can add a new computer to the database. \n");
     interface.renderText("[addre]     : With this you can add a relation between scientists and computers. \n");
-    interface.renderText("[sort]      : You can sort the database with the avalible columns and in either ascending or descending order. \n");
-    interface.renderText("[search]    : Search which column you like with a keyword that you like and see what you find. \n");
     interface.renderText("[displaysc] : Display the scientists \n");
     interface.renderText("[displayco] : Display the computers \n");
     interface.renderText("[displayre] : Display the relation between scientists and computers \n");
-    interface.renderText("[reset]     : With this function you can undo all the sorting and searching filters that you have used and start over again \n");
     interface.renderText("[exit] or [quit] to close the database \n");
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
 }
