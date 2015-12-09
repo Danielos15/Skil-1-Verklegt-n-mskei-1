@@ -421,9 +421,9 @@ void service::getHelpInfo(){
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
     interface.renderText("There are a few commands which interact with the database: \n");
     interface.renderText("[add]     : Add a new computer or a scientist to the database. \n");
-    interface.renderText("[edit]    : Here you can edit the database");
-    interface.renderText("[remove]  : Here you can remove from the database");
-    interface.renderText("[display] : Display from the database \n");
-    interface.renderText("[exit] or [quit] to close the database \n");
+    interface.renderText("[edit]    : Here you can edit the database. \n");
+    interface.renderText("[remove]  : Here you can remove from the database. \n");
+    interface.renderText("[display] : Display from the database. \n");
+    interface.renderText("[exit] or [quit] to close the database. \n");
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
 }
