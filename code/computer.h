@@ -18,7 +18,6 @@ public:
     int getBuild() const;
     string getType() const;
     bool getWas() const;
-    string isActive();
 
     void setName(string newName);
     void setBuild(int newBuild);
@@ -28,8 +27,7 @@ public:
 
     void save();
     void remove();
-    void disable();
-    void enable();
+
 
     vector<computer> fetchAll();
     vector<computer> fetchByName(string searchString);

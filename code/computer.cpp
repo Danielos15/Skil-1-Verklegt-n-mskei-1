@@ -1,4 +1,5 @@
 #include "computer.h"
+#include "datarepo.h"
 #include <iostream>
 
 computer:: computer(){

@@ -85,27 +85,7 @@ void scientist::remove() {
         query.exec();
     }
 }
-void scientist::disable() {
-    if (isInTable()){
-        QSqlQuery query(db);
 
-        query.prepare("UPDATE scientists SET active = 0 WHERE id = :id;");
-        query.bindValue(":id", id);
-        query.exec();
-        active = 0;
-    }
-}
-
-void scientist::enable() {
-    if (isInTable()){
-        QSqlQuery query(db);
-
-        query.prepare("UPDATE scientists SET active = 1 WHERE id = :id;");
-        query.bindValue(":id", id);
-        query.exec();
-        active = 1;
-    }
-}
 
 bool scientist::isInTable(){
     QSqlQuery query(db);
@@ -138,24 +118,6 @@ vector<scientist> scientist::fetchAll(){
     return scientists;
 }
 
-vector<scientist> scientist::fetchActive(){
-    QSqlQuery query(db);
-
-    vector<scientist> scientists;
-    query.prepare("SELECT * FROM scientists WHERE active = 1");
-    query.exec();
-
-    while(query.next()){
-        scientist sci;
-        sci.setName(query.value("name").toString().toStdString());
-        sci.setSex(query.value("sex").toString().toStdString());
-        sci.setBorn(query.value("birth").toInt());
-        sci.setDeath(query.value("death").toInt());
-        sci.setId(query.value("id").toInt());
-        scientists.push_back(sci);
-    }
-    return scientists;
-}
 
 vector<scientist> scientist::fetchByName(string searchString){
     vector<scientist> scientists;

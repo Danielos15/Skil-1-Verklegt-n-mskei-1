@@ -18,7 +18,6 @@ public:
     string getSex() const;
     int getBorn() const;
     int getDeath() const;
-    bool isActive();
 
     void setName(string newName);
     void setSex(string newSex);
@@ -28,11 +27,9 @@ public:
 
     void save();
     void remove();
-    void disable();
-    void enable();
+
 
     vector<scientist> fetchAll();
-    vector<scientist> fetchActive();
     vector<scientist> fetchByName(string name);
     vector<scientist> fetchBySex(string sex);
     vector<scientist> fetchByBorn(string birth);
@@ -46,7 +43,6 @@ private:
     string sex;
     int born;
     int death;
-    bool active;
 
     bool isInTable();
 };
