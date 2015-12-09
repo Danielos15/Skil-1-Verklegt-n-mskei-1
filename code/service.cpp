@@ -189,7 +189,7 @@ void service::addComputer(){
     name = interface.getInput();
 
     //Get the Build year of the computer.
-    interface.renderText("When was the computer built: ");
+    interface.renderText("What year was the computer built: ");
     build = interface.getInt();
 
     //Error checking for build year.
@@ -204,7 +204,7 @@ void service::addComputer(){
 
 
     //Was this machine ever built.
-    interface.renderText("Was this machine ever built? y/n: ");
+    interface.renderText("Was this machine ever mass produced? y/n: ");
     string checkWas;
     cin.ignore();
     checkWas = interface.getInput();
