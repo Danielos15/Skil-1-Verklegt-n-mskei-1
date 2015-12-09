@@ -3,6 +3,7 @@
 #include "ui.h"
 #include "service.h"
 #include "datarepo.h"
+#include "relationscputosci.h"
 
 using namespace std;
 

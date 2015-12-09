@@ -6,6 +6,7 @@
 #include "ui.h"
 #include "datarepo.h"
 #include "computer.h"
+#include "relationscputosci.h"
 
 service::service(){}
 
@@ -14,6 +15,7 @@ void service::init(){
 
     scientists = sci_db.fetchAll("id");
     computers = cmp_db.fetchAll("id");
+
 }
 
 void service::run(){
@@ -51,7 +53,7 @@ void service::getFunction(){
         interface.renderText("2: Computers Table \n");
         interface.renderText("Enter database table number: ");
         int inc = interface.getInt();
-        while(inc > 2){
+        while(inc != 1 && inc != 2){
             interface.renderText("Unavalible option, try again: ");
             inc = interface.getInt();
         }
@@ -179,14 +181,14 @@ void service::getFunction(){
             interface.renderText("1: Scientists Table \n");
             interface.renderText("2: Computers Table \n");
             interface.renderText("Enter database table number: ");
-            int choice = interface.getInt();
-            while(choice != 1 && choice != 2){
+            int inc = interface.getInt();
+            while(inc != 1 && inc != 2){
                 interface.renderText("Unavalible option, try again: ");
-                choice = interface.getInt();
+                inc = interface.getInt();
             }
-            if(choice == 1){
+            if(inc == 1){
                 addScientist();
-            }else if(choice == 2){
+            }else if(inc == 2){
                 addComputer();
             }
     }
@@ -412,7 +414,119 @@ void service::getFunction(){
     }
     else if (function == "exit" || function == "quit"){
         // exit;
-    }else {
+    }
+    // connect computer and scientist
+    else if (function == "connections") {
+        interface.renderText("Would you like to make new connection or remove a existing one? \n");
+        interface.renderText("1: Make a new connection \n");
+        interface.renderText("2: Remove a old connection \n");
+        interface.renderText("Enter option number: ");
+        int choice = interface.getInt();
+        while(choice != 1 && choice != 2){
+            interface.renderText("Unavalible option, try again: ");
+            choice = interface.getInt();
+        }
+        if(choice == 1){
+            int cpu_id, sci_id;
+            interface.renderText("Enter the Id of the Scientist: ");
+            sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            interface.renderText("Enter the Id of the Computer: ");
+            cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+
+            relationsCpuToSci relation(cpu_id, sci_id);
+            if (relation.exists()){
+                interface.renderText("Connection already in database. \n");
+            }else {
+                relation.save();
+                interface.renderText("Connection added to database. \n");
+            }
+
+        }else if (choice == 2){
+            int cpu_id, sci_id;
+            interface.renderText("Enter the Id of the Scientist: ");
+            sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            interface.renderText("Enter the Id of the Computer: ");
+            cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+
+            relationsCpuToSci relation(cpu_id, sci_id);
+            if (relation.exists()){
+                relation.remove();
+                interface.renderText("Connection removed from database. \n");
+            }else {
+                interface.renderText("Connection not in database. \n");
+            }
+        }
+    }
+    // see connections
+    else if(function == "connected") {
+        interface.renderText("Witch database table connection would you like to see? \n");
+        interface.renderText("1: Scientist to Computers \n");
+        interface.renderText("2: Computer to Scientists \n");
+        interface.renderText("Enter option number: ");
+        int choice = interface.getInt();
+        while(choice != 1 && choice != 2){
+            interface.renderText("Unavalible option, try again: ");
+            choice = interface.getInt();
+        }
+        if(choice == 1){
+            interface.renderText("Input the Id of the scientist: ");
+            int sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            sci.getInfo();
+            computers = rel_db.fetchBySciId(sci.getId());
+            interface.renderConnectedCpu(sci, computers);
+
+        }else if(choice == 2){
+            interface.renderText("Input the Id of the computer: ");
+            int cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+            cpu.getInfo();
+            scientists = rel_db.fetchByCpuId(cpu.getId());
+            interface.renderConnectedSci(cpu, scientists);
+        }
+    }
+    //NOthing avalible
+    else {
         interface.renderText("Invalid command! try [help] to get more info \n");
     }
 }

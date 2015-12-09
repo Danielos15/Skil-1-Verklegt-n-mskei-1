@@ -12,14 +12,16 @@ SOURCES += main.cpp \
     service.cpp \
     scientist.cpp \
     computer.cpp \
-    datarepo.cpp
+    datarepo.cpp \
+    relationscputosci.cpp
 
 HEADERS += \
     ui.h \
     service.h \
     scientist.h \
     computer.h \
-    datarepo.h
+    datarepo.h \
+    relationscputosci.h
 
 DISTFILES += \
 

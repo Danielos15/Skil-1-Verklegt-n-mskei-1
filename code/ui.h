@@ -21,6 +21,8 @@ public:
     void renderText(string text);
     void renderScientists(vector<scientist> scientists);
     void renderComputers(vector<computer> computers);
+    void renderConnectedCpu(scientist scientist, vector<computer> computers);
+    void renderConnectedSci(computer cpu, vector<scientist> scientists);
     bool getYesOrNo();
 
     //Help functions

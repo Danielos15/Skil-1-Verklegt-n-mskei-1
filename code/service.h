@@ -4,6 +4,7 @@
 #include <string>
 #include "ui.h"
 #include "datarepo.h"
+#include "relationscputosci.h"
 #include <algorithm>
 
 using namespace std;
@@ -28,6 +29,7 @@ private:
     // Other classes
     scientist sci_db;
     computer cmp_db;
+    relationsCpuToSci rel_db;
     datarepo db;
     ui interface;
 
