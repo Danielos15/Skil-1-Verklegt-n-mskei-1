@@ -34,10 +34,6 @@ private:
     void getUserInput();
     void getFunction();
 
-    //Help functions
-    void getStartInfo();
-    void getHelpInfo();
-
     //Add a scientist to the database
     void addScientist();
 

@@ -21,6 +21,11 @@ public:
     void renderText(string text);
     void renderScientists(vector<scientist> scientists);
     void renderComputers(vector<computer> computers);
+    bool getYesOrNo();
+
+    //Help functions
+    void getStartInfo();
+    void getHelpInfo();
 };
 
 #endif // UI

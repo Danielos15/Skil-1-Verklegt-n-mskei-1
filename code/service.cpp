@@ -17,7 +17,7 @@ void service::init(){
 }
 
 void service::run(){
-    getStartInfo();
+    interface.getStartInfo();
     while (true) {
         //Infinit loop until user wants to quit.
 
@@ -45,12 +45,43 @@ void service::getFunction(){
     input.erase(0,functionSepPos+1);
 
     // if User wants to render scientists
-    if (function == "displaysc"){
-        interface.renderScientists(scientists);
-    }
-    // if User wants to render computers
-    else if(function == "displayco"){
-        interface.renderComputers(computers);
+    if (function == "display"){
+        interface.renderText("Witch database table would you like to display? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        int inc = interface.getInt();
+        while(inc > 2){
+            interface.renderText("Unavalible option, try again: ");
+            inc = interface.getInt();
+        }
+        if (inc == 1){
+            interface.renderText("Would you like to search for something specific?");
+            bool search = interface.getYesOrNo();
+            if (search){
+                interface.renderText("In all columns or a specific one? \n");
+                interface.renderText("Avalible Columns [name][gender][birth][death][all] \n");
+                string searchColumn = interface.getInput();
+                while(searchColumn != "name" || searchColumn != "gender" || searchColumn != "birth" || searchColumn != "death" || searchColumn != "all"){
+                    string searchString;
+                    if (searchColumn == "name"){
+
+                    }else if(searchColumn == "gender"){
+
+                    }else if(searchColumn == "birth"){
+
+                    }else if(searchColumn == "death"){
+
+                    }else{
+
+                    }
+                }
+            }
+
+            interface.renderScientists(scientists);
+        }else if (inc == 2){
+            interface.renderComputers(computers);
+        }
     }
 
     // Add a scientist or a computer to the database.
@@ -276,7 +307,7 @@ void service::getFunction(){
 
     // Get the help info.
     else if (function == "help"){
-        getHelpInfo();
+        interface.getHelpInfo();
     }
     else if (function == "exit" || function == "quit"){
         // exit;
@@ -397,23 +428,4 @@ void service::addComputer(){
     computer cmp(name,build,type,was);
     // add the computer to the database.
     cmp.save();
-}
-
-void service::getStartInfo(){
-    interface.renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
-    interface.renderText("Here you can search the database for computer scientists and computers\n that have made a big impact in the field.\n");
-    interface.renderText("Please type [help] to get more info. \n");
-}
-
-void service::getHelpInfo(){
-    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
-    interface.renderText("There are a few commands which interact with the database: \n");
-    interface.renderText("[addsc]     : With this you can add a new computer scientist to the database. \n");
-    interface.renderText("[addco]     : With this you can add a new computer to the database. \n");
-    interface.renderText("[addre]     : With this you can add a relation between scientists and computers. \n");
-    interface.renderText("[displaysc] : Display the scientists \n");
-    interface.renderText("[displayco] : Display the computers \n");
-    interface.renderText("[displayre] : Display the relation between scientists and computers \n");
-    interface.renderText("[exit] or [quit] to close the database \n");
-    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
 }

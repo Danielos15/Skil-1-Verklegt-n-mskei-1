@@ -103,7 +103,7 @@ void ui::renderComputers(vector<computer> computers){
             if (i < computers.size()){
                 lines[0] += "  Name: " + computers[i].getName();
                 lines[1] += "  Build year: " + iTOs(computers[i].getBuild());
-                lines[2] += "  Type of Computer: " + computers[i].getType();
+                lines[2] += "  Type : " + computers[i].getType();
                 if(computers[i].getWas()){
                     lines[3] += "  Computer was built: ";
                 }else{
@@ -140,3 +140,33 @@ void ui::renderComputers(vector<computer> computers){
     }
 }
 
+void ui::getStartInfo(){
+    renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
+    renderText("Here you can search the database for computer scientists and computers\n that have made a big impact in the field.\n");
+    renderText("Please type [help] to get more info. \n");
+}
+
+void ui::getHelpInfo(){
+    renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
+    renderText("There are a few commands which interact with the database: \n");
+    renderText("[add]     : With this you can add a new computer or a scientist to the database. \n");
+    renderText("[displaysc] : Display the scientists \n");
+    renderText("[displayco] : Display the computers \n");
+    renderText("[displayre] : Display the relation between scientists and computers \n");
+    renderText("[exit] or [quit] to close the database \n");
+    renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
+}
+
+bool ui::getYesOrNo(){
+    string input;
+    input = getInput();
+    while(input != "y" && input != "n"){
+        renderText("Invalid option, try again: ");
+        input = getInput();
+    }
+    if (input != "y"){
+        return true;
+    }else{
+        return false;
+    }
+}
