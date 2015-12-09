@@ -1,4 +1,4 @@
-QT += core
+QT += core sql
 QT -= gui
 
 TARGET = Verk1
@@ -9,16 +9,19 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     ui.cpp \
-    repo.cpp \
     service.cpp \
-    scientist.cpp
+    scientist.cpp \
+    computer.cpp \
+    datarepo.cpp \
+    relationscputosci.cpp
 
 HEADERS += \
     ui.h \
     service.h \
     scientist.h \
-    repo.h
+    computer.h \
+    datarepo.h \
+    relationscputosci.h
 
 DISTFILES += \
-    test.csv
 

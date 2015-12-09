@@ -2,8 +2,9 @@
 #define SERVICE
 #include <vector>
 #include <string>
-#include "repo.h"
 #include "ui.h"
+#include "datarepo.h"
+#include "relationscputosci.h"
 #include <algorithm>
 
 using namespace std;
@@ -17,6 +18,8 @@ public:
 
 private:
     vector<scientist> scientists;
+    vector<computer> computers;
+
     string input;
 
     string function;
@@ -24,18 +27,20 @@ private:
     string order;
 
     // Other classes
-    repo connection;
+    scientist sci_db;
+    computer cmp_db;
+    relationsCpuToSci rel_db;
+    datarepo db;
     ui interface;
 
     void getUserInput();
     void getFunction();
 
-    //Help functions
-    void getStartInfo();
-    void getHelpInfo();
-
-    //Add scientist to the database
+    //Add a scientist to the database
     void addScientist();
+
+    //Add a computer to the database
+    void addComputer();
 
     //Sort functions
     void sortByName();

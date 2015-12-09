@@ -2,23 +2,24 @@
 #include <string>
 #include <sstream>
 #include "service.h"
-#include "repo.h"
 #include "scientist.h"
 #include "ui.h"
+#include "datarepo.h"
+#include "computer.h"
+#include "relationscputosci.h"
 
 service::service(){}
 
 void service::init(){
-    //Setup database connection
-    string databaseFile = "database.csv";
-    connection.setFile(databaseFile);
-    connection.connect();
-    //get the database table
-    scientists = connection.fetchAll();
+    db.connect();
+
+    scientists = sci_db.fetchAll("id");
+    computers = cmp_db.fetchAll("id");
+
 }
 
 void service::run(){
-    getStartInfo();
+    interface.getStartInfo();
     while (true) {
         //Infinit loop until user wants to quit.
 
@@ -29,6 +30,7 @@ void service::run(){
         if (function == "quit" || function == "exit"){
             interface.renderText("Thank you for using our database, come back again soon. \n");
             break; // exit if user wants to.
+            db.close();
         }
     }
 }
@@ -44,137 +46,507 @@ void service::getFunction(){
     function = input.substr(0, functionSepPos);
     input.erase(0,functionSepPos+1);
 
-    // if User wants to render results
+    // if User wants to render scientists
     if (function == "display"){
-        interface.renderVector(scientists);
-    }
-    // If user wants to use Sort or Search
-    else if (function == "sort" || function == "search"){
-        //Get option
-        interface.renderText("By what column? [name][gender][birth][death] \n");
-        interface.renderText("Column: ");
-        option = interface.getInput();
-        while (option != "name" && option != "gender" && option != "birth" && option != "death"){
-            interface.renderText("Not an avalible column, try again: [name][gender][birth][death] \n");
-            interface.renderText("Column: ");
-            option = interface.getInput();
+        interface.renderText("Which database table would you like to display? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        int inc = interface.getInt();
+        while(inc != 1 && inc != 2){
+            interface.renderText("Unavailable option, try again: ");
+            inc = interface.getInt();
         }
-        if (function == "sort"){
-            //getOrder
-            interface.renderText("In what order? [asc][desc] \n");
-            interface.renderText("Order: ");
-            order = interface.getInput();
-            while (order != "asc" && order != "desc"){
-                interface.renderText("Not an avalible order, try again: [asc][desc] \n");
-                interface.renderText("Order: ");
-                order = interface.getInput();
-            }
-            //Calling requested function
-            if (option == "name"){
-                sortByName();
-            }else if(option == "gender"){
-                sortByGender();
-            }else if (option == "birth"){
-                sortByBirth();
-            }else if (option == "death"){
-                sortByDeath();
-            }
-            interface.renderText("Done sorting... \n");
-        }else {
-            //Get Search string from user
-            interface.renderText("What to search for? \n");
-            interface.renderText("Keyword: ");
-            order = interface.getInput();
+        if (inc == 1){
+            // Search for a keyword?
+            interface.renderText("Would you like to search for something specific? \n");
+            string orderColumn, searchColumn, searchString;
+            interface.renderText("Enter y/n: ");
+            bool search = interface.getYesOrNo();
+            if (search){
+                interface.renderText("In all columns or a specific one? \n");
+                interface.renderText("Available Columns [name][gender][birth][death] or [all] \n");
+                interface.renderText("Enter Column: ");
+                searchColumn = interface.getInput();
+                while(searchColumn != "name" && searchColumn != "gender" && searchColumn != "birth" && searchColumn != "death" && searchColumn != "all"){
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][gender][birth][death] or [all] \n");
+                    interface.renderText("Enter Column: ");
+                    searchColumn = interface.getInput();
+                }
+                interface.renderText("Enter keyword to search for: ");
+                cin.ignore();
+                searchString = interface.getLine();
 
-            //Searching in requested column.
-            if (option == "name"){
-                scientists = connection.fetchByName(order);
-            }else if(option == "gender"){
-                scientists = connection.fetchBySex(order);
-            }else if (option == "birth"){
-                scientists = connection.fetchByBorn(order);
-            }else if (option == "death"){
-                scientists = connection.fetchByDeath(order);
+            }else{
+                searchString = "NULL";
             }
+
+            // Order By a column?
+            interface.renderText("Would you like to order by a specific column? \n");
+            interface.renderText("Enter y/n: ");
+            bool order = interface.getYesOrNo();
+            if (order){
+                interface.renderText("Avalible Columns [name][gender][birth][death] \n");
+                interface.renderText("Enter Column: ");
+                orderColumn = interface.getInput();
+                while(orderColumn != "name" && orderColumn != "gender" && orderColumn != "birth" && orderColumn != "death"){
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][gender][birth][death] \n");
+                    interface.renderText("Enter Column: ");
+                    orderColumn = interface.getInput();
+                }
+            }else{
+                orderColumn = "id";
+            }
+
+            if (searchColumn == "name"){
+                scientists = sci_db.fetchByName(searchString,orderColumn);
+            }else if(searchColumn == "gender"){
+                orderColumn = "sex";
+                scientists = sci_db.fetchBySex(searchString,orderColumn);
+            }else if(searchColumn == "birth"){
+                scientists = sci_db.fetchByBorn(searchString,orderColumn);
+            }else if(searchColumn == "death"){
+                scientists = sci_db.fetchByDeath(searchString,orderColumn);
+            }else{
+                scientists = sci_db.fetchAll(orderColumn);
+            }
+
+            interface.renderScientists(scientists);
+
+        }else if (inc == 2){
+            // Search for a keyword?
+            interface.renderText("Would you like to search for something specific? \n");
+            string orderColumn, searchColumn, searchString;
+            interface.renderText("Enter y/n: ");
+            bool search = interface.getYesOrNo();
+            if (search){
+                interface.renderText("In all columns or a specific one? \n");
+                interface.renderText("Available Columns [name][build][type][wasBuilt] or [all] \n");
+                interface.renderText("Enter Column: ");
+                searchColumn = interface.getInput();
+                while(searchColumn != "name" && searchColumn != "build" && searchColumn != "type" && searchColumn != "wasBuilt" && searchColumn != "all"){
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][build][type][wasBuilt] or [all] \n");
+                    interface.renderText("Enter Column: ");
+                    searchColumn = interface.getInput();
+                }
+                interface.renderText("Enter keyword to search for: ");
+                cin.ignore();
+                searchString = interface.getLine();
+
+            }else{
+                searchString = "NULL";
+            }
+
+            // Order By a column?
+            interface.renderText("Would you like to order by a specific column? \n");
+            interface.renderText("Enter y/n: ");
+            bool order = interface.getYesOrNo();
+            if (order){
+                interface.renderText("Available Columns [name][build][type][wasBuilt] \n");
+                interface.renderText("Enter Column: ");
+                orderColumn = interface.getInput();
+                while(orderColumn != "name" && orderColumn != "build" && orderColumn != "type" && orderColumn != "wasBuilt"){
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][build][type][wasBuilt] \n");
+                    interface.renderText("Enter Column: ");
+                    orderColumn = interface.getInput();
+                }
+            }else{
+                orderColumn = "id";
+            }
+
+            if (searchColumn == "name"){
+                computers = cmp_db.fetchByName(searchString,orderColumn);
+            }else if(searchColumn == "build"){
+                orderColumn = "build_year";
+                computers = cmp_db.fetchByBuild(searchString,orderColumn);
+            }else if(searchColumn == "type"){
+                computers = cmp_db.fetchByType(searchString,orderColumn);
+            }else if(searchColumn == "wasBuilt"){
+                orderColumn = "was_built";
+                computers = cmp_db.fetchByWasBuilt(searchString,orderColumn);
+            }else{
+                computers = cmp_db.fetchAll(orderColumn);
+            }
+            interface.renderComputers(computers);
         }
+    }
 
+    // Add a scientist or a computer to the database.
+        else if (function == "add"){
+            interface.renderText("To which database table would you like to add to? \n");
+            interface.renderText("1: Scientists Table \n");
+            interface.renderText("2: Computers Table \n");
+            interface.renderText("Enter database table number: ");
+            int inc = interface.getInt();
+            while(inc != 1 && inc != 2){
+                interface.renderText("Unavailable option, try again: ");
+                inc = interface.getInt();
+            }
+            if(inc == 1){
+                addScientist();
+            }else if(inc == 2){
+                addComputer();
+            }
     }
-    // Add scientist to the database.
-    else if (function == "add"){
-        addScientist();
+
+
+    // Remove from database, computer or Scientist
+    else if(function == "remove"){
+        interface.renderText("From which database table would you like to remove from? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        cin.ignore();
+        int inc = interface.getInt();
+        while(inc != 1 && inc != 2){
+            interface.renderText("Unavailable option, try again: ");
+            inc = interface.getInt();
+        }
+        int removeId = 0;
+        if (inc == 1){
+            interface.renderText("Select the ID of the instance in Scientists table to remove: ");
+            removeId = interface.getInt();
+            scientist sci;
+            sci.setId(removeId);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                removeId = interface.getInt();
+                sci.setId(removeId);
+            }
+            sci.remove();
+            interface.renderText("Instance found in database and was removed");
+        }else if (inc == 2){
+            interface.renderText("Select the ID of the instance in Computers table to remove: ");
+            removeId = interface.getInt();
+            computer cpu;
+            cpu.setId(removeId);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                removeId = interface.getInt();
+                cpu.setId(removeId);
+            }
+            cpu.remove();
+            interface.renderText("Instance found in database and was removed");
+        }
     }
+
+    // Edit in the database, computer or Scientist
+    else if(function == "edit"){
+        interface.renderText("From which database table would you like to edit from? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        cin.ignore();
+        int inc = interface.getInt();
+        while(inc > 2){
+            interface.renderText("Unavalible option, try again: ");
+            inc = interface.getInt();
+        }
+        int editId = 0;
+        if (inc == 1){
+            interface.renderText("Select the ID of the instance in Scientists table to edit: ");
+            editId = interface.getInt();
+            scientist sci;
+            sci.setId(editId);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                editId = interface.getInt();
+                sci.setId(editId);
+            }
+            //Edit function
+            sci.getInfo();
+            //Edit name?
+            interface.renderText("Edit name y/n: ");
+            cin.ignore();
+            string edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new name: ");
+                cin.ignore();
+                string name = interface.getLine();
+                sci.setName(name);
+            }
+            //Edit gender?
+            interface.renderText("Edit gender y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new gender f/m: ");
+                string gender = interface.getInput();
+                while(gender != "f" && gender != "m"){
+                    interface.renderText("Invalid option, try again f/m: ");
+                    gender = interface.getInput();
+                }
+                if (gender == "m"){
+                    gender = "Male";
+                }else {
+                    gender = "Female";
+                }
+                sci.setSex(gender);
+            }
+
+            //Edit birth?
+            interface.renderText("Edit year of birth y/n: ");
+            cin.ignore();
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter year of birth: ");
+                int born = interface.getInt();
+                while (born > 2015){
+                    interface.renderText("Year not avalible, try again: ");
+                    born = interface.getInt();
+                }
+                sci.setBorn(born);
+            }
+            //Edit death?
+            interface.renderText("Edit year of death y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter year of death: ");
+                int death = interface.getInt();
+                while (sci.getBorn() > death || death > 2015){
+                    interface.renderText("Person can't have died that year, try again: ");
+                    death = interface.getInt();
+                }
+                sci.setDeath(death);
+            }
+            sci.save();
+            interface.renderText("Instance found in database and was edited. \n");
+        }else if (inc == 2){
+            interface.renderText("Select the ID of the instance in Computers table to edit: ");
+            int editId = interface.getInt();
+            computer cpu;
+            cpu.setId(editId);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                editId = interface.getInt();
+                cpu.setId(editId);
+            }
+            //Edit function
+            cpu.getInfo();
+            //Edit name?
+            interface.renderText("Edit name y/n: ");
+            cin.ignore();
+            string edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new name: ");
+                cin.ignore();
+                string name = interface.getLine();
+                cpu.setName(name);
+            }
+            //Edit build_year?
+            interface.renderText("Edit Build year y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new build year: ");
+                int build_year = interface.getInt();
+                cpu.setBuild(build_year);
+            }
+
+            //Edit Type?
+            interface.renderText("Edit type y/n: ");
+            cin.ignore();
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new type: ");
+                cin.ignore();
+                string type = interface.getLine();
+                cpu.setType(type);
+            }
+            //Edit Was built?
+            interface.renderText("Edit if it was built or not y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Was it built or not y/n: ");
+                string wasBuilt = interface.getInput();
+                while(wasBuilt != "y" && wasBuilt != "n"){
+                    interface.renderText("Invalid option, try again: ");
+                    wasBuilt = interface.getInput();
+                }
+                if (wasBuilt == "y"){
+                    cpu.setWas(true);
+                }else {
+                    cpu.setWas(false);
+                }
+            }
+            cpu.save();
+            interface.renderText("Instance found in database and was edited. \n");
+        }
+    }
+
     // Get the help info.
     else if (function == "help"){
-        getHelpInfo();
+        interface.getHelpInfo();
     }
-    // Reset the search resault and get fresh from database.
-    else if (function == "reset"){
-        scientists = connection.fetchAll();
-        interface.renderText("Results reset... \n");
-    }else if (function == "exit" || function == "quit"){
+    else if (function == "exit" || function == "quit"){
         // exit;
-    }else {
+    }
+    // connect computer and scientist
+    else if (function == "connections") {
+        interface.renderText("Would you like to make new connection or remove a existing one? \n");
+        interface.renderText("1: Make a new connection \n");
+        interface.renderText("2: Remove a old connection \n");
+        interface.renderText("Enter option number: ");
+        int choice = interface.getInt();
+        while(choice != 1 && choice != 2){
+            interface.renderText("Unavalible option, try again: ");
+            choice = interface.getInt();
+        }
+        if(choice == 1){
+            int cpu_id, sci_id;
+            interface.renderText("Enter the Id of the Scientist: ");
+            sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            interface.renderText("Enter the Id of the Computer: ");
+            cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+
+            relationsCpuToSci relation(cpu_id, sci_id);
+            if (relation.exists()){
+                interface.renderText("Connection already in database. \n");
+            }else {
+                relation.save();
+                interface.renderText("Connection added to database. \n");
+            }
+
+        }else if (choice == 2){
+            int cpu_id, sci_id;
+            interface.renderText("Enter the Id of the Scientist: ");
+            sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            interface.renderText("Enter the Id of the Computer: ");
+            cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+
+            relationsCpuToSci relation(cpu_id, sci_id);
+            if (relation.exists()){
+                relation.remove();
+                interface.renderText("Connection removed from database. \n");
+            }else {
+                interface.renderText("Connection not in database. \n");
+            }
+        }
+    }
+    // see connections
+    else if(function == "connected") {
+        interface.renderText("Which database table connection would you like to see? \n");
+        interface.renderText("1: Scientist to Computers \n");
+        interface.renderText("2: Computer to Scientists \n");
+        interface.renderText("Enter option number: ");
+        int choice = interface.getInt();
+        while(choice != 1 && choice != 2){
+            interface.renderText("Unavalible option, try again: ");
+            choice = interface.getInt();
+        }
+        if(choice == 1){
+            interface.renderText("Input the Id of the scientist: ");
+            int sci_id = interface.getInt();
+            scientist sci;
+            sci.setId(sci_id);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                sci_id = interface.getInt();
+                sci.setId(sci_id);
+            }
+            sci.getInfo();
+            computers = rel_db.fetchBySciId(sci.getId());
+            interface.renderConnectedCpu(sci, computers);
+
+        }else if(choice == 2){
+            interface.renderText("Input the Id of the computer: ");
+            int cpu_id = interface.getInt();
+            computer cpu;
+            cpu.setId(cpu_id);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                cpu_id = interface.getInt();
+                cpu.setId(cpu_id);
+            }
+            cpu.getInfo();
+            scientists = rel_db.fetchByCpuId(cpu.getId());
+            interface.renderConnectedSci(cpu, scientists);
+        }
+    }
+    //NOthing avalible
+    else {
         interface.renderText("Invalid command! try [help] to get more info \n");
-    }
-}
-//Setup for Ascending and Descending orders for Sort.
-bool ascOrderName(const scientist sci1, const scientist sci2){return sci1.getName() < sci2.getName();}
-bool descOrderName(const scientist sci1, const scientist sci2){return sci1.getName() > sci2.getName();}
-
-bool ascOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() < sci2.getSex();}
-bool descOrderGender(const scientist sci1, const scientist sci2){return sci1.getSex() > sci2.getSex();}
-
-bool ascOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() < sci2.getBorn();}
-bool descOrderBirth(const scientist sci1, const scientist sci2){return sci1.getBorn() > sci2.getBorn();}
-
-bool ascOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() < sci2.getDeath();}
-bool descOrderDeath(const scientist sci1, const scientist sci2){return sci1.getDeath() > sci2.getDeath();}
-
-// All sort functions by column.
-void service::sortByName() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderName);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderName);
-    }
-}
-void service::sortByGender() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderGender);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderGender);
-    }
-}
-void service::sortByBirth() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderBirth);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderBirth);
-    }
-}
-void service::sortByDeath() {
-    if (order == "desc"){
-        sort(scientists.begin(), scientists.end(), descOrderDeath);
-    }else {
-        sort(scientists.begin(), scientists.end(), ascOrderDeath);
     }
 }
 
 //Add new scientist to current results and to the database.
 void service::addScientist(){
-    string name,sex,gender,bornS,deathS,alive = "w";
+    string name,sex,gender,alive = "w";
     int born,death;
 
     //Get the name.
     interface.renderText("Enter Name: ");
-    name = interface.getInput();
+    cin.ignore();
+    name = interface.getLine();
 
     //Get the gender of the person.
     interface.renderText("What gender (m/f): ");
     sex = interface.getInput();
     do {
         if (sex != "m" && sex != "f") {
-            interface.renderText("Gender selection not avalible, use either m/f: ");
+            interface.renderText("Gender selection not avalable, use either m/f: ");
             sex = interface.getInput();
         }
         if (sex == "m"){
@@ -191,13 +563,9 @@ void service::addScientist(){
     born = interface.getInt();
 
     while (born > 2015){
-        interface.renderText("person not born yet, enter another year: ");
+        interface.renderText("Person not born yet, enter another year: ");
         born = interface.getInt();
     }
-    // From int to string
-    ostringstream strm;
-    strm << born;
-    bornS = strm.str();
 
     //See if person is still alive or not.
     interface.renderText("Is " + gender + " still alive (y/n): ");
@@ -206,47 +574,72 @@ void service::addScientist(){
     while (alive != "y" && alive != "n"){
         alive = interface.getInput();
         if (alive != "y" && alive != "n"){
-            interface.renderText("Please answear y/n: ");
+            interface.renderText("Please answer y/n: ");
         }
     }
     if (alive == "y"){
-        deathS = "0";
+        death = 0;
     }else {
         interface.renderText("What year did " + gender + " die: ");
         death = interface.getInt();
-        while (death < born && death < 2015){
+        while (death < born || death > 2015){
             interface.renderText(gender + " can't have died that year \n");
             interface.renderText("try another year: ");
             death = interface.getInt();
         }
-        strm.str("");
-        strm << death;
-        deathS = strm.str();
     }
 
     // make a new scientist.
-    scientist sci(name,sex,bornS,deathS);
+    scientist sci(name,sex,born,death);
     // add him to the current results.
     scientists.push_back(sci);
     // add him to the database.
-    connection.add(sci);
+    sci.save();
 }
 
-void service::getStartInfo(){
-    interface.renderText("Welcome to the Computer scientist Ultimate database 5000! \n");
-    interface.renderText("Here you can search the database for computer scientist that \nhave made a big impact on the field.\n");
-    interface.renderText("Please type [help] to get more info. \n");
-}
+// add a computer to the database
 
-void service::getHelpInfo(){
-    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
-    interface.renderText("There are a few commands to interact with the databse: \n");
-    interface.renderText("[add]     : With this you can add a new Computer scientist to the database, just make sure he/she is good enough. \n");
-    interface.renderText("[sort]    : You can sort the database with the avalible columns and in either ascending or descending order. \n");
-    interface.renderText("[search]  : Search which column you like with a keyword that you like and see what you find. \n");
-    interface.renderText("[display] : The other functions would be no good if you couldn't display the results somehow, well this is the way. \n");
-    interface.renderText("[reset]   : With this function you can undo all the sorting and searching filters that you have used and start over again \n");
-    interface.renderText("[exit] or [quit] to close the database \n");
-    interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
+void service::addComputer(){
+    string name,type;
+    int build;
+    bool was;
 
+    //Get the name.
+    interface.renderText("Enter Name: ");
+    name = interface.getInput();
+
+    //Get the Build year of the computer.
+    interface.renderText("What year was the computer built: ");
+    build = interface.getInt();
+
+    //Error checking for build year.
+    while (build > 2015){
+        interface.renderText("Computer not built yet, enter another year: ");
+        build = interface.getInt();
+    }
+
+    //Get the type of the computer.
+    interface.renderText("Enter the type of the computer: ");
+    type = interface.getInput();
+
+
+    //Was this machine ever built.
+    interface.renderText("Was this machine ever mass produced? y/n: ");
+    string checkWas;
+    checkWas = interface.getInput();
+
+    while(checkWas !=  "y" && checkWas != "n"){
+        interface.renderText("Incorrect input, please only use y/n: ");
+        checkWas = interface.getInput();
+    }
+    if (checkWas == "y"){
+        was = true;
+    }else {
+        was = false;
+    }
+
+    // make a new computer.
+    computer cmp(name,build,type,was);
+    // add the computer to the database.
+    cmp.save();
 }

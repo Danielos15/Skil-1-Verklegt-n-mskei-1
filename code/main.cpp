@@ -1,8 +1,9 @@
 #include <QCoreApplication>
-#include "repo.h"
 #include "scientist.h"
 #include "ui.h"
 #include "service.h"
+#include "datarepo.h"
+#include "relationscputosci.h"
 
 using namespace std;
 
