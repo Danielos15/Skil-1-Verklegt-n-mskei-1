@@ -157,10 +157,10 @@ void ui::getHelpInfo(){
     renderText("There are a few commands which interact with the database: \n");
     renderText("[add]         : Add a new computer or a scientist to the database. \n");
     renderText("[edit]        : Edit an existing computer or a scientist in the database. \n");
-    renderText("[remove]      : Remove a existing computer or a scientist from the database. \n");
+    renderText("[remove]      : Remove an existing computer or a scientist from the database. \n");
     renderText("[display]     : Display the computers or scientists from the database. \n");
-    renderText("[connected]   : See how computers and scientists are connected togather. \n");
-    renderText("[connections] : Connect a computer and a scientist togather. \n");
+    renderText("[connected]   : See how computers and scientists are connected together. \n");
+    renderText("[connections] : Connect a computer and a scientist together. \n");
     renderText("[exit] or [quit] to close the database. \n");
     renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - - - - - - \n");
 }

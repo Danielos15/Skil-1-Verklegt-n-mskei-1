@@ -48,13 +48,13 @@ void service::getFunction(){
 
     // if User wants to render scientists
     if (function == "display"){
-        interface.renderText("Witch database table would you like to display? \n");
+        interface.renderText("Which database table would you like to display? \n");
         interface.renderText("1: Scientists Table \n");
         interface.renderText("2: Computers Table \n");
         interface.renderText("Enter database table number: ");
         int inc = interface.getInt();
         while(inc != 1 && inc != 2){
-            interface.renderText("Unavalible option, try again: ");
+            interface.renderText("Unavailable option, try again: ");
             inc = interface.getInt();
         }
         if (inc == 1){
@@ -65,12 +65,12 @@ void service::getFunction(){
             bool search = interface.getYesOrNo();
             if (search){
                 interface.renderText("In all columns or a specific one? \n");
-                interface.renderText("Avalible Columns [name][gender][birth][death] or [all] \n");
+                interface.renderText("Available Columns [name][gender][birth][death] or [all] \n");
                 interface.renderText("Enter Column: ");
                 searchColumn = interface.getInput();
                 while(searchColumn != "name" && searchColumn != "gender" && searchColumn != "birth" && searchColumn != "death" && searchColumn != "all"){
-                    interface.renderText("Unavalible option, try again \n");
-                    interface.renderText("Avalible Columns [name][gender][birth][death] or [all] \n");
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][gender][birth][death] or [all] \n");
                     interface.renderText("Enter Column: ");
                     searchColumn = interface.getInput();
                 }
@@ -91,8 +91,8 @@ void service::getFunction(){
                 interface.renderText("Enter Column: ");
                 orderColumn = interface.getInput();
                 while(orderColumn != "name" && orderColumn != "gender" && orderColumn != "birth" && orderColumn != "death"){
-                    interface.renderText("Unavalible option, try again \n");
-                    interface.renderText("Avalible Columns [name][gender][birth][death] \n");
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][gender][birth][death] \n");
                     interface.renderText("Enter Column: ");
                     orderColumn = interface.getInput();
                 }
@@ -123,12 +123,12 @@ void service::getFunction(){
             bool search = interface.getYesOrNo();
             if (search){
                 interface.renderText("In all columns or a specific one? \n");
-                interface.renderText("Avalible Columns [name][build][type][wasBuilt] or [all] \n");
+                interface.renderText("Available Columns [name][build][type][wasBuilt] or [all] \n");
                 interface.renderText("Enter Column: ");
                 searchColumn = interface.getInput();
                 while(searchColumn != "name" && searchColumn != "build" && searchColumn != "type" && searchColumn != "wasBuilt" && searchColumn != "all"){
-                    interface.renderText("Unavalible option, try again \n");
-                    interface.renderText("Avalible Columns [name][build][type][wasBuilt] or [all] \n");
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][build][type][wasBuilt] or [all] \n");
                     interface.renderText("Enter Column: ");
                     searchColumn = interface.getInput();
                 }
@@ -145,12 +145,12 @@ void service::getFunction(){
             interface.renderText("Enter y/n: ");
             bool order = interface.getYesOrNo();
             if (order){
-                interface.renderText("Avalible Columns [name][build][type][wasBuilt] \n");
+                interface.renderText("Available Columns [name][build][type][wasBuilt] \n");
                 interface.renderText("Enter Column: ");
                 orderColumn = interface.getInput();
                 while(orderColumn != "name" && orderColumn != "build" && orderColumn != "type" && orderColumn != "wasBuilt"){
-                    interface.renderText("Unavalible option, try again \n");
-                    interface.renderText("Avalible Columns [name][build][type][wasBuilt] \n");
+                    interface.renderText("Unavailable option, try again \n");
+                    interface.renderText("Available Columns [name][build][type][wasBuilt] \n");
                     interface.renderText("Enter Column: ");
                     orderColumn = interface.getInput();
                 }
@@ -177,13 +177,13 @@ void service::getFunction(){
 
     // Add a scientist or a computer to the database.
         else if (function == "add"){
-            interface.renderText("From witch database table would you like to add to? \n");
+            interface.renderText("To which database table would you like to add to? \n");
             interface.renderText("1: Scientists Table \n");
             interface.renderText("2: Computers Table \n");
             interface.renderText("Enter database table number: ");
             int inc = interface.getInt();
             while(inc != 1 && inc != 2){
-                interface.renderText("Unavalible option, try again: ");
+                interface.renderText("Unavailable option, try again: ");
                 inc = interface.getInt();
             }
             if(inc == 1){
@@ -196,14 +196,14 @@ void service::getFunction(){
 
     // Remove from database, computer or Scientist
     else if(function == "remove"){
-        interface.renderText("From witch database table would you like to remove from? \n");
+        interface.renderText("From which database table would you like to remove from? \n");
         interface.renderText("1: Scientists Table \n");
         interface.renderText("2: Computers Table \n");
         interface.renderText("Enter database table number: ");
         cin.ignore();
         int inc = interface.getInt();
         while(inc != 1 && inc != 2){
-            interface.renderText("Unavalible option, try again: ");
+            interface.renderText("Unavailable option, try again: ");
             inc = interface.getInt();
         }
         int removeId = 0;
@@ -236,7 +236,7 @@ void service::getFunction(){
 
     // Edit in the database, computer or Scientist
     else if(function == "edit"){
-        interface.renderText("From witch database table would you like to edit from? \n");
+        interface.renderText("From which database table would you like to edit from? \n");
         interface.renderText("1: Scientists Table \n");
         interface.renderText("2: Computers Table \n");
         interface.renderText("Enter database table number: ");
@@ -487,7 +487,7 @@ void service::getFunction(){
     }
     // see connections
     else if(function == "connected") {
-        interface.renderText("Witch database table connection would you like to see? \n");
+        interface.renderText("Which database table connection would you like to see? \n");
         interface.renderText("1: Scientist to Computers \n");
         interface.renderText("2: Computer to Scientists \n");
         interface.renderText("Enter option number: ");
