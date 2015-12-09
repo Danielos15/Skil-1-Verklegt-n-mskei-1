@@ -164,7 +164,7 @@ bool ui::getYesOrNo(){
         renderText("Invalid option, try again: ");
         input = getInput();
     }
-    if (input != "y"){
+    if (input == "y"){
         return true;
     }else{
         return false;

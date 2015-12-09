@@ -31,11 +31,11 @@ public:
     void remove();
 
 
-    vector<computer> fetchAll();
-    vector<computer> fetchByName(string searchString);
-    vector<computer> fetchByBuild(string searchString);
-    vector<computer> fetchByType(string searchString);
-    vector<computer> fetchByWasBuilt(string searchString);
+    vector<computer> fetchAll(string orderBy);
+    vector<computer> fetchByName(string searchString, string orderBy);
+    vector<computer> fetchByBuild(string searchString, string orderBy);
+    vector<computer> fetchByType(string searchString, string orderBy);
+    vector<computer> fetchByWasBuilt(string searchString, string orderBy);
 
 private:
     QSqlDatabase db;

@@ -12,8 +12,8 @@ service::service(){}
 void service::init(){
     db.connect();
 
-    scientists = sci_db.fetchAll();
-    computers = cmp_db.fetchAll();
+    scientists = sci_db.fetchAll("id");
+    computers = cmp_db.fetchAll("id");
 }
 
 void service::run(){
@@ -56,29 +56,63 @@ void service::getFunction(){
             inc = interface.getInt();
         }
         if (inc == 1){
-            interface.renderText("Would you like to search for something specific?");
+            // Search for a keyword?
+            interface.renderText("Would you like to search for something specific? \n");
+            string orderColumn, searchColumn, searchString;
+            interface.renderText("Enter y/n: ");
             bool search = interface.getYesOrNo();
             if (search){
                 interface.renderText("In all columns or a specific one? \n");
-                interface.renderText("Avalible Columns [name][gender][birth][death][all] \n");
-                string searchColumn = interface.getInput();
-                while(searchColumn != "name" || searchColumn != "gender" || searchColumn != "birth" || searchColumn != "death" || searchColumn != "all"){
-                    string searchString;
-                    if (searchColumn == "name"){
-
-                    }else if(searchColumn == "gender"){
-
-                    }else if(searchColumn == "birth"){
-
-                    }else if(searchColumn == "death"){
-
-                    }else{
-
-                    }
+                interface.renderText("Avalible Columns [name][gender][birth][death] or [all] \n");
+                interface.renderText("Enter Column: ");
+                searchColumn = interface.getInput();
+                while(searchColumn != "name" && searchColumn != "gender" && searchColumn != "birth" && searchColumn != "death" && searchColumn != "all"){
+                    interface.renderText("Unavalible option, try again \n");
+                    interface.renderText("Avalible Columns [name][gender][birth][death] or [all] \n");
+                    interface.renderText("Enter Column: ");
+                    searchColumn = interface.getInput();
                 }
+                interface.renderText("Enter keyword to search for: ");
+                cin.ignore();
+                searchString = interface.getLine();
+
+            }else{
+                searchString = "NULL";
+            }
+
+            // Order By a column?
+            interface.renderText("Would you like to order by a specific column? \n");
+            interface.renderText("Enter y/n: ");
+            bool order = interface.getYesOrNo();
+            if (order){
+                interface.renderText("Avalible Columns [name][gender][birth][death] \n");
+                interface.renderText("Enter Column: ");
+                orderColumn = interface.getInput();
+                while(orderColumn != "name" && orderColumn != "gender" && orderColumn != "birth" && orderColumn != "death"){
+                    interface.renderText("Unavalible option, try again \n");
+                    interface.renderText("Avalible Columns [name][gender][birth][death] \n");
+                    interface.renderText("Enter Column: ");
+                    orderColumn = interface.getInput();
+                }
+            }else{
+                //orderColumn = "id";
+            }
+
+            if (searchColumn == "name"){
+                scientists = sci_db.fetchByName(searchString,orderColumn);
+            }else if(searchColumn == "gender"){
+                orderColumn = "sex";
+                scientists = sci_db.fetchBySex(searchString,orderColumn);
+            }else if(searchColumn == "birth"){
+                scientists = sci_db.fetchByBorn(searchString,orderColumn);
+            }else if(searchColumn == "death"){
+                scientists = sci_db.fetchByDeath(searchString,orderColumn);
+            }else{
+                scientists = sci_db.fetchAll(orderColumn);
             }
 
             interface.renderScientists(scientists);
+
         }else if (inc == 2){
             interface.renderComputers(computers);
         }

@@ -31,11 +31,11 @@ public:
     void remove();
 
 
-    vector<scientist> fetchAll();
-    vector<scientist> fetchByName(string name);
-    vector<scientist> fetchBySex(string sex);
-    vector<scientist> fetchByBorn(string birth);
-    vector<scientist> fetchByDeath(string death);
+    vector<scientist> fetchAll(string orderBy);
+    vector<scientist> fetchByName(string searchString, string orderBy);
+    vector<scientist> fetchBySex(string searchString, string orderBy);
+    vector<scientist> fetchByBorn(string searchString, string orderBy);
+    vector<scientist> fetchByDeath(string searchString, string orderBy);
 
 private:
     QSqlDatabase db;

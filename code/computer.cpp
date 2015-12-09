@@ -116,11 +116,12 @@ bool computer::isInTable(){
     return false;
 }
 
-vector<computer> computer::fetchAll(){
+vector<computer> computer::fetchAll(string orderBy){
     QSqlQuery query(db);
 
     vector<computer> computers;
-    query.prepare("SELECT * FROM computers");
+    query.prepare("SELECT * FROM computers ORDER BY :order");
+    query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
@@ -135,12 +136,13 @@ vector<computer> computer::fetchAll(){
     return computers;
 }
 
-vector<computer> computer::fetchByName(string searchString){
+vector<computer> computer::fetchByName(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE name like :name");
+    query.prepare("SELECT * FROM computers WHERE name like :name ORDER BY :order");
     query.bindValue(":name", QString::fromStdString("%"+searchString+"%"));
+    query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
@@ -156,12 +158,13 @@ vector<computer> computer::fetchByName(string searchString){
     return computers;
 }
 
-vector<computer> computer::fetchByBuild(string searchString){
+vector<computer> computer::fetchByBuild(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE build_year = :build_year");
+    query.prepare("SELECT * FROM computers WHERE build_year = :build_year ORDER BY :order");
     query.bindValue(":build_year", QString::fromStdString(searchString));
+    query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
@@ -177,12 +180,13 @@ vector<computer> computer::fetchByBuild(string searchString){
     return computers;
 }
 
-vector<computer> computer::fetchByType(string searchString){
+vector<computer> computer::fetchByType(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE type like :type");
+    query.prepare("SELECT * FROM computers WHERE type like :type ORDER BY :order");
     query.bindValue(":type", QString::fromStdString("%"+searchString+"%"));
+    query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
@@ -198,12 +202,13 @@ vector<computer> computer::fetchByType(string searchString){
     return computers;
 }
 
-vector<computer> computer::fetchByWasBuilt(string searchString){
+vector<computer> computer::fetchByWasBuilt(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE was_built = :was_built");
+    query.prepare("SELECT * FROM computers WHERE was_built = :was_built ORDER BY :order");
     query.bindValue(":was_built", QString::fromStdString(searchString));
+    query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
