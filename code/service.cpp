@@ -10,17 +10,10 @@
 service::service(){}
 
 void service::init(){
-    //Setup database connection
-    //string databaseFile = "database.csv";
-    //connection.setFile(databaseFile);
-    //connection.connect();
-
-    //get the database table
-    //scientists = connection.fetchAll();
-
     db.connect();
 
-    scientists = sci_db.fetchActive();
+    scientists = sci_db.fetchAll();
+    computers = cmp_db.fetchAll();
 }
 
 void service::run(){
@@ -52,11 +45,13 @@ void service::getFunction(){
     input.erase(0,functionSepPos+1);
 
     // if User wants to render results
-    if (function == "display"){
+    if (function == "displayScientists"){
         interface.renderScientists(scientists);
+    }else if(function == "displayComputers"){
+        interface.renderComputers(computers);
     }
     // If user wants to use Sort or Search
-    else if (function == "sort" || function == "search"){
+    /*else if (function == "sort" || function == "search"){
         //Get option
         interface.renderText("By what column? [name][gender][birth][death] \n");
         interface.renderText("Column: ");
@@ -105,7 +100,7 @@ void service::getFunction(){
             }
         }
 
-    }
+    }*/
     // Add a scientist or a computer to the database.
     else if (function == "addscientist"){
         addScientist();
@@ -263,12 +258,13 @@ void service::addComputer(){
 
 
     //Was this machine ever built.
-    interface.renderText("Was this machine ever built? y/n :  ");
+    interface.renderText("Was this machine ever built? y/n: ");
     string checkWas;
+    cin.ignore();
     checkWas = interface.getInput();
 
-    while(checkWas !=  "y" || checkWas != "n"){
-        interface.renderText("Incorrect input, please only use y/n");
+    while(checkWas !=  "y" && checkWas != "n"){
+        interface.renderText("Incorrect input, please only use y/n: ");
         checkWas = interface.getInput();
     }
     if (checkWas == "y"){

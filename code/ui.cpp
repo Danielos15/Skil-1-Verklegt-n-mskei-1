@@ -57,7 +57,7 @@ void ui::renderScientists(vector<scientist> scientists){
                 if(scientists[i].getDeath() != 0){
                     lines[3] += "  Year of death: " + iTOs(scientists[i].getDeath());
                 }else {
-                    lines[3] += " Scientist is still alive. ";
+                    lines[3] += "  Still alive";
                 }
                 int linesSize[4];
                 linesSize[0] = lines[0].size();
@@ -102,7 +102,7 @@ void ui::renderComputers(vector<computer> computers){
         for (int x = 0; x < numberPerLine; x++){
             if (i < computers.size()){
                 lines[0] += "  Name: " + computers[i].getName();
-                lines[1] += "  Build year: " + computers[i].getBuild();
+                lines[1] += "  Build year: " + iTOs(computers[i].getBuild());
                 lines[2] += "  Type of Computer: " + computers[i].getType();
                 if(computers[i].getWas()){
                     lines[3] += "  Computer was built: ";

@@ -2,7 +2,6 @@
 #include <iostream>
 
 computer:: computer(){
-
 }
 
 computer::computer(string newName, int newBuild, string newType, bool newWas){
