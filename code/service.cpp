@@ -55,7 +55,7 @@ void service::getFunction(){
 
     // Add a scientist or a computer to the database.
         else if (function == "add"){
-            interface.renderText("From witch database table would you like to remove from? \n");
+            interface.renderText("From witch database table would you like to add to? \n");
             interface.renderText("1: Scientists Table \n");
             interface.renderText("2: Computers Table \n");
             interface.renderText("Enter database table number: ");
