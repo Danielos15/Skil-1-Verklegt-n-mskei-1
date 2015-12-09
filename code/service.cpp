@@ -100,6 +100,110 @@ void service::getFunction(){
         }
     }
 
+    // Edit in the database, computer or Scientist
+    else if(function == "edit"){
+        interface.renderText("From witch database table would you like to edit from? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        cin.ignore();
+        int inc = interface.getInt();
+        while(inc > 2){
+            interface.renderText("Unavalible option, try again: ");
+            inc = interface.getInt();
+        }
+        int editId = 0;
+        if (inc == 1){
+            interface.renderText("Select the ID of the instance in Scientists table to edit: ");
+            editId = interface.getInt();
+            scientist sci;
+            sci.setId(editId);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                editId = interface.getInt();
+                sci.setId(editId);
+            }
+            //Edit function
+
+            interface.renderText("Instance found in database and was edited.");
+        }else if (inc == 2){
+            interface.renderText("Select the ID of the instance in Computers table to edit: ");
+            editId = interface.getInt();
+            computer cpu;
+            cpu.setId(editId);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                editId = interface.getInt();
+                cpu.setId(editId);
+            }
+            //Edit function
+            cpu.getInfo();
+            //Edit name?
+            interface.renderText("Edit name y/n: ");
+            cin.ignore();
+            string edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new name: ");
+                cin.ignore();
+                string name = interface.getLine();
+                cpu.setName(name);
+            }
+            //Edit build_year?
+            interface.renderText("Edit Build year y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new build year: ");
+                int build_year = interface.getInt();
+                cpu.setBuild(build_year);
+            }
+
+            //Edit Type?
+            interface.renderText("Edit type y/n: ");
+            cin.ignore();
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new type: ");
+                cin.ignore();
+                string type = interface.getLine();
+                cpu.setType(type);
+            }
+            //Edit Was built?
+            interface.renderText("Edit if it was built or not y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Was it built or not y/n: ");
+                string wasBuilt = interface.getInput();
+                while(wasBuilt != "y" && wasBuilt != "n"){
+                    interface.renderText("Invalid option, try again: ");
+                    wasBuilt = interface.getInput();
+                }
+                if (wasBuilt == "y"){
+                    cpu.setWas(true);
+                }else {
+                    cpu.setWas(false);
+                }
+            }
+            cpu.save();
+            interface.renderText("Instance found in database and was edited. \n");
+        }
+    }
+
     // Get the help info.
     else if (function == "help"){
         getHelpInfo();

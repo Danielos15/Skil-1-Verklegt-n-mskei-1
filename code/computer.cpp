@@ -52,6 +52,20 @@ void computer::setId(int newId){
     id = newId;
 }
 
+void computer::getInfo(){
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM computers WHERE id = :id");
+    query.bindValue(":id", id);
+    query.exec();
+    if (query.first()){
+        name = query.value("name").toString().toStdString();
+        build = query.value("build_year").toInt();
+        type = query.value("type").toString().toStdString();
+        was = query.value("was_built").toBool();
+    }
+}
+
 void computer::save() {
     bool inTable = isInTable();
     QSqlQuery query(db);

@@ -25,6 +25,7 @@ public:
     void setType(string newType);
     void setWas(bool newBuild);
     void setId(int newId);
+    void getInfo();
 
     void save();
     void remove();
