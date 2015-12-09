@@ -52,6 +52,20 @@ void scientist::setId(int newId){
     id = newId;
 }
 
+void scientist::getInfo(){
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM scientists WHERE id = :id");
+    query.bindValue(":id", id);
+    query.exec();
+    if (query.first()){
+        name = query.value("name").toString().toStdString();
+        sex = query.value("sex").toString().toStdString();
+        born = query.value("birth").toInt();
+        death = query.value("death").toInt();
+    }
+}
+
 void scientist::save() {
     bool inTable = isInTable();
     QSqlQuery query(db);

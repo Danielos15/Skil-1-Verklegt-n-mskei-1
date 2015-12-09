@@ -124,11 +124,81 @@ void service::getFunction(){
                 sci.setId(editId);
             }
             //Edit function
+            sci.getInfo();
+            //Edit name?
+            interface.renderText("Edit name y/n: ");
+            cin.ignore();
+            string edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new name: ");
+                cin.ignore();
+                string name = interface.getLine();
+                sci.setName(name);
+            }
+            //Edit gender?
+            interface.renderText("Edit gender y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter new gender f/m: ");
+                string gender = interface.getInput();
+                while(gender != "f" && gender != "m"){
+                    interface.renderText("Invalid option, try again f/m: ");
+                    gender = interface.getInput();
+                }
+                if (gender == "m"){
+                    gender = "Male";
+                }else {
+                    gender = "Female";
+                }
+                sci.setSex(gender);
+            }
 
-            interface.renderText("Instance found in database and was edited.");
+            //Edit birth?
+            interface.renderText("Edit year of birth y/n: ");
+            cin.ignore();
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter year of birth: ");
+                int born = interface.getInt();
+                while (born > 2015){
+                    interface.renderText("Year not avalible, try again: ");
+                    born = interface.getInt();
+                }
+                sci.setBorn(born);
+            }
+            //Edit death?
+            interface.renderText("Edit year of death y/n: ");
+            edit = interface.getInput();
+            while(edit != "y" && edit != "n"){
+                interface.renderText("Invalid option, try again: ");
+                edit = interface.getInput();
+            }
+            if (edit == "y"){
+                interface.renderText("Enter year of death: ");
+                int death = interface.getInt();
+                while (sci.getBorn() > death || death > 2015){
+                    interface.renderText("Person can't have died that year, try again: ");
+                    death = interface.getInt();
+                }
+                sci.setDeath(death);
+            }
+            sci.save();
+            interface.renderText("Instance found in database and was edited. \n");
         }else if (inc == 2){
             interface.renderText("Select the ID of the instance in Computers table to edit: ");
-            editId = interface.getInt();
+            int editId = interface.getInt();
             computer cpu;
             cpu.setId(editId);
             while(!cpu.exists()){
