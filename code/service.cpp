@@ -292,12 +292,15 @@ void service::getStartInfo(){
 void service::getHelpInfo(){
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
     interface.renderText("There are a few commands which interact with the database: \n");
-    interface.renderText("[add]     : With this you can add a new Computer scientist to the database, just make sure he/she is good enough. \n");
-    interface.renderText("[sort]    : You can sort the database with the avalible columns and in either ascending or descending order. \n");
-    interface.renderText("[search]  : Search which column you like with a keyword that you like and see what you find. \n");
-    interface.renderText("[display] : The other functions would be no good if you couldn't display the results somehow, well this is the way. \n");
-    interface.renderText("[reset]   : With this function you can undo all the sorting and searching filters that you have used and start over again \n");
+    interface.renderText("[addsc]     : With this you can add a new computer scientist to the database. \n");
+    interface.renderText("[addco]     : With this you can add a new computer to the database. \n");
+    interface.renderText("[addre]     : With this you can add a relation between scientists and computers. \n");
+    interface.renderText("[sort]      : You can sort the database with the avalible columns and in either ascending or descending order. \n");
+    interface.renderText("[search]    : Search which column you like with a keyword that you like and see what you find. \n");
+    interface.renderText("[displaysc] : Display the scientists \n");
+    interface.renderText("[displayco] : Display the computers \n");
+    interface.renderText("[displayre] : Display the relation between scientists and computers \n");
+    interface.renderText("[reset]     : With this function you can undo all the sorting and searching filters that you have used and start over again \n");
     interface.renderText("[exit] or [quit] to close the database \n");
     interface.renderText("- - - - - - - - - - - - HELP - - - - - - - - - - - - - - - - - - \n");
-
 }
