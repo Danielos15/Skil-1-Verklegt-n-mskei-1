@@ -60,6 +60,46 @@ void service::getFunction(){
         addComputer();
     }
 
+    // Remove from database, computer or Scientist
+    else if(function == "remove"){
+        interface.renderText("From witch database table would you like to remove from? \n");
+        interface.renderText("1: Scientists Table \n");
+        interface.renderText("2: Computers Table \n");
+        interface.renderText("Enter database table number: ");
+        cin.ignore();
+        int inc = interface.getInt();
+        while(inc > 2){
+            interface.renderText("Unavalible option, try again: ");
+            inc = interface.getInt();
+        }
+        int removeId = 0;
+        if (inc == 1){
+            interface.renderText("Select the ID of the instance in Scientists table to remove: ");
+            removeId = interface.getInt();
+            scientist sci;
+            sci.setId(removeId);
+            while(!sci.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                removeId = interface.getInt();
+                sci.setId(removeId);
+            }
+            sci.remove();
+            interface.renderText("Instance found in database and was removed");
+        }else if (inc == 2){
+            interface.renderText("Select the ID of the instance in Computers table to remove: ");
+            removeId = interface.getInt();
+            computer cpu;
+            cpu.setId(removeId);
+            while(!cpu.exists()){
+                interface.renderText("Instance not found in database try anoter number: ");
+                removeId = interface.getInt();
+                cpu.setId(removeId);
+            }
+            cpu.remove();
+            interface.renderText("Instance found in database and was removed");
+        }
+    }
+
     // Get the help info.
     else if (function == "help"){
         getHelpInfo();

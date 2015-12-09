@@ -106,6 +106,9 @@ void scientist::enable() {
         active = 1;
     }
 }
+bool scientist::exists(){
+    return isInTable();
+}
 
 bool scientist::isInTable(){
     QSqlQuery query(db);

@@ -19,6 +19,7 @@ public:
     string getType() const;
     bool getWas() const;
     string isActive();
+    bool exists();
 
     void setName(string newName);
     void setBuild(int newBuild);

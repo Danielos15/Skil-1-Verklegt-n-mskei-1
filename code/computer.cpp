@@ -85,6 +85,10 @@ void computer::remove() {
     }
 }
 
+bool computer::exists() {
+    return isInTable();
+}
+
 bool computer::isInTable(){
     QSqlQuery query(db);
 

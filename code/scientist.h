@@ -19,6 +19,7 @@ public:
     int getBorn() const;
     int getDeath() const;
     bool isActive();
+    bool exists();
 
     void setName(string newName);
     void setSex(string newSex);
