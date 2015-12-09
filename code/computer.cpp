@@ -120,7 +120,7 @@ vector<computer> computer::fetchAll(string orderBy){
     QSqlQuery query(db);
 
     vector<computer> computers;
-    query.prepare("SELECT * FROM computers ORDER BY :order");
+    query.prepare("SELECT * FROM computers ORDER BY :order  asc");
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
 
@@ -140,7 +140,7 @@ vector<computer> computer::fetchByName(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE name like :name ORDER BY :order");
+    query.prepare("SELECT * FROM computers WHERE name like :name ORDER BY :order asc");
     query.bindValue(":name", QString::fromStdString("%"+searchString+"%"));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -162,7 +162,7 @@ vector<computer> computer::fetchByBuild(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE build_year = :build_year ORDER BY :order");
+    query.prepare("SELECT * FROM computers WHERE build_year = :build_year ORDER BY :order asc");
     query.bindValue(":build_year", QString::fromStdString(searchString));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -184,7 +184,7 @@ vector<computer> computer::fetchByType(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE type like :type ORDER BY :order");
+    query.prepare("SELECT * FROM computers WHERE type like :type ORDER BY :order asc");
     query.bindValue(":type", QString::fromStdString("%"+searchString+"%"));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -206,7 +206,7 @@ vector<computer> computer::fetchByWasBuilt(string searchString, string orderBy){
     vector<computer> computers;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM computers WHERE was_built = :was_built ORDER BY :order");
+    query.prepare("SELECT * FROM computers WHERE was_built = :was_built ORDER BY :order asc");
     query.bindValue(":was_built", QString::fromStdString(searchString));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();

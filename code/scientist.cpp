@@ -120,8 +120,8 @@ vector<scientist> scientist::fetchAll(string orderBy){
     QSqlQuery query(db);
 
     vector<scientist> scientists;
-    query.prepare("SELECT * FROM scientists ORDER BY :order");
-    query.bindValue(":order", QString::fromStdString(orderBy));
+    query.prepare("SELECT * FROM scientists ORDER BY :test");
+    query.bindValue(":test", QString::fromStdString(orderBy));
     query.exec();
 
     while(query.next()){
@@ -141,7 +141,7 @@ vector<scientist> scientist::fetchByName(string searchString, string orderBy){
     vector<scientist> scientists;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM scientists WHERE name like :name ORDER BY :order");
+    query.prepare("SELECT * FROM scientists WHERE name like :name ORDER BY :order asc");
     query.bindValue(":name", QString::fromStdString("%"+searchString+"%"));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -163,7 +163,7 @@ vector<scientist> scientist::fetchBySex(string searchString, string orderBy){
     vector<scientist> scientists;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM scientists WHERE sex like :sex ORDER BY :order");
+    query.prepare("SELECT * FROM scientists WHERE sex like :sex ORDER BY :order asc");
     query.bindValue(":sex", QString::fromStdString(searchString));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -185,7 +185,7 @@ vector<scientist> scientist::fetchByBorn(string searchString, string orderBy){
     vector<scientist> scientists;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM scientists WHERE birth = :birth ORDER BY :order");
+    query.prepare("SELECT * FROM scientists WHERE birth = :birth ORDER BY :order asc");
     query.bindValue(":birth", QString::fromStdString(searchString));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();
@@ -207,7 +207,7 @@ vector<scientist> scientist::fetchByDeath(string searchString, string orderBy){
     vector<scientist> scientists;
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM scientists WHERE death = :death ORDER BY :order");
+    query.prepare("SELECT * FROM scientists WHERE death = :death ORDER BY :order asc");
     query.bindValue(":death", QString::fromStdString(searchString));
     query.bindValue(":order", QString::fromStdString(orderBy));
     query.exec();

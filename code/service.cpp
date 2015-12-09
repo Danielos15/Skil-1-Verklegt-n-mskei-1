@@ -95,7 +95,7 @@ void service::getFunction(){
                     orderColumn = interface.getInput();
                 }
             }else{
-                //orderColumn = "id";
+                orderColumn = "id";
             }
 
             if (searchColumn == "name"){
@@ -114,6 +114,61 @@ void service::getFunction(){
             interface.renderScientists(scientists);
 
         }else if (inc == 2){
+            // Search for a keyword?
+            interface.renderText("Would you like to search for something specific? \n");
+            string orderColumn, searchColumn, searchString;
+            interface.renderText("Enter y/n: ");
+            bool search = interface.getYesOrNo();
+            if (search){
+                interface.renderText("In all columns or a specific one? \n");
+                interface.renderText("Avalible Columns [name][build][type][wasBuilt] or [all] \n");
+                interface.renderText("Enter Column: ");
+                searchColumn = interface.getInput();
+                while(searchColumn != "name" && searchColumn != "build" && searchColumn != "type" && searchColumn != "wasBuilt" && searchColumn != "all"){
+                    interface.renderText("Unavalible option, try again \n");
+                    interface.renderText("Avalible Columns [name][build][type][wasBuilt] or [all] \n");
+                    interface.renderText("Enter Column: ");
+                    searchColumn = interface.getInput();
+                }
+                interface.renderText("Enter keyword to search for: ");
+                cin.ignore();
+                searchString = interface.getLine();
+
+            }else{
+                searchString = "NULL";
+            }
+
+            // Order By a column?
+            interface.renderText("Would you like to order by a specific column? \n");
+            interface.renderText("Enter y/n: ");
+            bool order = interface.getYesOrNo();
+            if (order){
+                interface.renderText("Avalible Columns [name][build][type][wasBuilt] \n");
+                interface.renderText("Enter Column: ");
+                orderColumn = interface.getInput();
+                while(orderColumn != "name" && orderColumn != "build" && orderColumn != "type" && orderColumn != "wasBuilt"){
+                    interface.renderText("Unavalible option, try again \n");
+                    interface.renderText("Avalible Columns [name][build][type][wasBuilt] \n");
+                    interface.renderText("Enter Column: ");
+                    orderColumn = interface.getInput();
+                }
+            }else{
+                orderColumn = "id";
+            }
+
+            if (searchColumn == "name"){
+                computers = cmp_db.fetchByName(searchString,orderColumn);
+            }else if(searchColumn == "build"){
+                orderColumn = "build_year";
+                computers = cmp_db.fetchByBuild(searchString,orderColumn);
+            }else if(searchColumn == "type"){
+                computers = cmp_db.fetchByType(searchString,orderColumn);
+            }else if(searchColumn == "wasBuilt"){
+                orderColumn = "was_built";
+                computers = cmp_db.fetchByWasBuilt(searchString,orderColumn);
+            }else{
+                computers = cmp_db.fetchAll(orderColumn);
+            }
             interface.renderComputers(computers);
         }
     }
@@ -457,7 +512,6 @@ void service::addComputer(){
     //Was this machine ever built.
     interface.renderText("Was this machine ever mass produced? y/n: ");
     string checkWas;
-    cin.ignore();
     checkWas = interface.getInput();
 
     while(checkWas !=  "y" && checkWas != "n"){
