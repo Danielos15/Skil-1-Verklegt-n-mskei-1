@@ -1,20 +1,9 @@
-#include <QCoreApplication>
-#include "scientist.h"
-#include "ui.h"
-#include "service.h"
-#include "datarepo.h"
-#include "relationscputosci.h"
+#include "consoleui.h"
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
-    QCoreApplication a(argc, argv);
+    ConsoleUI ui;
 
-    service engine;
-    engine.init();
-    engine.run();
-
-    return a.exec();
+    return ui.start();
 }
 
