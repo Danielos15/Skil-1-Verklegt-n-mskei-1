@@ -1,7 +1,7 @@
 #ifndef LINKSERVICE_H
 #define LINKSERVICE_H
 
-#include "linkrepository.h"
+#include "repositories/linkrepository.h"
 
 /**
  * @brief The LinkService acts as a middle layer between the UI and Data layers

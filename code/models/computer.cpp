@@ -1,4 +1,4 @@
-#include "computer.h"
+#include "models/computer.h"
 #include "utilities/constants.h"
 
 using namespace std;
@@ -52,25 +52,25 @@ enum computerType Computer::getType()
     return type;
 }
 
-string Computer::getTypeName()
-{
-    if (type == computerType::electronic)
-    {
-        return "Electronic";
-    }
-    else if (type == computerType::mechatronic)
-    {
-        return "Mechatronic";
-    }
-    else if (type == computerType::transistor)
-    {
-        return "Transistor";
-    }
-    else
-    {
-        return "Other";
-    }
-}
+//string Computer::getTypeName()
+//{
+//    if (type == computerType::electronic)
+//    {
+//        return "Electronic";
+//    }
+//    else if (type == computerType::mechatronic)
+//    {
+//        return "Mechatronic";
+//    }
+//    else if (type == computerType::transistor)
+//    {
+//        return "Transistor";
+//    }
+//    else
+//    {
+//        return "Other";
+//    }
+//}
 
 bool Computer::wasBuilt()
 {

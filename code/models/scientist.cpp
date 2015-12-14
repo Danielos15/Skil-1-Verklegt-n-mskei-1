@@ -1,4 +1,4 @@
-#include "scientist.h"
+#include "models/scientist.h"
 #include "utilities/utils.h"
 #include "utilities/constants.h"
 
@@ -92,15 +92,15 @@ bool Scientist::contains(string searchTerm)
         return true;
     }
 
-    if (searchTermLower == "male" && sex == sexType::male)
-    {
-        return true;
-    }
+//    if (searchTermLower == "male" && sex == sexType::male)
+//    {
+//        return true;
+//    }
 
-    if (searchTermLower == "female" && sex == sexType::female)
-    {
-        return true;
-    }
+//    if (searchTermLower == "female" && sex == sexType::female)
+//    {
+//        return true;
+//    }
 
     string yearBornString = utils::intToString(yearBorn);
 

@@ -3,7 +3,7 @@
 
 #include <QtSql>
 #include <vector>
-#include "computer.h"
+#include "models/computer.h"
 
 /**
  * @brief The ComputerRepository class handles reading and writing computers to and from a database

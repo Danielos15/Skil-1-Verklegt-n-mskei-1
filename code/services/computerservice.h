@@ -2,7 +2,7 @@
 #define COMPUTERSERVICE_H
 
 #include <vector>
-#include "computerrepository.h"
+#include "repositories/computerrepository.h"
 
 /**
  * @brief The ComputerService acts as a middle layer between the UI and Data layers

@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include "scientist.h"
+#include "models/scientist.h"
 
 /**
  * @brief The ScientistRepository class handles reading and writing scientists to and from a database

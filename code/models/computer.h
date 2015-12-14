@@ -5,7 +5,7 @@
 #include <vector>
 
 // Computer can just include scientist like normally
-#include "scientist.h"
+#include "models/scientist.h"
 
 /**
  * @brief The data model for computers
