@@ -14,6 +14,7 @@ Computer::Computer(string name, enum computerType type)
     this->name = name;
     this->type = type;
     this->yearBuilt = constants::YEAR_UNSELECTED_VALUE;
+
 }
 
 Computer::Computer(string name, enum computerType type, int yearBuilt)
