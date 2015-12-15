@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     services/computerservice.cpp \
     services/linkservice.cpp \
     services/scientistservice.cpp \
-    utilities/utils.cpp
+    utilities/utils.cpp \
+    ui/addsci.cpp
 
 HEADERS  += ui/mainwindow.h \
     models/computer.h \
@@ -34,6 +35,8 @@ HEADERS  += ui/mainwindow.h \
     services/linkservice.h \
     services/scientistservice.h \
     utilities/constants.h \
-    utilities/utils.h
+    utilities/utils.h \
+    ui/addsci.h
 
-FORMS    += ui/mainwindow.ui
+FORMS    += ui/mainwindow.ui \
+    ui/addsci.ui
