@@ -1,6 +1,6 @@
 #include "addcpu.h"
 #include "ui_addcpu.h"
-
+#include "areyousure.h"
 addcpu::addcpu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::addcpu)
@@ -15,3 +15,9 @@ addcpu::~addcpu()
 }
 
 
+
+void addcpu::on_buttonBox_accepted()
+{
+    areyousure open;
+    open.exec();
+}

@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     services/scientistservice.cpp \
     utilities/utils.cpp \
     ui/addsci.cpp \
-    ui/addcpu.cpp
+    ui/addcpu.cpp \
+    ui/areyousure.cpp
 
 HEADERS  += ui/mainwindow.h \
     models/computer.h \
@@ -38,8 +39,10 @@ HEADERS  += ui/mainwindow.h \
     utilities/constants.h \
     utilities/utils.h \
     ui/addsci.h \
-    ui/addcpu.h
+    ui/addcpu.h \
+    ui/areyousure.h
 
 FORMS    += ui/mainwindow.ui \
     ui/addsci.ui \
-    ui/addcpu.ui
+    ui/addcpu.ui \
+    ui/areyousure.ui

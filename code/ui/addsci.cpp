@@ -1,5 +1,6 @@
 #include "addsci.h"
 #include "ui_addsci.h"
+#include "areyousure.h"
 
 addsci::addsci(QWidget *parent) :
     QDialog(parent),
@@ -12,4 +13,10 @@ addsci::addsci(QWidget *parent) :
 addsci::~addsci()
 {
     delete ui;
+}
+
+void addsci::on_buttonBox_accepted()
+{
+    areyousure open;
+    open.exec();
 }
