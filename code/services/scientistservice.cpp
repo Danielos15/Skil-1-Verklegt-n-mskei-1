@@ -1,4 +1,4 @@
-#include "scientistservice.h"
+#include "services/scientistservice.h"
 
 #include <algorithm>
 

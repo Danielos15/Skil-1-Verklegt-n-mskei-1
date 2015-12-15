@@ -2,7 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <vector>
+#include "models/computer.h"
+#include "models/scientist.h"
+#include "services/computerservice.h"
+#include "services/scientistservice.h"
+#include "services/linkservice.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +29,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    void displayComputers(std::vector<Computer> computers);
+    void displayScientists(std::vector<Scientist> scientists);
+
+    ComputerService cpu_service;
+    ScientistService sci_service;
+
+    std::vector<Computer> computers;
+    std::vector<Scientist> scientists;
 };
 
 #endif // MAINWINDOW_H

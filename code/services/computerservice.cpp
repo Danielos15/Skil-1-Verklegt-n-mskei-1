@@ -1,4 +1,4 @@
-#include "computerservice.h"
+#include "services/computerservice.h"
 
 ComputerService::ComputerService()
 {

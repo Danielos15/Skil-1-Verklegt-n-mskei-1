@@ -28,6 +28,7 @@ public:
     unsigned int getId();
     std::string getName() const;
     enum sexType getSex() const;
+    std::string getSexType() const;
     int getYearBorn() const;
     int getYearDied() const;
     std::vector<Computer*> getComputers() const;

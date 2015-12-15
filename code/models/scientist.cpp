@@ -56,6 +56,15 @@ enum sexType Scientist::getSex() const
     return sex;
 }
 
+string Scientist::getSexType() const
+{
+    if (sex == sexType::male){
+        return "Male";
+    }else {
+        return "Female";
+    }
+}
+
 int Scientist::getYearBorn() const
 {
     return yearBorn;
@@ -92,15 +101,15 @@ bool Scientist::contains(string searchTerm)
         return true;
     }
 
-//    if (searchTermLower == "male" && sex == sexType::male)
-//    {
-//        return true;
-//    }
+    if (searchTermLower == "male" && sex == sexType::male)
+    {
+        return true;
+    }
 
-//    if (searchTermLower == "female" && sex == sexType::female)
-//    {
-//        return true;
-//    }
+    if (searchTermLower == "female" && sex == sexType::female)
+    {
+        return true;
+    }
 
     string yearBornString = utils::intToString(yearBorn);
 

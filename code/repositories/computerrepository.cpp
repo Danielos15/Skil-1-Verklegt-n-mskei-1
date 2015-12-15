@@ -1,4 +1,4 @@
-#include "computerrepository.h"
+#include "repositories/computerrepository.h"
 #include "utilities/utils.h"
 #include "utilities/constants.h"
 
