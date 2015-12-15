@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ui/addsci.h"
@@ -98,8 +99,19 @@ void MainWindow::on_button_cpu_edit_clicked()
     editComputer.exec();
 }
 
-void MainWindow::on_input_sci_search_textChanged(const QString &arg1)
+void MainWindow::on_input_sci_search_textChanged()
 {
-    QString search = QString::fromStdString(ui->input_sci_search->text());
+    std::string search = ui->input_sci_search->text().toStdString();
+    scientists = sci_service.searchForScientists(search);
 
+    displayScientists(scientists);
+
+}
+
+void MainWindow::on_lineEdit_textChanged(const QString &arg1)
+{
+    //std::string search = ui->input_sci_search->text().toStdString();
+    computers = cpu_service.searchForComputers(arg1.toStdString());
+
+    displayComputers(computers);
 }
