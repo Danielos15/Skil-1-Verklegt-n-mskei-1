@@ -125,7 +125,7 @@
            <bool>true</bool>
           </property>
           <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
+           <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
@@ -620,6 +620,9 @@
   <action name="actionAdd_Relation">
    <property name="text">
     <string>Add Relation</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+R</string>
    </property>
   </action>
   <action name="actionExit">

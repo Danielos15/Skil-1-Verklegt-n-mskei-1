@@ -3,6 +3,8 @@
 #include "addsci.h"
 #include "addcpu.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
