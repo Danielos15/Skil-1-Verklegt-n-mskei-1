@@ -13,3 +13,5 @@ addcpu::~addcpu()
 {
     delete ui;
 }
+
+
