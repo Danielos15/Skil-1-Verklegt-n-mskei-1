@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_button_sci_add_clicked();
+    void on_button_cpu_add_clicked();
 
 private:
     Ui::MainWindow *ui;

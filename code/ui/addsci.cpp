@@ -7,8 +7,6 @@ addsci::addsci(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBox->addItem("Male");
-    ui->comboBox->addItem("Female");
 }
 
 addsci::~addsci()
