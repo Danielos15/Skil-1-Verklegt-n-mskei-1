@@ -621,6 +621,9 @@
    <property name="text">
     <string>Add Relation</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+R</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">

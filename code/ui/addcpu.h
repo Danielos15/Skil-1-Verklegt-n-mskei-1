@@ -15,6 +15,9 @@ public:
     explicit addcpu(QWidget *parent = 0);
     ~addcpu();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::addcpu *ui;
 };

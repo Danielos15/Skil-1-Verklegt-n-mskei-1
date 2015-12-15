@@ -15,6 +15,9 @@ public:
     explicit addsci(QWidget *parent = 0);
     ~addsci();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::addsci *ui;
 };
