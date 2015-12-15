@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+
+
+
+
+
 }
 
 void MainWindow::on_button_sci_add_clicked()
@@ -27,4 +32,18 @@ void MainWindow::on_button_cpu_add_clicked()
     addcpu addComputer;
     addComputer.setModal(true);
     addComputer.exec();
+}
+
+void MainWindow::on_button_sci_edit_clicked()
+{
+    addsci editScientist;
+    editScientist.setModal(true);
+    editScientist.exec();
+}
+
+void MainWindow::on_button_cpu_edit_clicked()
+{
+    addcpu editComputer;
+    editComputer.setModal(true);
+    editComputer.exec();
 }

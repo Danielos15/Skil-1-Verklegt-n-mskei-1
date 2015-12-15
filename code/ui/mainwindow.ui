@@ -91,11 +91,17 @@
             <height>0</height>
            </size>
           </property>
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
           <property name="autoScroll">
            <bool>true</bool>
           </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>false</bool>
           </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -119,7 +125,7 @@
            <bool>true</bool>
           </property>
           <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
+           <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
@@ -284,7 +290,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="table_cpu_view">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -398,7 +404,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextBrowser" name="textBrowser"/>
+         <widget class="QTextBrowser" name="text_cpu_bio"/>
         </item>
         <item>
          <widget class="Line" name="line_2">
@@ -410,7 +416,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="button_cpu_edit">
             <property name="text">
              <string>Edit</string>
             </property>
@@ -515,7 +521,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>&lt;h3&gt;Connected computers/Scientists</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Connected computers/scientists&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
