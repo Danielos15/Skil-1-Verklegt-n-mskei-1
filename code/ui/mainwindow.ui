@@ -283,7 +283,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="input_cpu_search">
           <property name="placeholderText">
            <string>Search...</string>
           </property>

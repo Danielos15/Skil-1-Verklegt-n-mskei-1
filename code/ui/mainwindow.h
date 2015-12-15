@@ -27,9 +27,11 @@ private slots:
     void on_button_sci_edit_clicked();
     void on_button_cpu_edit_clicked();
 
-    void on_input_sci_search_textChanged();
+    void on_input_sci_search_textChanged(const QString &arg1);
 
     void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_input_cpu_search_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

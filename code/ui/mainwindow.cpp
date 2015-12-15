@@ -7,12 +7,10 @@
 #include <QDebug>
 #include <iostream>
 
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow){
+
     ui->setupUi(this);
 
     computers = cpu_service.getAllComputers("id",true);
@@ -22,12 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::displayComputers(std::vector<Computer> computers) {
+void MainWindow::displayComputers(std::vector<Computer> computers){
     //Clear all existing rows
     while(ui->table_cpu_view->rowCount() > 0){
         ui->table_cpu_view->removeRow(0);
@@ -75,43 +72,32 @@ void MainWindow::displayScientists(std::vector<Scientist> scientists){
     }
 }
 
-void MainWindow::on_button_sci_add_clicked()
-{
+void MainWindow::on_button_sci_add_clicked(){
     addsci addScientist;
     addScientist.exec();
 }
 
-void MainWindow::on_button_cpu_add_clicked()
-{
+void MainWindow::on_button_cpu_add_clicked(){
     addcpu addComputer;
     addComputer.exec();
 }
 
-void MainWindow::on_button_sci_edit_clicked()
-{
+void MainWindow::on_button_sci_edit_clicked(){
     addsci editScientist;
     editScientist.exec();
 }
 
-void MainWindow::on_button_cpu_edit_clicked()
-{
+void MainWindow::on_button_cpu_edit_clicked(){
     addcpu editComputer;
     editComputer.exec();
 }
 
-void MainWindow::on_input_sci_search_textChanged()
-{
-    std::string search = ui->input_sci_search->text().toStdString();
-    scientists = sci_service.searchForScientists(search);
-
+void MainWindow::on_input_sci_search_textChanged(const QString &arg1){
+    scientists = sci_service.searchForScientists(arg1.toStdString());
     displayScientists(scientists);
-
 }
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
-{
-    //std::string search = ui->input_sci_search->text().toStdString();
+void MainWindow::on_input_cpu_search_textChanged(const QString &arg1){
     computers = cpu_service.searchForComputers(arg1.toStdString());
-
     displayComputers(computers);
 }
