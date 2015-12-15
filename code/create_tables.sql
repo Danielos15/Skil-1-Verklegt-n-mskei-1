@@ -3,7 +3,8 @@ CREATE TABLE Computers (
     name VARCHAR NOT NULL,
     type INTEGER NOT NULL,
     yearBuilt INTEGER,
-    wasBuilt BOOL
+    wasBuilt BOOL,
+	info TEXT
 )
 
 CREATE TABLE Scientists (
@@ -11,12 +12,14 @@ CREATE TABLE Scientists (
     name VARCHAR NOT NULL,
     sex INTEGER NOT NULL,
     yearBorn INTEGER NOT NULL,
-    yearDied INTEGER
+    yearDied INTEGER,
+	info TEXT
 )
 
 CREATE TABLE ScientistComputerConnections(
     scientistId integer,
     computerId integer,
+	reason TEXT,
     foreign key (scientistId) references Scientists(id),
     foreign key (computerId) references Computers(id),
     primary key(scientistId, computerId)

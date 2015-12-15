@@ -97,3 +97,9 @@ void MainWindow::on_button_cpu_edit_clicked()
     addcpu editComputer;
     editComputer.exec();
 }
+
+void MainWindow::on_input_sci_search_textChanged(const QString &arg1)
+{
+    QString search = QString::fromStdString(ui->input_sci_search->text());
+
+}
