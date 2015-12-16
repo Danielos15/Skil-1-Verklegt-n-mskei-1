@@ -444,7 +444,7 @@ void MainWindow::on_button_rel_add_clicked(){
     }
 }
 
-void MainWindow::on_list_rel_common_clicked(const QModelIndex &index){
+void MainWindow::on_list_rel_common_clicked(){
     ui->button_rel_remove->setEnabled(true);
 }
 
