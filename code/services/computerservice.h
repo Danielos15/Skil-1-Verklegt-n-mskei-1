@@ -35,6 +35,7 @@ public:
      */
     bool addComputer(Computer computer);
     bool removeComputer(int id);
+    bool editComputer(Computer computer, int id);
 
     Computer fetchById(int id);
     std::vector<Scientist> queryScientistsByComputer(Computer cpu);

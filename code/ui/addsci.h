@@ -22,6 +22,12 @@ public:
     int getDeath() const;
     std::string getInfo() const;
 
+    void setName(std::string newName);
+    void setGender(int newGender);
+    void setYearBorn(int newYear);
+    void setYearDeath(int newYear);
+    void setInfo(std::string newInfo);
+
 private slots:
 
     void on_button_ok_clicked();

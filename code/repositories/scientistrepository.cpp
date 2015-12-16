@@ -108,6 +108,36 @@ bool ScientistRepository::addScientist(Scientist scientist)
     return true;
 }
 
+bool ScientistRepository::editScientist(Scientist scientist, int id)
+{
+    db.open();
+
+    if (!db.isOpen())
+    {
+        return false;
+    }
+
+    QSqlQuery query(db);
+
+    stringstream sqlQuery;
+    sqlQuery << "UPDATE Scientists SET "
+             << "name = " << "'" << scientist.getName() << "', "
+             << "sex = " << scientist.getSex() << ", "
+             << "yearBorn = " << scientist.getYearBorn() << ", "
+             << "yearDied = " << scientist.getYearDied() << ", "
+             << "info = " << "'" << scientist.getInfo() << "' "
+             << "WHERE id = " << id;
+
+    if (!query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        return false;
+    }
+
+    db.close();
+
+    return true;
+}
+
 bool ScientistRepository::removeScientist(int id)
 {
     db.open();

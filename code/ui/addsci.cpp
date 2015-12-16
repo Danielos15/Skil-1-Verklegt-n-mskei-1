@@ -34,6 +34,30 @@ std::string addsci::getInfo() const{
     return info;
 }
 
+void addsci::setName(std::string newName){
+    ui->lineEdit_name->setText(QString::fromStdString(newName));
+}
+
+void addsci::setGender(int newGender)
+{
+    ui->comboBox_Gender->setCurrentIndex(newGender);
+}
+
+void addsci::setYearBorn(int newYear)
+{
+    ui->spinBox_Born->setValue(newYear);
+}
+
+void addsci::setYearDeath(int newYear)
+{
+    ui->spinBox_Died->setValue(newYear);
+}
+
+void addsci::setInfo(std::string newInfo)
+{
+    ui->textEdit_info->setText(QString::fromStdString(newInfo));
+}
+
 void addsci::on_button_ok_clicked()
 {
     areyousure open;

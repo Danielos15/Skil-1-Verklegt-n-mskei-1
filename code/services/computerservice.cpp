@@ -21,6 +21,11 @@ bool ComputerService::removeComputer(int id){
     return computerRepo.removeComputer(id);
 }
 
+bool ComputerService::editComputer(Computer computer, int id)
+{
+    return computerRepo.editComputer(computer, id);
+}
+
 Computer ComputerService::fetchById(int id)
 {
     return computerRepo.fetchById(id);

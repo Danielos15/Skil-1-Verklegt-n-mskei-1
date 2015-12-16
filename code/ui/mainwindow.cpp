@@ -221,14 +221,62 @@ void MainWindow::on_button_cpu_add_clicked(){
 
 void MainWindow::on_button_sci_edit_clicked(){
     addsci editScientist;
+
+    QItemSelectionModel *select = ui->table_sci_view->selectionModel();
+    std::vector<QModelIndex> index = select->selectedRows().toVector().toStdVector();
+    int sci_id = ui->table_sci_view->item(index.at(0).row(),0)->text().toInt();
+    Scientist sci = sci_service.fetchById(sci_id);
+
+    editScientist.setName(sci.getName());
+    editScientist.setGender(sci.getSex());
+    editScientist.setYearBorn(sci.getYearBorn());
+    editScientist.setYearDeath(sci.getYearDied());
+    editScientist.setInfo(sci.getInfo());
+
     editScientist.setWindowTitle("Edit the scientist");
     editScientist.exec();
+
+    if (editScientist.shouldSave()) {
+        Scientist editSci(editScientist.getName(),
+                      static_cast<sexType>(editScientist.getGender()),
+                      editScientist.getBirth(),
+                      editScientist.getDeath()
+                      );
+        editSci.setInfo(editScientist.getInfo());
+        sci_service.editScientist(editSci, sci_id);
+        scientists = sci_service.getAllScientists("id", true);
+        displayScientists(scientists);
+    }
 }
 
 void MainWindow::on_button_cpu_edit_clicked(){
     addcpu editComputer;
+
+    QItemSelectionModel *select = ui->table_cpu_view->selectionModel();
+    std::vector<QModelIndex> index = select->selectedRows().toVector().toStdVector();
+    int cpu_id = ui->table_cpu_view->item(index.at(0).row(),0)->text().toInt();
+    Computer cpu = cpu_service.fetchById(cpu_id);
+
+    editComputer.setName(cpu.getName());
+    editComputer.setType(cpu.getType());
+    editComputer.setYearBuilt(cpu.getYearBuilt());
+    editComputer.setWasBuilt(cpu.wasBuilt());
+    editComputer.setInfo(cpu.getInfo());
+
     editComputer.setWindowTitle("Edit the computer");
-    editComputer.exec();  
+    editComputer.exec();
+
+    if (editComputer.shouldSave()) {
+        Computer editCpu(editComputer.getName(),
+                      static_cast<computerType>(editComputer.getType()),
+                      editComputer.getYearBuilt()
+                      );
+        editCpu.setWasBuilt(editComputer.getWasBuilt());
+        editCpu.setInfo(editComputer.getInfo());
+        cpu_service.editComputer(editCpu, cpu_id);
+        computers = cpu_service.getAllComputers("id", true);
+        displayComputers(computers);
+    }
 }
 
 void MainWindow::on_actionExit_triggered(){

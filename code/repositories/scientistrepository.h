@@ -41,6 +41,7 @@ public:
      * @return true if it was a success, false if it was a failure
      */
     bool addScientist(Scientist scientist);
+    bool editScientist(Scientist scientist, int id);
     bool removeScientist(int id);
 
     Scientist fetchById(int id);

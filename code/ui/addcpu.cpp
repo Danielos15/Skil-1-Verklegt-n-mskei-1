@@ -32,6 +32,26 @@ std::string addcpu::getInfo() const{
     return info;
 }
 
+void addcpu::setName(std::string newName){
+    ui->lineEdit_Name->setText(QString::fromStdString(newName));
+}
+
+void addcpu::setType(int newType){
+    ui->comboBox_Type->setCurrentIndex(newType);
+}
+
+void addcpu::setYearBuilt(int newYear){
+    ui->spinBox_Buildyear->setValue(newYear);
+}
+
+void addcpu::setWasBuilt(bool newWas){
+    ui->comboBox_WasBuilt->setCurrentIndex(newWas);
+}
+
+void addcpu::setInfo(std::string newInfo){
+    ui->textEdit_info->setText(QString::fromStdString(newInfo));
+}
+
 
 void addcpu::on_button_ok_clicked()
 {

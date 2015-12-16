@@ -22,6 +22,12 @@ public:
     bool getWasBuilt() const;
     std::string getInfo() const;
 
+    void setName(std::string newName);
+    void setType(int newType);
+    void setYearBuilt(int newYear);
+    void setWasBuilt(bool newWas);
+    void setInfo(std::string newInfo);
+
 private slots:
 
     void on_button_ok_clicked();

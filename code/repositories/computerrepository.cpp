@@ -128,6 +128,35 @@ bool ComputerRepository::removeComputer(int id)
     return true;
 }
 
+bool ComputerRepository::editComputer(Computer computer, int id){
+    db.open();
+
+    if (!db.isOpen())
+    {
+        return false;
+    }
+
+    QSqlQuery query(db);
+
+    stringstream sqlQuery;
+    sqlQuery << "UPDATE Computers SET "
+             << "name = " << "'" << computer.getName() << "', "
+             << "type = " << computer.getType() << ", "
+             << "yearBuilt = " << computer.getYearBuilt() << ", "
+             << "wasBuilt = " << computer.wasBuilt() << ", "
+             << "info = " << "'" << computer.getInfo() << "' "
+             << "WHERE id = " << id;
+
+    if (!query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        return false;
+    }
+
+    db.close();
+
+    return true;
+}
+
 Computer ComputerRepository::fetchById(int id)
 {
     QSqlQuery query(db);
