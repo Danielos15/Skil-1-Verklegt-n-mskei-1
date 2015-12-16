@@ -92,19 +92,16 @@ void MainWindow::on_button_cpu_edit_clicked(){
     editComputer.exec();  
 }
 
-void MainWindow::on_actionExit_triggered()
-{
+void MainWindow::on_actionExit_triggered(){
     QApplication::quit();
 }
 
-void MainWindow::on_actionAdd_Scientist_triggered()
-{
+void MainWindow::on_actionAdd_Scientist_triggered(){
     on_button_sci_add_clicked();
 
 }
 
-void MainWindow::on_actionAdd_Computer_triggered()
-{
+void MainWindow::on_actionAdd_Computer_triggered(){
     on_button_cpu_add_clicked();
 }
 
