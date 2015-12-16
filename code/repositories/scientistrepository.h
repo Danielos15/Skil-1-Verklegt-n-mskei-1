@@ -29,6 +29,13 @@ public:
     std::vector<Scientist> searchForScientists(std::string searchTerm);
 
     /**
+     * @brief queryComputersByScientist queries the database for computers by scientists
+     * @param scientist A scientist to query by
+     * @return a vector of computers
+     */
+    std::vector<Computer> queryComputersByScientist(Scientist scientist);
+
+    /**
      * @brief addScientist saves a scientist model to the database
      * @param scientist The model to save
      * @return true if it was a success, false if it was a failure
@@ -36,14 +43,9 @@ public:
     bool addScientist(Scientist scientist);
     bool removeScientist(int id);
 
-private:
+    Scientist fetchById(int id);
 
-    /**
-     * @brief queryComputersByScientist queries the database for computers by scientists
-     * @param scientist A scientist to query by
-     * @return a vector of computers
-     */
-    std::vector<Computer> queryComputersByScientist(Scientist scientist);
+private:
 
     /**
      * @brief queryScientists queries the database for scientists

@@ -140,6 +140,46 @@ void MainWindow::displayRelationScientists(std::vector<Scientist> scientists)
     }
 }
 
+void MainWindow::displayCommonComputers(std::vector<Computer> computers){
+    ui->list_rel_common->setColumnHidden(0,true);
+
+    //Clear all existing rows
+    while(ui->list_rel_common->rowCount() > 0){
+        ui->list_rel_common->removeRow(0);
+    }
+    // Go thorugh all computers
+    for (unsigned int i = 0; i < computers.size(); i++){
+        QTableWidgetItem *column0 = new QTableWidgetItem(QString::number(computers.at(i).getId()));
+        QTableWidgetItem *column1 = new QTableWidgetItem(QString::fromStdString(computers.at(i).getName()));
+
+        //Adding each coloumn to the row
+        ui->list_rel_common->insertRow(i);
+        ui->list_rel_common->setItem(i,0,column0);
+        ui->list_rel_common->setItem(i,1,column1);
+
+    }
+}
+
+void MainWindow::displayCommonScientists(std::vector<Scientist> scientists){
+    ui->list_rel_common->setColumnHidden(0,true);
+
+    //Clear all existing rows
+    while(ui->list_rel_common->rowCount() > 0){
+        ui->list_rel_common->removeRow(0);
+    }
+    // Go thorugh all computers
+    for (unsigned int i = 0; i < scientists.size(); i++){
+        QTableWidgetItem *column0 = new QTableWidgetItem(QString::number(scientists.at(i).getId()));
+        QTableWidgetItem *column1 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getName()));
+
+        //Adding each coloumn to the row
+        ui->list_rel_common->insertRow(i);
+        ui->list_rel_common->setItem(i,0,column0);
+        ui->list_rel_common->setItem(i,1,column1);
+
+    }
+}
+
 void MainWindow::on_button_sci_add_clicked(){
     addsci addScientist;
     addScientist.setWindowTitle("Add a scientist");
@@ -266,13 +306,16 @@ void MainWindow::on_button_cpu_remove_clicked(){
 
 void MainWindow::on_list_rel_sci_clicked(const QModelIndex &index){
     int id = ui->list_rel_sci->item(index.row(),0)->text().toInt();
-    qDebug() << id;
-    //ui->button_cpu_remove->setEnabled(true);
+    Scientist sci = sci_service.fetchById(id);
+    commonComputers = sci_service.queryComputersByScientist(sci);
+    displayCommonComputers(commonComputers);
 }
 
 void MainWindow::on_list_rel_cpu_clicked(const QModelIndex &index){
     int id = ui->list_rel_cpu->item(index.row(),0)->text().toInt();
-    qDebug() << id;
+    Computer cpu = cpu_service.fetchById(id);
+    commonScientists = cpu_service.queryScientistsByComputer(cpu);
+    displayCommonScientists(commonScientists);
 }
 void MainWindow::on_input_sci_rel_search_textChanged(const QString &arg1){
     relScientists = sci_service.searchForScientists(arg1.toStdString());

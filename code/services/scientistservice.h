@@ -34,6 +34,9 @@ public:
      */
     bool addScientist(Scientist scientist);
     bool removeScientist(int id);
+    std::vector<Computer> queryComputersByScientist(Scientist scientist);
+    Scientist fetchById(int id);
+
 private:
     ScientistRepository scientistRepo;
 };

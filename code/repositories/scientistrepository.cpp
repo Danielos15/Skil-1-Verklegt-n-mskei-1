@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <QString>
+#include <QDebug>
 
 using namespace std;
 
@@ -145,7 +146,7 @@ std::vector<Computer> ScientistRepository::queryComputersByScientist(Scientist s
     QSqlQuery query(db);
 
     stringstream sqlQuery;
-    sqlQuery << "SELECT s.* FROM ScientistComputerConnections scc ";
+    sqlQuery << "SELECT c.* FROM ScientistComputerConnections scc ";
     sqlQuery << "JOIN Computers c ";
     sqlQuery << "ON c.id = scc.computerId ";
     sqlQuery << "WHERE scc.scientistId = " << scientist.getId();
@@ -168,4 +169,27 @@ std::vector<Computer> ScientistRepository::queryComputersByScientist(Scientist s
     }
 
     return computers;
+}
+
+Scientist ScientistRepository::fetchById(int id)
+{
+    QSqlQuery query(db);
+    stringstream sqlQuery;
+    sqlQuery << "SELECT * FROM Scientists WHERE id = " << id;
+
+    if (query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        query.next();
+        unsigned int id = query.value("id").toUInt();
+        string name = query.value("name").toString().toStdString();
+        enum sexType sex = utils::intToSex(query.value("sex").toInt());
+        int yearBorn = query.value("yearBorn").toInt();
+        int yearDied = query.value("yearDied").toInt();
+        string info = query.value("info").toString().toStdString();
+        Scientist sci(id, name, sex, yearBorn, yearDied);
+        sci.setInfo(info);
+
+        return sci;
+    }
+    return Scientist();
 }

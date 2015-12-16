@@ -128,6 +128,30 @@ bool ComputerRepository::removeComputer(int id)
     return true;
 }
 
+Computer ComputerRepository::fetchById(int id)
+{
+    QSqlQuery query(db);
+    stringstream sqlQuery;
+    sqlQuery << "SELECT * FROM Computers WHERE id = " << id;
+
+    if (query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        query.next();
+        int id = query.value("id").toUInt();
+        string name = query.value("name").toString().toStdString();
+        enum computerType type = utils::intToComputerType(query.value("type").toInt());
+        int yearBuilt = query.value("yearBuilt").toInt();
+        bool was = query.value("wasBuilt").toBool();
+        string info = query.value("info").toString().toStdString();
+
+        Computer cpu(id, name, type, yearBuilt);
+        cpu.setInfo(info);
+        cpu.setWasBuilt(was);
+        return cpu;
+    }
+    return Computer();
+}
+
 std::vector<Scientist> ComputerRepository::queryScientistsByComputer(Computer computer)
 {
     vector<Scientist> scientists;

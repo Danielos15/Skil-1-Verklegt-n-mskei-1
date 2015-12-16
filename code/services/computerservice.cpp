@@ -20,3 +20,13 @@ bool ComputerService::addComputer(Computer computer){
 bool ComputerService::removeComputer(int id){
     return computerRepo.removeComputer(id);
 }
+
+Computer ComputerService::fetchById(int id)
+{
+    return computerRepo.fetchById(id);
+}
+
+std::vector<Scientist> ComputerService::queryScientistsByComputer(Computer cpu)
+{
+    return computerRepo.queryScientistsByComputer(cpu);
+}

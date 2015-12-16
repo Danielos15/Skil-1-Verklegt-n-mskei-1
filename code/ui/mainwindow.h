@@ -60,6 +60,9 @@ private:
     void displayRelationComputers(std::vector<Computer> computers);
     void displayRelationScientists(std::vector<Scientist> scientists);
 
+    void displayCommonComputers(std::vector<Computer> computers);
+    void displayCommonScientists(std::vector<Scientist> scientists);
+
     ComputerService cpu_service;
     ScientistService sci_service;
 
@@ -68,6 +71,9 @@ private:
 
     std::vector<Computer> relComputers;
     std::vector<Scientist> relScientists;
+
+    std::vector<Computer> commonComputers;
+    std::vector<Scientist> commonScientists;
 };
 
 #endif // MAINWINDOW_H
