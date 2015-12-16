@@ -21,6 +21,7 @@ public:
      * @return true if it was a success, false if it was a failure
      */
     bool addLink(int scientistId, int computerId);
+    bool removeLink(int scientistId, int computerId);
 private:
     QSqlDatabase db;
 };

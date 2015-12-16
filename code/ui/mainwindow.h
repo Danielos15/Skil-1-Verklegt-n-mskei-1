@@ -53,6 +53,10 @@ private slots:
 
     void on_button_rel_add_clicked();
 
+    void on_list_rel_common_clicked(const QModelIndex &index);
+
+    void on_button_rel_remove_clicked();
+
 private:
     Ui::MainWindow *ui;
 

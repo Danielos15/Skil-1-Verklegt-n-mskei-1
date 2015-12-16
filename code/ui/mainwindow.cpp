@@ -372,25 +372,28 @@ void MainWindow::on_list_rel_sci_clicked(const QModelIndex &index){
     int sci_id = ui->list_rel_sci->item(index.row(),0)->text().toInt();
     Scientist sci = sci_service.fetchById(sci_id);
     commonComputers = sci_service.queryComputersByScientist(sci);
+    ui->label_rel_heading->setText("<h3>Connected Computers</h3>");
     displayCommonComputers(commonComputers);
 
     QItemSelectionModel *selectCpu = ui->list_rel_cpu->selectionModel();
     if (selectCpu->hasSelection()){
         ui->button_rel_add->setEnabled(true);
     }
-
+    ui->button_rel_remove->setEnabled(false);
 }
 
 void MainWindow::on_list_rel_cpu_clicked(const QModelIndex &index){
     int cpu_id = ui->list_rel_cpu->item(index.row(),0)->text().toInt();
     Computer cpu = cpu_service.fetchById(cpu_id);
     commonScientists = cpu_service.queryScientistsByComputer(cpu);
+    ui->label_rel_heading->setText("<h3>Connected Scientists</h3>");
     displayCommonScientists(commonScientists);
 
     QItemSelectionModel *selectSci = ui->list_rel_sci->selectionModel();
     if (selectSci->hasSelection()){
         ui->button_rel_add->setEnabled(true);
     }
+    ui->button_rel_remove->setEnabled(false);
 }
 void MainWindow::on_input_sci_rel_search_textChanged(const QString &arg1){
     relScientists = sci_service.searchForScientists(arg1.toStdString());
@@ -402,8 +405,7 @@ void MainWindow::on_input_rel_cpu_search_textChanged(const QString &arg1){
     displayRelationComputers(relComputers);
 }
 
-void MainWindow::on_button_rel_add_clicked()
-{
+void MainWindow::on_button_rel_add_clicked(){
     int cpu_id;
     QItemSelectionModel *selectCpu = ui->list_rel_cpu->selectionModel();
     if (selectCpu->hasSelection()){
@@ -421,8 +423,75 @@ void MainWindow::on_button_rel_add_clicked()
     window.setLabel("Are you sure you wanna connect those two togather?");
     window.exec();
 
+    bool isCpu = false;
+    if (ui->label_rel_heading->text().toStdString() == "<h3>Connected Computers</h3>"){
+        isCpu = true;
+    }
+
     if (window.isSure()){
         link_service.addLink(sci_id,cpu_id);
         ui->button_rel_add->setEnabled(false);
+
+        if (isCpu){
+            Scientist sci = sci_service.fetchById(sci_id);
+            commonComputers = sci_service.queryComputersByScientist(sci);
+            displayCommonComputers(commonComputers);
+        }else {
+            Computer cpu = cpu_service.fetchById(cpu_id);
+            commonScientists = cpu_service.queryScientistsByComputer(cpu);
+            displayCommonScientists(commonScientists);
+        }
+    }
+}
+
+void MainWindow::on_list_rel_common_clicked(const QModelIndex &index){
+    ui->button_rel_remove->setEnabled(true);
+}
+
+void MainWindow::on_button_rel_remove_clicked(){
+    int cpu_id, sci_id;
+
+    bool isCpu = false;
+    if (ui->label_rel_heading->text().toStdString() == "<h3>Connected Scientists</h3>"){
+        isCpu = true;
+    }
+    if (isCpu) {
+        QItemSelectionModel *selectSci = ui->list_rel_common->selectionModel();
+        QItemSelectionModel *selectCpu = ui->list_rel_cpu->selectionModel();
+        if (selectSci->hasSelection() && selectCpu->hasSelection()){
+            std::vector<QModelIndex> indexSci = selectSci->selectedIndexes().toVector().toStdVector();
+            std::vector<QModelIndex> indexCpu = selectCpu->selectedIndexes().toVector().toStdVector();
+            sci_id = ui->list_rel_common->item(indexSci.at(0).row(),0)->text().toInt();
+            cpu_id = ui->list_rel_cpu->item(indexCpu.at(0).row(),0)->text().toInt();
+        }
+    }else {
+        QItemSelectionModel *selectSci = ui->list_rel_sci->selectionModel();
+        QItemSelectionModel *selectCpu = ui->list_rel_common->selectionModel();
+        if (selectCpu->hasSelection()){
+            std::vector<QModelIndex> indexSci = selectSci->selectedIndexes().toVector().toStdVector();
+            std::vector<QModelIndex> indexCpu = selectCpu->selectedIndexes().toVector().toStdVector();
+            sci_id = ui->list_rel_sci->item(indexSci.at(0).row(),0)->text().toInt();
+            cpu_id = ui->list_rel_common->item(indexCpu.at(0).row(),0)->text().toInt();
+        }
+    }
+
+    areyousure window;
+    window.setWindowTitle("Remove relation");
+    window.setLabel("Are you sure you want to remove this connection?");
+    window.exec();
+
+    if (window.isSure()){
+        link_service.removeLink(sci_id,cpu_id);
+        ui->button_rel_remove->setEnabled(false);
+        if (!isCpu){
+            Scientist sci = sci_service.fetchById(sci_id);
+            commonComputers = sci_service.queryComputersByScientist(sci);
+            displayCommonComputers(commonComputers);
+        }else {
+            Computer cpu = cpu_service.fetchById(cpu_id);
+            commonScientists = cpu_service.queryScientistsByComputer(cpu);
+            displayCommonScientists(commonScientists);
+        }
+
     }
 }
