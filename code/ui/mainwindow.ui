@@ -48,7 +48,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_scientists">
        <attribute name="title">
@@ -717,6 +717,9 @@
    <addaction name="menuFile"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Ultimate database 5000</string>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
