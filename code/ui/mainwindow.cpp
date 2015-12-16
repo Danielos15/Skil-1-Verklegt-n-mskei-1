@@ -61,6 +61,7 @@ void MainWindow::displayComputers(std::vector<Computer> computers){
 void MainWindow::displayScientists(std::vector<Scientist> scientists){
     ui->table_sci_view->setColumnHidden(0,true);
     ui->table_sci_view->setColumnHidden(5,true);
+    ui->table_sci_view->horizontalHeader()->show();
     //Clear all existing rows
     while(ui->table_sci_view->rowCount() > 0){
         ui->table_sci_view->removeRow(0);

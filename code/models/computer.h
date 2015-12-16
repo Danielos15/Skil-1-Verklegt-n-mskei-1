@@ -35,6 +35,7 @@ public:
     std::string getInfo() const;
     std::vector<Scientist> getScientists();
 
+    void setWasBuilt(bool was);
     void setScientists(std::vector<Scientist> newScientists);
     void setInfo(std::string info);
 
@@ -43,6 +44,7 @@ private:
     std::string name;
     enum computerType type;
     int yearBuilt;
+    bool was;
     std::string info;
 
     std::vector<Scientist> scientists;

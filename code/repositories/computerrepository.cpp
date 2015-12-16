@@ -33,10 +33,12 @@ vector<Computer> ComputerRepository::queryComputers(QString sqlQuery)
         string name = query.value("name").toString().toStdString();
         enum computerType type = utils::intToComputerType(query.value("type").toInt());
         int yearBuilt = query.value("yearBuilt").toInt();
+        bool was = query.value("wasBuilt").toBool();
         string info = query.value("info").toString().toStdString();
 
         Computer cpu(id, name, type, yearBuilt);
         cpu.setInfo(info);
+        cpu.setWasBuilt(was);
         computers.push_back(cpu);
     }
 

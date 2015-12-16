@@ -65,7 +65,7 @@ string Computer::getTypeName(){
 }
 
 bool Computer::wasBuilt(){
-    return yearBuilt != constants::YEAR_UNSELECTED_VALUE;
+    return was;
 }
 
 string Computer::getInfo() const {
@@ -74,6 +74,10 @@ string Computer::getInfo() const {
 
 std::vector<Scientist> Computer::getScientists(){
     return scientists;
+}
+
+void Computer::setWasBuilt(bool was){
+    this->was = was;
 }
 
 void Computer::setScientists(std::vector<Scientist> newScientists){
