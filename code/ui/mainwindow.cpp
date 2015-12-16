@@ -301,9 +301,7 @@ void MainWindow::on_actionAdd_Computer_triggered(){
 }
 
 void MainWindow::actionAdd_Relation_triggered(){
-    /* Needs Input
-     * Add Scientist
-     */
+    on_button_rel_add_clicked();
 }
 
 void MainWindow::on_input_sci_search_textChanged(const QString &arg1){
@@ -424,7 +422,7 @@ void MainWindow::on_button_rel_add_clicked()
     }
     areyousure window;
     window.setWindowTitle("Add relation");
-    window.setLabel("Are you sure you wanna connect those two togather?");
+    window.setLabel("Are you sure you want to connect those two together?");
     window.exec();
 
     if (window.isSure()){

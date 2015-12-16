@@ -708,7 +708,6 @@
       </iconset>
      </property>
      <addaction name="actionAdd_Scientist"/>
-     <addaction name="actionAdd_Relation"/>
      <addaction name="actionAdd_Computer"/>
     </widget>
     <addaction name="menuAdd"/>
