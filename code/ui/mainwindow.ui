@@ -754,19 +754,6 @@
     <string>Ctrl+Alt+C</string>
    </property>
   </action>
-  <action name="actionAdd_Relation">
-   <property name="icon">
-    <iconset>
-     <normalon>:/Images/connect.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Add Relation</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Alt+R</string>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="icon">
     <iconset>
