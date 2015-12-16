@@ -49,8 +49,6 @@ void addcpu::on_button_ok_clicked()
     if (open.isSure()){
         save = true;
         this->close();
-    }else{
-        save= false;
     }
 }
 

@@ -60,6 +60,7 @@ void addsci::on_button_cancel_clicked()
     open.exec();
 
     if (open.isSure()){
+        save = false;
         this->close();
     }
 }

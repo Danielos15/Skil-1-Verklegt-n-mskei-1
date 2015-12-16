@@ -97,19 +97,19 @@
       <item row="3" column="0">
        <widget class="QComboBox" name="comboBox_WasBuilt">
         <property name="currentIndex">
-         <number>-1</number>
+         <number>0</number>
         </property>
         <property name="frame">
          <bool>false</bool>
         </property>
         <item>
          <property name="text">
-          <string>Yes</string>
+          <string>No</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>No</string>
+          <string>Yes</string>
          </property>
         </item>
        </widget>
