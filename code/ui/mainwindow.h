@@ -47,6 +47,10 @@ private slots:
 
     void on_list_rel_cpu_clicked(const QModelIndex &index);
 
+    void on_input_sci_rel_search_textChanged(const QString &arg1);
+
+    void on_input_rel_cpu_search_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 

@@ -523,24 +523,70 @@
            </spacer>
           </item>
           <item row="1" column="0">
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="input_sci_rel_search">
             <property name="placeholderText">
              <string>Search...</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="input_rel_cpu_search">
             <property name="placeholderText">
              <string>Search...</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QListWidget" name="list_rel_sci"/>
+           <widget class="QTableWidget" name="list_rel_sci">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+           </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QListWidget" name="list_rel_cpu"/>
+           <widget class="QTableWidget" name="list_rel_cpu">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+           </widget>
           </item>
          </layout>
         </item>

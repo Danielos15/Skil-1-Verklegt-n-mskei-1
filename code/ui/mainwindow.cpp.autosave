@@ -267,7 +267,6 @@ void MainWindow::on_button_cpu_remove_clicked(){
 void MainWindow::on_list_rel_sci_clicked(const QModelIndex &index){
     int id = ui->list_rel_sci->item(index.row(),0)->text().toInt();
     qDebug() << id;
-    //ui->button_cpu_remove->setEnabled(true);
 }
 
 void MainWindow::on_list_rel_cpu_clicked(const QModelIndex &index){
