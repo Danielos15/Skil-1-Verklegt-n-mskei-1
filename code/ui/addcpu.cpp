@@ -56,6 +56,7 @@ void addcpu::on_button_ok_clicked()
 void addcpu::on_button_cancel_clicked()
 {
     areyousure open;
+    open.setWindowTitle("Are you sure?");
     open.setLabel("Cancel all changes?");
     open.exec();
 
