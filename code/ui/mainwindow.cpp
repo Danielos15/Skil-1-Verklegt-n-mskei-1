@@ -198,7 +198,9 @@ void MainWindow::on_button_sci_add_clicked(){
         sci.setInfo(addScientist.getInfo());
         sci_service.addScientist(sci);
         scientists.push_back(sci);
+        relScientists = sci_service.getAllScientists("id",true);
         displayScientists(scientists);
+        displayRelationScientists(relScientists);
     }
 }
 void MainWindow::on_button_cpu_add_clicked(){
@@ -215,7 +217,9 @@ void MainWindow::on_button_cpu_add_clicked(){
         cpu.setWasBuilt(addComputer.getWasBuilt());
         cpu_service.addComputer(cpu);
         computers.push_back(cpu);
+        relComputers = cpu_service.getAllComputers("id",true);
         displayComputers(computers);
+        displayRelationComputers(relComputers);
     }
 }
 
@@ -246,6 +250,8 @@ void MainWindow::on_button_sci_edit_clicked(){
         sci_service.editScientist(editSci, sci_id);
         scientists = sci_service.getAllScientists("id", true);
         displayScientists(scientists);
+        ui->button_sci_edit->setEnabled(false);
+        ui->button_sci_remove->setEnabled(false);
     }
 }
 
@@ -276,6 +282,8 @@ void MainWindow::on_button_cpu_edit_clicked(){
         cpu_service.editComputer(editCpu, cpu_id);
         computers = cpu_service.getAllComputers("id", true);
         displayComputers(computers);
+        ui->button_cpu_edit->setEnabled(false);
+        ui->button_cpu_remove->setEnabled(false);
     }
 }
 
@@ -314,6 +322,7 @@ void MainWindow::on_table_sci_view_clicked(const QModelIndex &index){
     ui->label_sci_bio->setText("<h2>About " + name + "</h2>");
     ui->text_sci_bio->setText(info);
 
+    ui->button_sci_edit->setEnabled(true);
     ui->button_sci_remove->setEnabled(true);
 }
 
@@ -323,6 +332,7 @@ void MainWindow::on_table_cpu_view_clicked(const QModelIndex &index){
     ui->label_cpu_bio->setText("<h2>About " + name + "</h2>");
     ui->text_cpu_bio->setText(info);
 
+    ui->button_cpu_edit->setEnabled(true);
     ui->button_cpu_remove->setEnabled(true);
 }
 
@@ -339,6 +349,7 @@ void MainWindow::on_button_sci_remove_clicked(){
             sci_service.removeScientist(sci_id);
             scientists = sci_service.getAllScientists("id",true);
             displayScientists(scientists);
+            ui->button_sci_edit->setEnabled(false);
             ui->button_sci_remove->setEnabled(false);
         }
     }
@@ -357,23 +368,35 @@ void MainWindow::on_button_cpu_remove_clicked(){
             cpu_service.removeComputer(cpu_id);
             computers = cpu_service.getAllComputers("id",true);
             displayComputers(computers);
+            ui->button_cpu_edit->setEnabled(false);
             ui->button_cpu_remove->setEnabled(false);
         }
     }
 }
 
 void MainWindow::on_list_rel_sci_clicked(const QModelIndex &index){
-    int id = ui->list_rel_sci->item(index.row(),0)->text().toInt();
-    Scientist sci = sci_service.fetchById(id);
+    int sci_id = ui->list_rel_sci->item(index.row(),0)->text().toInt();
+    Scientist sci = sci_service.fetchById(sci_id);
     commonComputers = sci_service.queryComputersByScientist(sci);
     displayCommonComputers(commonComputers);
+
+    QItemSelectionModel *selectCpu = ui->list_rel_cpu->selectionModel();
+    if (selectCpu->hasSelection()){
+        ui->button_rel_add->setEnabled(true);
+    }
+
 }
 
 void MainWindow::on_list_rel_cpu_clicked(const QModelIndex &index){
-    int id = ui->list_rel_cpu->item(index.row(),0)->text().toInt();
-    Computer cpu = cpu_service.fetchById(id);
+    int cpu_id = ui->list_rel_cpu->item(index.row(),0)->text().toInt();
+    Computer cpu = cpu_service.fetchById(cpu_id);
     commonScientists = cpu_service.queryScientistsByComputer(cpu);
     displayCommonScientists(commonScientists);
+
+    QItemSelectionModel *selectSci = ui->list_rel_sci->selectionModel();
+    if (selectSci->hasSelection()){
+        ui->button_rel_add->setEnabled(true);
+    }
 }
 void MainWindow::on_input_sci_rel_search_textChanged(const QString &arg1){
     relScientists = sci_service.searchForScientists(arg1.toStdString());
@@ -383,4 +406,29 @@ void MainWindow::on_input_sci_rel_search_textChanged(const QString &arg1){
 void MainWindow::on_input_rel_cpu_search_textChanged(const QString &arg1){
     relComputers = cpu_service.searchForComputers(arg1.toStdString());
     displayRelationComputers(relComputers);
+}
+
+void MainWindow::on_button_rel_add_clicked()
+{
+    int cpu_id;
+    QItemSelectionModel *selectCpu = ui->list_rel_cpu->selectionModel();
+    if (selectCpu->hasSelection()){
+        std::vector<QModelIndex> indexCpu = selectCpu->selectedIndexes().toVector().toStdVector();
+        cpu_id = ui->list_rel_cpu->item(indexCpu.at(0).row(),0)->text().toInt();
+    }
+    int sci_id;
+    QItemSelectionModel *selectSci = ui->list_rel_sci->selectionModel();
+    if (selectSci->hasSelection()){
+        std::vector<QModelIndex> index = selectSci->selectedIndexes().toVector().toStdVector();
+        sci_id = ui->list_rel_sci->item(index.at(0).row(),0)->text().toInt();
+    }
+    areyousure window;
+    window.setWindowTitle("Add relation");
+    window.setLabel("Are you sure you wanna connect those two togather?");
+    window.exec();
+
+    if (window.isSure()){
+        link_service.addLink(sci_id,cpu_id);
+        ui->button_rel_add->setEnabled(false);
+    }
 }

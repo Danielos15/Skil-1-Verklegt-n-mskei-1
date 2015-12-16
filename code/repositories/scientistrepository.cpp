@@ -156,7 +156,12 @@ bool ScientistRepository::removeScientist(int id)
     {
         return false;
     }
-
+    sqlQuery.str("");
+    sqlQuery << "DELETE FROM ScientistComputerConnections where scientistId = " << id;
+    if (!query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        return false;
+    }
     db.close();
 
     return true;
@@ -203,23 +208,28 @@ std::vector<Computer> ScientistRepository::queryComputersByScientist(Scientist s
 
 Scientist ScientistRepository::fetchById(int id)
 {
+    db.open();
+
     QSqlQuery query(db);
     stringstream sqlQuery;
     sqlQuery << "SELECT * FROM Scientists WHERE id = " << id;
 
     if (query.exec(QString::fromStdString(sqlQuery.str())))
     {
-        query.next();
-        unsigned int id = query.value("id").toUInt();
-        string name = query.value("name").toString().toStdString();
-        enum sexType sex = utils::intToSex(query.value("sex").toInt());
-        int yearBorn = query.value("yearBorn").toInt();
-        int yearDied = query.value("yearDied").toInt();
-        string info = query.value("info").toString().toStdString();
-        Scientist sci(id, name, sex, yearBorn, yearDied);
-        sci.setInfo(info);
+        if(query.next()){
+            unsigned int id = query.value("id").toUInt();
+            string name = query.value("name").toString().toStdString();
+            enum sexType sex = utils::intToSex(query.value("sex").toInt());
+            int yearBorn = query.value("yearBorn").toInt();
+            int yearDied = query.value("yearDied").toInt();
+            string info = query.value("info").toString().toStdString();
+            Scientist sci(id, name, sex, yearBorn, yearDied);
+            sci.setInfo(info);
 
-        return sci;
+            return sci;
+        }
     }
+    db.close();
+
     return Scientist();
 }

@@ -122,6 +122,12 @@ bool ComputerRepository::removeComputer(int id)
     {
         return false;
     }
+    sqlQuery.str("");
+    sqlQuery << "DELETE FROM ScientistComputerConnections where computerId = " << id;
+    if (!query.exec(QString::fromStdString(sqlQuery.str())))
+    {
+        return false;
+    }
 
     db.close();
 
@@ -159,25 +165,30 @@ bool ComputerRepository::editComputer(Computer computer, int id){
 
 Computer ComputerRepository::fetchById(int id)
 {
+    db.open();
+
     QSqlQuery query(db);
     stringstream sqlQuery;
     sqlQuery << "SELECT * FROM Computers WHERE id = " << id;
 
     if (query.exec(QString::fromStdString(sqlQuery.str())))
     {
-        query.next();
-        int id = query.value("id").toUInt();
-        string name = query.value("name").toString().toStdString();
-        enum computerType type = utils::intToComputerType(query.value("type").toInt());
-        int yearBuilt = query.value("yearBuilt").toInt();
-        bool was = query.value("wasBuilt").toBool();
-        string info = query.value("info").toString().toStdString();
+        if(query.next()){
+            int id = query.value("id").toUInt();
+            string name = query.value("name").toString().toStdString();
+            enum computerType type = utils::intToComputerType(query.value("type").toInt());
+            int yearBuilt = query.value("yearBuilt").toInt();
+            bool was = query.value("wasBuilt").toBool();
+            string info = query.value("info").toString().toStdString();
 
-        Computer cpu(id, name, type, yearBuilt);
-        cpu.setInfo(info);
-        cpu.setWasBuilt(was);
-        return cpu;
+            Computer cpu(id, name, type, yearBuilt);
+            cpu.setInfo(info);
+            cpu.setWasBuilt(was);
+            return cpu;
+        }
     }
+    db.close();
+
     return Computer();
 }
 

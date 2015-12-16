@@ -20,7 +20,7 @@ public:
      * @param computerId The computer id to connect to
      * @return true if it was a success, false if it was a failure
      */
-    bool addLink(std::string scientistId, std::string computerId);
+    bool addLink(int scientistId, int computerId);
 private:
     QSqlDatabase db;
 };
