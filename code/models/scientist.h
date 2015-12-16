@@ -31,9 +31,11 @@ public:
     std::string getSexType() const;
     int getYearBorn() const;
     int getYearDied() const;
+    std::string getInfo() const;
     std::vector<Computer*> getComputers() const;
 
     void setComputers(std::vector<Computer> computers);
+    void setInfo(std::string info);
 
     bool contains(std::string searchTerm);
 
@@ -45,6 +47,7 @@ private:
     enum sexType sex;
     int yearBorn;
     int yearDied;
+    std::string info;
 
     // Computer now has to be a pointer
     std::vector<Computer*> computers;

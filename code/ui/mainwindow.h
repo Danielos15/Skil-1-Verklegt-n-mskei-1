@@ -33,10 +33,11 @@ private slots:
     void on_actionAdd_Computer_triggered();
 
     void on_input_sci_search_textChanged(const QString &arg1);
-
-    void on_lineEdit_textChanged(const QString &arg1);
-
     void on_input_cpu_search_textChanged(const QString &arg1);
+
+    void on_table_sci_view_clicked(const QModelIndex &index);
+
+    void on_table_cpu_view_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

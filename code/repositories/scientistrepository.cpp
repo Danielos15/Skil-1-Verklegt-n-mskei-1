@@ -38,8 +38,10 @@ vector<Scientist> ScientistRepository::queryScientists(QString sqlQuery)
         enum sexType sex = utils::intToSex(query.value("sex").toInt());
         int yearBorn = query.value("yearBorn").toInt();
         int yearDied = query.value("yearDied").toInt();
-
-        scientists.push_back(Scientist(id, name, sex, yearBorn, yearDied));
+        string info = query.value("info").toString().toStdString();
+        Scientist sci(id, name, sex, yearBorn, yearDied);
+        sci.setInfo(info);
+        scientists.push_back(sci);
     }
 
     db.close();
@@ -87,11 +89,12 @@ bool ScientistRepository::addScientist(Scientist scientist)
     QSqlQuery query(db);
 
     stringstream sqlQuery;
-    sqlQuery << "INSERT INTO Scientists (name, sex, yearBorn, yearDied) VALUES ("
+    sqlQuery << "INSERT INTO Scientists (name, sex, yearBorn, yearDied, info) VALUES ("
              << "'" << scientist.getName() << "', "
              << scientist.getSex() << ", "
              << scientist.getYearBorn() << ", "
-             << scientist.getYearDied()
+             << scientist.getYearDied() << ", "
+             << "'" << scientist.getInfo() << "'"
              << ")";
 
     if (!query.exec(QString::fromStdString(sqlQuery.str())))
@@ -131,8 +134,11 @@ std::vector<Computer> ScientistRepository::queryComputersByScientist(Scientist s
         string name = query.value("name").toString().toStdString();
         enum computerType type = utils::intToComputerType(query.value("type").toInt());
         int yearBuilt = query.value("yearBuilt").toInt();
+        string info = query.value("name").toString().toStdString();
 
-        computers.push_back(Computer(id, name, type, yearBuilt));
+        Computer cpu(id, name, type, yearBuilt);
+        cpu.setInfo(info);
+        computers.push_back(cpu);
     }
 
     return computers;

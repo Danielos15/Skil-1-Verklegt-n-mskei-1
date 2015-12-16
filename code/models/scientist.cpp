@@ -145,3 +145,11 @@ void Scientist::destroyComputers()
         delete computers.at(i);
     }
 }
+
+std::string Scientist::getInfo() const{
+    return info;
+}
+
+void Scientist::setInfo(string info) {
+    this->info = info;
+}

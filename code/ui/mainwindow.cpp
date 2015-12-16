@@ -25,6 +25,8 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::displayComputers(std::vector<Computer> computers){
+    ui->table_cpu_view->setColumnHidden(0,true);
+    ui->table_cpu_view->setColumnHidden(5,true);
     //Clear all existing rows
     while(ui->table_cpu_view->rowCount() > 0){
         ui->table_cpu_view->removeRow(0);
@@ -32,6 +34,7 @@ void MainWindow::displayComputers(std::vector<Computer> computers){
     // Go thorugh all computers
     for (unsigned int i = 0; i < computers.size(); i++){
         QString Was;
+        QTableWidgetItem *column0 = new QTableWidgetItem(QString::number(computers.at(i).getId()));
         QTableWidgetItem *column1 = new QTableWidgetItem(QString::fromStdString(computers.at(i).getName()));
         QTableWidgetItem *column2 = new QTableWidgetItem(QString::fromStdString(computers.at(i).getTypeName()));
         QTableWidgetItem *column3 = new QTableWidgetItem(QString::number(computers.at(i).getYearBuilt()));
@@ -41,34 +44,44 @@ void MainWindow::displayComputers(std::vector<Computer> computers){
             Was = "No";
         }
         QTableWidgetItem *column4 = new QTableWidgetItem(Was);
+        QTableWidgetItem *column5 = new QTableWidgetItem(QString::fromStdString(computers.at(i).getInfo()));
 
         //Adding each coloumn to the row
         ui->table_cpu_view->insertRow(i);
-        ui->table_cpu_view->setItem(i,0,column1);
-        ui->table_cpu_view->setItem(i,1,column2);
-        ui->table_cpu_view->setItem(i,2,column3);
-        ui->table_cpu_view->setItem(i,3,column4);
+        ui->table_cpu_view->setItem(i,0,column0);
+        ui->table_cpu_view->setItem(i,1,column1);
+        ui->table_cpu_view->setItem(i,2,column2);
+        ui->table_cpu_view->setItem(i,3,column3);
+        ui->table_cpu_view->setItem(i,4,column4);
+        ui->table_cpu_view->setItem(i,5,column5);
+
     }
 }
 
 void MainWindow::displayScientists(std::vector<Scientist> scientists){
+    ui->table_sci_view->setColumnHidden(0,true);
+    ui->table_sci_view->setColumnHidden(5,true);
     //Clear all existing rows
     while(ui->table_sci_view->rowCount() > 0){
         ui->table_sci_view->removeRow(0);
     }
     // Go thorugh all computers
     for (unsigned int i = 0; i < scientists.size(); i++){
+        QTableWidgetItem *column0 = new QTableWidgetItem(QString::number(scientists.at(i).getId()));
         QTableWidgetItem *column1 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getName()));
         QTableWidgetItem *column2 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getSexType()));
         QTableWidgetItem *column3 = new QTableWidgetItem(QString::number(scientists.at(i).getYearBorn()));
         QTableWidgetItem *column4 = new QTableWidgetItem(QString::number(scientists.at(i).getYearDied()));
+        QTableWidgetItem *column5 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getInfo()));
 
         //Adding each coloumn to the row
         ui->table_sci_view->insertRow(i);
-        ui->table_sci_view->setItem(i,0,column1);
-        ui->table_sci_view->setItem(i,1,column2);
-        ui->table_sci_view->setItem(i,2,column3);
-        ui->table_sci_view->setItem(i,3,column4);
+        ui->table_sci_view->setItem(i,0,column0);
+        ui->table_sci_view->setItem(i,1,column1);
+        ui->table_sci_view->setItem(i,2,column2);
+        ui->table_sci_view->setItem(i,3,column3);
+        ui->table_sci_view->setItem(i,4,column4);
+        ui->table_sci_view->setItem(i,5,column5);
     }
 }
 
@@ -113,4 +126,18 @@ void MainWindow::on_input_sci_search_textChanged(const QString &arg1){
 void MainWindow::on_input_cpu_search_textChanged(const QString &arg1){
     computers = cpu_service.searchForComputers(arg1.toStdString());
     displayComputers(computers);
+}
+
+void MainWindow::on_table_sci_view_clicked(const QModelIndex &index){
+    QString name = ui->table_sci_view->item(index.row(),1)->text();
+    QString info = ui->table_sci_view->item(index.row(),5)->text();
+    ui->label_sci_bio->setText("<h2>About " + name + "</h2>");
+    ui->text_sci_bio->setText(info);
+}
+
+void MainWindow::on_table_cpu_view_clicked(const QModelIndex &index){
+    QString name = ui->table_cpu_view->item(index.row(),1)->text();
+    QString info = ui->table_cpu_view->item(index.row(),5)->text();
+    ui->label_cpu_bio->setText("<h2>About " + name + "</h2>");
+    ui->text_cpu_bio->setText(info);
 }

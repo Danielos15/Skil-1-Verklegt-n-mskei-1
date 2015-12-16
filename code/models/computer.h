@@ -32,15 +32,18 @@ public:
     std::string getTypeName();
     int getYearBuilt();
     bool wasBuilt();
+    std::string getInfo() const;
     std::vector<Scientist> getScientists();
 
     void setScientists(std::vector<Scientist> newScientists);
+    void setInfo(std::string info);
 
 private:
     unsigned int id;
     std::string name;
     enum computerType type;
     int yearBuilt;
+    std::string info;
 
     std::vector<Scientist> scientists;
 };

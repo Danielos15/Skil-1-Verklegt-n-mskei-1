@@ -3,13 +3,11 @@
 
 using namespace std;
 
-Computer::Computer()
-{
+Computer::Computer(){
 
 }
 
-Computer::Computer(string name, enum computerType type)
-{
+Computer::Computer(string name, enum computerType type){
     id = 0;
     this->name = name;
     this->type = type;
@@ -17,44 +15,37 @@ Computer::Computer(string name, enum computerType type)
 
 }
 
-Computer::Computer(string name, enum computerType type, int yearBuilt)
-{
+Computer::Computer(string name, enum computerType type, int yearBuilt){
     id = 0;
     this->name = name;
     this->type = type;
     this->yearBuilt = yearBuilt;
 }
 
-Computer::Computer(unsigned int id, std::string name, enum computerType type, int yearBuilt)
-{
+Computer::Computer(unsigned int id, std::string name, enum computerType type, int yearBuilt){
     this->id = id;
     this->name = name;
     this->type = type;
     this->yearBuilt = yearBuilt;
 }
 
-unsigned int Computer::getId()
-{
+unsigned int Computer::getId(){
     return id;
 }
 
-string Computer::getName()
-{
+string Computer::getName(){
     return name;
 }
 
-int Computer::getYearBuilt()
-{
+int Computer::getYearBuilt(){
     return yearBuilt;
 }
 
-enum computerType Computer::getType()
-{
+enum computerType Computer::getType(){
     return type;
 }
 
-string Computer::getTypeName()
-{
+string Computer::getTypeName(){
     if (type == computerType::electronic)
     {
         return "Electronic";
@@ -73,17 +64,22 @@ string Computer::getTypeName()
     }
 }
 
-bool Computer::wasBuilt()
-{
+bool Computer::wasBuilt(){
     return yearBuilt != constants::YEAR_UNSELECTED_VALUE;
 }
 
-std::vector<Scientist> Computer::getScientists()
-{
+string Computer::getInfo() const {
+   return info;
+}
+
+std::vector<Scientist> Computer::getScientists(){
     return scientists;
 }
 
-void Computer::setScientists(std::vector<Scientist> newScientists)
-{
+void Computer::setScientists(std::vector<Scientist> newScientists){
     scientists = newScientists;
+}
+
+void Computer::setInfo(string info){
+    this->info = info;
 }
