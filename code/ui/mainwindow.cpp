@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include "ui/addsci.h"
 #include "ui/addcpu.h"
+#include "ui/areyousure.h"
 #include <QDebug>
 #include <iostream>
 
@@ -163,6 +164,8 @@ void MainWindow::on_table_sci_view_clicked(const QModelIndex &index){
     QString info = ui->table_sci_view->item(index.row(),5)->text();
     ui->label_sci_bio->setText("<h2>About " + name + "</h2>");
     ui->text_sci_bio->setText(info);
+
+    ui->button_sci_remove->setEnabled(true);
 }
 
 void MainWindow::on_table_cpu_view_clicked(const QModelIndex &index){
@@ -170,4 +173,42 @@ void MainWindow::on_table_cpu_view_clicked(const QModelIndex &index){
     QString info = ui->table_cpu_view->item(index.row(),5)->text();
     ui->label_cpu_bio->setText("<h2>About " + name + "</h2>");
     ui->text_cpu_bio->setText(info);
+
+    ui->button_cpu_remove->setEnabled(true);
+}
+
+void MainWindow::on_button_sci_remove_clicked()
+{
+    areyousure window;
+    window.setLabel("Are you sure you want to delete this Computer?");
+    window.exec();
+    if (window.isSure()){
+        QItemSelectionModel *select = ui->table_sci_view->selectionModel();
+        std::vector<QModelIndex> index = select->selectedRows().toVector().toStdVector();
+        for (unsigned int i = 0; i < index.size();i++){
+            int sci_id = ui->table_sci_view->item(index.at(i).row(),0)->text().toInt();
+            sci_service.removeScientist(sci_id);
+            scientists = sci_service.getAllScientists("id",true);
+            displayScientists(scientists);
+            ui->button_sci_remove->setEnabled(false);
+        }
+    }
+}
+
+void MainWindow::on_button_cpu_remove_clicked()
+{
+    areyousure window;
+    window.setLabel("Are you sure you want to delete this Computer?");
+    window.exec();
+    if (window.isSure()){
+        QItemSelectionModel *select = ui->table_cpu_view->selectionModel();
+        std::vector<QModelIndex> index = select->selectedRows().toVector().toStdVector();
+        for (unsigned int i = 0; i < index.size();i++){
+            int cpu_id = ui->table_cpu_view->item(index.at(i).row(),0)->text().toInt();
+            cpu_service.removeComputer(cpu_id);
+            computers = cpu_service.getAllComputers("id",true);
+            displayComputers(computers);
+            ui->button_cpu_remove->setEnabled(false);
+        }
+    }
 }

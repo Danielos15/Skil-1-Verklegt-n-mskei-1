@@ -9,17 +9,18 @@ ScientistService::ScientistService()
 
 }
 
-std::vector<Scientist> ScientistService::getAllScientists(string orderBy, bool orderAscending)
-{
+std::vector<Scientist> ScientistService::getAllScientists(string orderBy, bool orderAscending){
     return scientistRepo.getAllScientists(orderBy, orderAscending);
 }
 
-std::vector<Scientist> ScientistService::searchForScientists(string searchTerm)
-{
+std::vector<Scientist> ScientistService::searchForScientists(string searchTerm){
     return scientistRepo.searchForScientists(searchTerm);
 }
 
-bool ScientistService::addScientist(Scientist scientist)
-{
+bool ScientistService::addScientist(Scientist scientist){
     return scientistRepo.addScientist(scientist);
+}
+
+bool ScientistService::removeScientist(int id){
+    return scientistRepo.removeScientist(id);
 }

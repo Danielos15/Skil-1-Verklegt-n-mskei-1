@@ -39,6 +39,10 @@ private slots:
 
     void on_table_cpu_view_clicked(const QModelIndex &index);
 
+    void on_button_sci_remove_clicked();
+
+    void on_button_cpu_remove_clicked();
+
 private:
     Ui::MainWindow *ui;
 
