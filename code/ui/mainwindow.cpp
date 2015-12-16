@@ -24,10 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
     displayRelationComputers(relComputers);
     displayRelationScientists(relScientists);
 
+    ui->button_cpu_edit->setShortcut(QKeySequence(Qt::Key_E));
+    ui->button_cpu_remove->setShortcut(QKeySequence(Qt::Key_R));
+    ui->button_sci_edit->setShortcut(QKeySequence(Qt::Key_E));
+    ui->button_sci_remove->setShortcut(QKeySequence(Qt::Key_R));
 }
 
 MainWindow::~MainWindow(){
-    delete ui;
+    delete ui; 
 }
 
 void MainWindow::displayComputers(std::vector<Computer> computers){
