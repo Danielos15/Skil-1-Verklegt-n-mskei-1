@@ -213,7 +213,8 @@ void MainWindow::on_table_cpu_view_clicked(const QModelIndex &index){
 void MainWindow::on_button_sci_remove_clicked()
 {
     areyousure window;
-    window.setLabel("Are you sure you want to delete this Computer?");
+    window.setWindowTitle("Are you sure?");
+    window.setLabel("Are you sure you want to delete this scientist?");
     window.exec();
     if (window.isSure()){
         QItemSelectionModel *select = ui->table_sci_view->selectionModel();
@@ -231,7 +232,8 @@ void MainWindow::on_button_sci_remove_clicked()
 void MainWindow::on_button_cpu_remove_clicked()
 {
     areyousure window;
-    window.setLabel("Are you sure you want to delete this Computer?");
+    window.setWindowTitle("Are you sure?");
+    window.setLabel("Are you sure you want to delete this computer?");
     window.exec();
     if (window.isSure()){
         QItemSelectionModel *select = ui->table_cpu_view->selectionModel();
