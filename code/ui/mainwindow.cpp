@@ -89,7 +89,23 @@ void MainWindow::on_button_sci_edit_clicked(){
 
 void MainWindow::on_button_cpu_edit_clicked(){
     addcpu editComputer;
-    editComputer.exec();
+    editComputer.exec();  
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::quit();
+}
+
+void MainWindow::on_actionAdd_Scientist_triggered()
+{
+    on_button_sci_add_clicked();
+
+}
+
+void MainWindow::on_actionAdd_Computer_triggered()
+{
+    on_button_cpu_add_clicked();
 }
 
 void MainWindow::on_input_sci_search_textChanged(const QString &arg1){
