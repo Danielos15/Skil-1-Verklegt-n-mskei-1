@@ -43,17 +43,27 @@ private slots:
 
     void on_button_cpu_remove_clicked();
 
+    void on_list_rel_sci_clicked(const QModelIndex &index);
+
+    void on_list_rel_cpu_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
     void displayComputers(std::vector<Computer> computers);
     void displayScientists(std::vector<Scientist> scientists);
 
+    void displayRelationComputers(std::vector<Computer> computers);
+    void displayRelationScientists(std::vector<Scientist> scientists);
+
     ComputerService cpu_service;
     ScientistService sci_service;
 
     std::vector<Computer> computers;
     std::vector<Scientist> scientists;
+
+    std::vector<Computer> relComputers;
+    std::vector<Scientist> relScientists;
 };
 
 #endif // MAINWINDOW_H

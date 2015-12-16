@@ -19,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
     displayComputers(computers);
     displayScientists(scientists);
 
+    relComputers = cpu_service.getAllComputers("id",true);
+    relScientists = sci_service.getAllScientists("id",true);
+    displayRelationComputers(relComputers);
+    displayRelationScientists(relScientists);
+
 }
 
 MainWindow::~MainWindow(){
@@ -90,6 +95,30 @@ void MainWindow::displayScientists(std::vector<Scientist> scientists){
         ui->table_sci_view->setItem(i,3,column3);
         ui->table_sci_view->setItem(i,4,column4);
         ui->table_sci_view->setItem(i,5,column5);
+    }
+}
+
+void MainWindow::displayRelationComputers(std::vector<Computer> computers)
+{
+    ui->list_rel_cpu->clear();
+    for (unsigned int i = 0; i < computers.size(); i++){
+        QListWidgetItem *item = new QListWidgetItem(QString::fromStdString(computers.at(i).getName()));
+        QVariant v;
+        v.setValue(computers.at(i).getId());
+        item->setData(Qt::UserRole,v);
+        ui->list_rel_cpu->addItem(item);
+    }
+}
+
+void MainWindow::displayRelationScientists(std::vector<Scientist> scientists)
+{
+    ui->list_rel_sci->clear();
+    for (unsigned int i = 0; i < scientists.size(); i++){
+        QListWidgetItem *item = new QListWidgetItem(QString::fromStdString(scientists.at(i).getName()));
+        QVariant v;
+        v.setValue(scientists.at(i).getId());
+        item->setData(Qt::UserRole,v);
+        ui->list_rel_sci->addItem(item);
     }
 }
 
@@ -211,4 +240,18 @@ void MainWindow::on_button_cpu_remove_clicked()
             ui->button_cpu_remove->setEnabled(false);
         }
     }
+}
+
+void MainWindow::on_list_rel_sci_clicked(const QModelIndex &index)
+{
+    QVariant v = ui->list_rel_sci->itemAt(index.row(),index.column())->data(Qt::UserRole);
+    int id = v.value<int>();
+    qDebug() << id;
+}
+
+void MainWindow::on_list_rel_cpu_clicked(const QModelIndex &index)
+{
+    QVariant v = ui->list_rel_cpu->itemAt(index.row(),index.column())->data(Qt::UserRole);
+    int id = v.value<int>();
+    qDebug() << id;
 }
