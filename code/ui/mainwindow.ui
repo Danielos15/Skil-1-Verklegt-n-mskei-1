@@ -48,7 +48,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_scientists">
        <attribute name="title">
@@ -636,6 +636,13 @@
          </widget>
         </item>
         <item>
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
            <widget class="QPushButton" name="button_rel_add">
@@ -691,9 +698,19 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionAdd_Scientist"/>
-    <addaction name="actionAdd_Computer"/>
-    <addaction name="actionAdd_Relation"/>
+    <widget class="QMenu" name="menuAdd">
+     <property name="title">
+      <string>Add</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>:/Images/plus.png</normalon>
+      </iconset>
+     </property>
+     <addaction name="actionAdd_Scientist"/>
+     <addaction name="actionAdd_Computer"/>
+    </widget>
+    <addaction name="menuAdd"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -751,8 +768,16 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset>
+     <normalon>:/Images/x.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+X</string>
    </property>
   </action>
  </widget>

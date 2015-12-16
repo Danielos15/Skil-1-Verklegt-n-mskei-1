@@ -68,7 +68,7 @@ void addsci::on_button_ok_clicked()
     yearDeath = ui->spinBox_Died->text().toInt();
     info = ui->textEdit_info->toPlainText().toStdString();
 
-    open.setLabel("Would you like to save this Scientists?");
+    open.setLabel("Would you like to save this Scientist?");
     open.exec();
 
     if (open.isSure()){

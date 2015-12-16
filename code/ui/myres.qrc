@@ -3,5 +3,7 @@
         <file>scientist.png</file>
         <file>Computer.png</file>
         <file>connect.png</file>
+        <file>x.png</file>
+        <file>plus.png</file>
     </qresource>
 </RCC>

@@ -37,7 +37,7 @@
      <x>10</x>
      <y>19</y>
      <width>241</width>
-     <height>257</height>
+     <height>266</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout_2">
@@ -159,6 +159,13 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Info</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="0" colspan="2">
      <widget class="QTextEdit" name="textEdit_info">
       <property name="minimumSize">
@@ -166,13 +173,6 @@
         <width>0</width>
         <height>132</height>
        </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Info</string>
       </property>
      </widget>
     </item>
