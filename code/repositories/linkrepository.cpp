@@ -12,7 +12,7 @@ LinkRepository::LinkRepository()
     db = utils::getDatabaseConnection();
 }
 
-bool LinkRepository::addLink(string scientistId, string computerId)
+bool LinkRepository::addLink(int scientistId, int computerId)
 {
     db.open();
 

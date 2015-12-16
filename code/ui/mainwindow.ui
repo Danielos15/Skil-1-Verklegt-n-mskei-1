@@ -48,7 +48,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_scientists">
        <attribute name="title">
@@ -261,6 +261,9 @@
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="button_sci_edit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Edit</string>
             </property>
@@ -440,6 +443,9 @@
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="2">
            <widget class="QPushButton" name="button_cpu_edit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Edit</string>
             </property>
@@ -605,6 +611,9 @@
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
           <attribute name="horizontalHeaderVisible">
            <bool>false</bool>
           </attribute>
@@ -629,14 +638,20 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="button_rel_add">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Add</string>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="button_rel_remove">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Remove</string>
             </property>

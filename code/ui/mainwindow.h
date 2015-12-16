@@ -51,6 +51,8 @@ private slots:
 
     void on_input_rel_cpu_search_textChanged(const QString &arg1);
 
+    void on_button_rel_add_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -65,6 +67,7 @@ private:
 
     ComputerService cpu_service;
     ScientistService sci_service;
+    LinkRepository link_service;
 
     std::vector<Computer> computers;
     std::vector<Scientist> scientists;
