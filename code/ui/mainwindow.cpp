@@ -292,6 +292,12 @@ void MainWindow::on_actionAdd_Computer_triggered(){
     on_button_cpu_add_clicked();
 }
 
+void MainWindow::actionAdd_Relation_triggered(){
+    /* Needs Input
+     * Add Scientist
+     */
+}
+
 void MainWindow::on_input_sci_search_textChanged(const QString &arg1){
     scientists = sci_service.searchForScientists(arg1.toStdString());
     displayScientists(scientists);
