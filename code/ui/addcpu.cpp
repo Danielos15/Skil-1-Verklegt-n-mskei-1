@@ -36,6 +36,7 @@ std::string addcpu::getInfo() const{
 void addcpu::on_button_ok_clicked()
 {
     areyousure open;
+    open.setWindowTitle("Are you sure?");
 
     name = ui->lineEdit_Name->text().toStdString();
     type = ui->comboBox_Type->currentIndex();

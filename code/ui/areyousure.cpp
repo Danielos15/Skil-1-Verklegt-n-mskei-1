@@ -5,6 +5,7 @@ areyousure::areyousure(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::areyousure){
     ui->setupUi(this);
+    ui->label_text->setWordWrap(true);
 }
 
 areyousure::~areyousure(){

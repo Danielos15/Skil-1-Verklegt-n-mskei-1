@@ -124,6 +124,7 @@ void MainWindow::displayRelationScientists(std::vector<Scientist> scientists)
 
 void MainWindow::on_button_sci_add_clicked(){
     addsci addScientist;
+    addScientist.setWindowTitle("Add a scientist");
     addScientist.exec();
 
     if (addScientist.shouldSave()) {
@@ -140,6 +141,7 @@ void MainWindow::on_button_sci_add_clicked(){
 }
 void MainWindow::on_button_cpu_add_clicked(){
     addcpu addComputer;
+    addComputer.setWindowTitle("Add a computer");
     addComputer.exec();
 
     if (addComputer.shouldSave()){
@@ -157,11 +159,13 @@ void MainWindow::on_button_cpu_add_clicked(){
 
 void MainWindow::on_button_sci_edit_clicked(){
     addsci editScientist;
+    editScientist.setWindowTitle("Edit the scientist");
     editScientist.exec();
 }
 
 void MainWindow::on_button_cpu_edit_clicked(){
     addcpu editComputer;
+    editComputer.setWindowTitle("Edit the computer");
     editComputer.exec();  
 }
 

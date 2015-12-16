@@ -37,7 +37,7 @@ std::string addsci::getInfo() const{
 void addsci::on_button_ok_clicked()
 {
     areyousure open;
-
+    open.setWindowTitle("Are you sure?");
     name = ui->lineEdit_name->text().toStdString();
     gender = ui->comboBox_Gender->currentIndex();
     yearBorn = ui->spinBox_Born->text().toInt();
