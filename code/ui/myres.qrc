@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>scientist.png</file>
+        <file>Computer.png</file>
+        <file>connect.png</file>
+    </qresource>
+</RCC>

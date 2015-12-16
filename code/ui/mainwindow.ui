@@ -697,6 +697,11 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/Images/scientist.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Add Scientist</string>
    </property>
@@ -705,6 +710,11 @@
    </property>
   </action>
   <action name="actionAdd_Computer">
+   <property name="icon">
+    <iconset>
+     <normalon>:/Images/Computer.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Add Computer</string>
    </property>
@@ -713,6 +723,11 @@
    </property>
   </action>
   <action name="actionAdd_Relation">
+   <property name="icon">
+    <iconset>
+     <normalon>:/Images/connect.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Add Relation</string>
    </property>

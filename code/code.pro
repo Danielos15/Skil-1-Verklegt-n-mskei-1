@@ -47,3 +47,6 @@ FORMS    += ui/mainwindow.ui \
     ui/addsci.ui \
     ui/addcpu.ui \
     ui/areyousure.ui
+
+RESOURCES += \
+    ui/myres.qrc
