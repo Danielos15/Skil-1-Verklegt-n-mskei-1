@@ -72,7 +72,13 @@ void MainWindow::displayScientists(std::vector<Scientist> scientists){
         QTableWidgetItem *column1 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getName()));
         QTableWidgetItem *column2 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getSexType()));
         QTableWidgetItem *column3 = new QTableWidgetItem(QString::number(scientists.at(i).getYearBorn()));
-        QTableWidgetItem *column4 = new QTableWidgetItem(QString::number(scientists.at(i).getYearDied()));
+        int alive = scientists.at(i).getYearDied();
+        QTableWidgetItem *column4;
+        if (alive == 0){
+            column4 = new QTableWidgetItem("Still alive");
+        }else {
+            column4 = new QTableWidgetItem(QString::number(scientists.at(i).getYearDied()));
+        }
         QTableWidgetItem *column5 = new QTableWidgetItem(QString::fromStdString(scientists.at(i).getInfo()));
 
         //Adding each coloumn to the row
@@ -89,11 +95,34 @@ void MainWindow::displayScientists(std::vector<Scientist> scientists){
 void MainWindow::on_button_sci_add_clicked(){
     addsci addScientist;
     addScientist.exec();
-}
 
+    if (addScientist.shouldSave()) {
+        Scientist sci(addScientist.getName(),
+                      static_cast<sexType>(addScientist.getGender()),
+                      addScientist.getBirth(),
+                      addScientist.getDeath()
+                      );
+        sci.setInfo(addScientist.getInfo());
+        sci_service.addScientist(sci);
+        scientists.push_back(sci);
+        displayScientists(scientists);
+    }
+}
 void MainWindow::on_button_cpu_add_clicked(){
     addcpu addComputer;
     addComputer.exec();
+
+    if (addComputer.shouldSave()){
+        Computer cpu(addComputer.getName(),
+                     static_cast<computerType>(addComputer.getType()),
+                     addComputer.getYearBuilt()
+                     );
+        cpu.setInfo(addComputer.getInfo());
+        cpu.setWasBuilt(addComputer.getWasBuilt());
+        cpu_service.addComputer(cpu);
+        computers.push_back(cpu);
+        displayComputers(computers);
+    }
 }
 
 void MainWindow::on_button_sci_edit_clicked(){
